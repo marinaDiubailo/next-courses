@@ -1,0 +1,36 @@
+.menu {
+    display: grid;
+}
+
+.first-level {
+    display: block;
+}
+
+.second-level {
+    margin-bottom: 10px;
+    color: var(--grey-dark);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+.second-block {
+    padding-left: 32px;
+    border-left: 1px solid var(--grey-border);
+    margin-top: 15px;
+    margin-left: 12px;
+}
+
+.second-level-block {
+    display: none;
+
+    &:last-child {
+        margin-bottom: 20px;
+    }
+}
+
+.opened {
+    display: block;
+}

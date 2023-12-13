@@ -1,24 +1,38 @@
 {
-  "name": "next-pages-router",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.3"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.3"
-  }
+    "name": "next-pages-router",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev -p 3009",
+        "debug": "cross-env NODE_OPTIONS='--inspect' next dev  -p 3009",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "stylelint": "stylelint \"**/*.{css,scss}\" --fix"
+    },
+    "dependencies": {
+        "axios": "^1.6.2",
+        "date-fns": "^2.30.0",
+        "next": "14.0.3",
+        "react": "^18",
+        "react-dom": "^18"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "@typescript-eslint/eslint-plugin": "^6.12.0",
+        "@typescript-eslint/parser": "^6.12.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.54.0",
+        "eslint-config-next": "14.0.3",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "next-plugin-svgr": "^1.1.10",
+        "sass": "^1.69.5",
+        "stylelint": "^15.11.0",
+        "stylelint-config-idiomatic-order": "^9.0.0",
+        "stylelint-config-standard": "^34.0.0",
+        "stylelint-order": "^6.0.3",
+        "typescript": "^5"
+    }
 }

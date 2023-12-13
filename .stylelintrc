@@ -1,0 +1,27 @@
+{
+    "extends": [
+        "stylelint-config-standard",
+        "stylelint-config-idiomatic-order"
+    ],
+    "plugins": ["stylelint-order"],
+    "rules": {
+        "custom-property-empty-line-before": null,
+        "at-rule-no-unknown": null,
+        "font-family-name-quotes": "always-where-required",
+        "color-function-notation": [
+            "legacy",
+            { "ignore": ["with-var-inside"] }
+        ],
+        "import-notation": "string",
+        "media-feature-range-notation": "prefix",
+        "alpha-value-notation": "number",
+        "value-keyword-case": ["lower", { "camelCaseSvgKeywords": true }],
+        "selector-class-pattern": "^.*$",
+        "declaration-block-no-redundant-longhand-properties": [
+            true,
+            {
+                "ignoreShorthands": ["/grid/"]
+            }
+        ]
+    }
+}

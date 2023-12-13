@@ -1,0 +1,13 @@
+.header {
+    display: grid;
+    margin-bottom: 30px;
+    gap: 20px;
+    grid-template-columns: auto 1fr auto;
+    place-items: baseline left;
+}
+
+@media screen and (max-width: 640px) {
+    .header {
+        grid-template-columns: auto 1fr;
+    }
+}

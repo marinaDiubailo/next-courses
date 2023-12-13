@@ -1,0 +1,69 @@
+.vacancies-title {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: auto 1fr;
+    place-items: baseline left;
+}
+
+.vacancies {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr 3fr;
+}
+
+.count-wrapper {
+    padding: 20px;
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 27px;
+}
+
+.count {
+    color: var(--primary-accent);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 49px;
+}
+
+.salary {
+    display: grid;
+    padding: 20px;
+    gap: 20px 0;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+
+    & > div:not(:last-child) {
+        border-right: var(--border-ghost);
+    }
+}
+
+.salary-value {
+    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 35px;
+}
+
+@media screen and (max-width: 1200px) {
+    .vacancies {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .salary {
+        padding-bottom: 20px;
+        grid-template-columns: 1fr;
+
+        & > div:not(:last-child) {
+            padding-bottom: 20px;
+            border-right: none;
+            border-bottom: var(--border-ghost);
+        }
+    }
+}

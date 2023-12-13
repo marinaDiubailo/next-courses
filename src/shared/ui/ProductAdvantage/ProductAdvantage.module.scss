@@ -1,0 +1,23 @@
+.advantage {
+    display: grid;
+    margin-bottom: 30px;
+    gap: 10px 40px;
+    grid-template-columns: 50px 1fr;
+}
+
+.title {
+    align-self: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.line {
+    border-left: 1px solid var(--grey-adventage);
+    margin-left: 25px;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 29px;
+}

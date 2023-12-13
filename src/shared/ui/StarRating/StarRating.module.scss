@@ -1,0 +1,17 @@
+.star-rating {
+    display: flex;
+
+    .hovered {
+        color: var(--primary-accent);
+        fill: var(--primary-accent);
+    }
+}
+
+.is-selected {
+    cursor: auto;
+}
+
+.normal {
+    color: #e2e2e2;
+    fill: #e2e2e2;
+}

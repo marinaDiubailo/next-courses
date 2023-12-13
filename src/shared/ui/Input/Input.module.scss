@@ -1,0 +1,13 @@
+.input {
+    height: 36px;
+    padding: 7px 15px;
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow);
+    line-height: 22px;
+    outline-color: var(--primary-accent);
+
+    &::placeholder {
+        color: var(--grey-input);
+    }
+}

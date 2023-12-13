@@ -1,0 +1,94 @@
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a {
+  color: inherit;
+}
+
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+a:focus,
+:active {
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+:root {
+  --black: #3b434e;
+  --white: #fff;
+  --bg-main: #f5f6f8;
+  --grey-light: #ebebeb;
+  --grey: #e2e2e2;
+  --grey-dark: #787d85;
+  --grey-tag: #b3c0d9;
+  --primary-accent: #7653fc;
+  --primary-accent-hover: #6647e2;
+  --red: #de0000;
+  --orange: #fc836d;
+  --green: #1dc37e;
+  --green-light: #c8f8e4;
+  --font-family: "Noto Sans Display", sans-serif;
+  --font-h1: 500 26px / 35px var(--font-family);
+  --font-h2: 500 22px / 30px var(--font-family);
+  --font-h3: 900 20px / 27px var(--font-family);
+  --border-ghost: 1px solid var(--grey-light);
+  --border-accent: 1px solid var(--primary-accent);
+}
+
+html,
+body {
+  max-width: 100vw;
+  height: 100vh;
+  background: var(--bg-main);
+  color: var(--black);
+  font-family: var(--font-family);
+}

@@ -1,0 +1,10 @@
+.rate {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    grid-template-columns: repeat(3, 20px);
+}
+
+.filled {
+    fill: var(--orange);
+}

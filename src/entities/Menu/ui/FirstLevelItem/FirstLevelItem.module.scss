@@ -1,0 +1,23 @@
+.link {
+    display: grid;
+    align-items: center;
+    color: var(--grey-dark);
+    font-size: 18px;
+    font-weight: 500;
+    gap: 20px;
+    grid-template-columns: 24px 1fr;
+    line-height: 25px;
+
+    & svg {
+        fill: var(--grey-dark);
+    }
+
+    &:hover,
+    .active {
+        color: var(--primary-accent);
+
+        & svg {
+            fill: var(--primary-accent);
+        }
+    }
+}

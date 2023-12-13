@@ -1,0 +1,55 @@
+%main {
+    background: var(--primary-accent);
+    color: var(--white);
+}
+
+%transition {
+    transition: all 0.2s ease 0s;
+}
+
+.button {
+    @extend %transition;
+
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    text-align: center;
+}
+
+.primary {
+    @extend %main;
+
+    &:hover {
+        background: var(--primary-accent-hover);
+    }
+}
+
+.ghost {
+    border: var(--border-ghost);
+    background: none;
+    color: var(--black);
+
+    &:hover {
+        @extend %main;
+
+        .addon svg {
+            fill: var(--white);
+        }
+    }
+}
+
+.with-addon {
+    gap: 10px;
+}
+
+.addon {
+    @extend %transition;
+}
+
+.down {
+    @extend %transition;
+
+    transform: rotate(90deg);
+}

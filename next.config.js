@@ -1,6 +1,16 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+const withSvgr = require('next-plugin-svgr');
 
-module.exports = nextConfig
+const nextConfig = withSvgr({
+    images: {
+        domains: ['courses-top.ru'],
+    },
+    reactStrictMode: true,
+    webpack(config) {
+        return config;
+    },
+});
+
+module.exports = nextConfig;
