@@ -135,7 +135,10 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                     </Button>
                 </div>
             </Card>
-            <ReviewList isReviewOpened={isReviewOpened} />
+            <ReviewList
+                isReviewOpened={isReviewOpened}
+                reviews={product.reviews}
+            />
         </>
     );
 };
