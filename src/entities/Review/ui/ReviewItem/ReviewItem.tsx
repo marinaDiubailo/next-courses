@@ -4,6 +4,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import UserIcon from '@/shared/assets/icons/user.svg';
 import { Icon } from '@/shared/ui/Icon';
 import { StarRating } from '@/shared/ui/StarRating';
+import { Devider } from '@/shared/ui/Devider';
 import { ReviewModel } from '../../model/types/review';
 import cls from './ReviewItem.module.scss';
 
@@ -17,19 +18,25 @@ export const ReviewItem = (props: ReviewItemProps) => {
     const { name, title, rating, description, createdAt } = review;
 
     return (
-        <div className={classNames(cls.review, {}, [className])}>
-            <Icon Svg={UserIcon} />
-            <div className={cls.title}>
-                <span className={cls['user-name']}>{name}:</span>&nbsp;&nbsp;
-                <span>{title}</span>
+        <>
+            <div className={classNames(cls.review, {}, [className])}>
+                <Icon Svg={UserIcon} />
+                <div className={cls.title}>
+                    <span className={cls['user-name']}>{name}:</span>
+                    &nbsp;&nbsp;
+                    <span>{title}</span>
+                </div>
+                <div className={cls.date}>
+                    {format(new Date(createdAt), 'dd MMMM yyyy', {
+                        locale: ru,
+                    })}
+                </div>
+                <div className={cls.rating}>
+                    <StarRating selectedStars={rating} />
+                </div>
+                <div className={cls.description}>{description}</div>
             </div>
-            <div className={cls.date}>
-                {format(new Date(createdAt), 'dd MMMM yyyy', { locale: ru })}
-            </div>
-            <div className={cls.rating}>
-                <StarRating selectedStars={rating} />
-            </div>
-            <div className={cls.description}>{description}</div>
-        </div>
+            <Devider />
+        </>
     );
 };

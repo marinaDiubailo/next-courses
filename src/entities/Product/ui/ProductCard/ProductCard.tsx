@@ -13,6 +13,7 @@ import VectorIcon from '@/shared/assets/icons/vector.svg';
 import { ReviewList } from '@/entities/Review';
 import { ProductModel } from '../../model/types/product';
 import cls from './ProductCard.module.scss';
+import { ReviewForm } from '@/features/AddNewReview';
 
 interface ProductCardProps {
     className?: string;
@@ -139,6 +140,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                 isReviewOpened={isReviewOpened}
                 reviews={product.reviews}
             />
+            <ReviewForm productId={product._id} isOpened={true} />
         </>
     );
 };
