@@ -13,6 +13,7 @@ interface ReviewFormProps {
 
 export const ReviewForm = (props: ReviewFormProps) => {
     const { className, productId, isOpened } = props;
+    console.log(productId, isOpened);
 
     return (
         <div className={classNames(cls.form, {}, [className])}>

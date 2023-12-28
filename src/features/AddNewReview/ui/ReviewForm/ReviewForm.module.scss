@@ -1,3 +1,8 @@
 .form {
     display: grid;
+    font-size: 14px;
+    gap: 20px 30px;
+    grid-template-columns: auto 1fr auto;
+    justify-items: left;
+    line-height: 24px;
 }

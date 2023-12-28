@@ -1,4 +1,4 @@
-import { memo, useReducer } from 'react';
+import React, { memo, useReducer } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { TopLevelCategory, TopPageModel } from '@/shared/types/page';
 import { ProductModel } from '@/shared/types/product';
@@ -10,7 +10,13 @@ import { Tag } from '@/shared/ui/Tag';
 import cls from './TopPageComponent.module.scss';
 import { sortReducer } from '../../model/services/sortReducer';
 import { Sort } from '@/features/ProductsSort';
-import { ProductCard } from '@/entities/Product';
+// import { ProductCard } from '@/entities/Product';
+// import { ReviewForm } from '@/features/AddNewReview';
+// import { ReviewList } from '@/entities/Review';
+// import { Button } from '@/shared/ui/Button';
+// import { Icon } from '@/shared/ui/Icon';
+// import VectorIcon from '@/shared/assets/icons/vector.svg';
+import { TopPageProduct } from '../TopPageProduct/TopPageProduct';
 
 interface TopPageComponentProps {
     className?: string;
@@ -44,7 +50,10 @@ export const TopPageComponent = memo(
                 <div>
                     {sortedProducts &&
                         sortedProducts.map((product) => (
-                            <ProductCard key={product._id} product={product} />
+                            <TopPageProduct
+                                key={product._id}
+                                product={product}
+                            />
                         ))}
                 </div>
                 {isCourses && page.hh ? (
