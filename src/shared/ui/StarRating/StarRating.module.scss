@@ -1,4 +1,5 @@
 .star-rating {
+    position: relative;
     display: flex;
 
     .hovered {
@@ -9,6 +10,10 @@
 
 .is-selected {
     cursor: auto;
+}
+
+.error button svg {
+    color: var(--red);
 }
 
 .normal {

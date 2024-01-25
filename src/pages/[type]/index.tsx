@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { withLayout } from '@/app/layouts/MainLayout';
 import { MenuItem } from '@/shared/types/menu';
 import { firstLevelMenu } from '@/shared/consts/firstLevelMenu';
+import { API } from '@/shared/api/api';
 
 interface TypeProps extends Record<string, unknown> {
     menu: MenuItem[];
@@ -48,10 +49,9 @@ export const getStaticProps: GetStaticProps<TypeProps> = async ({
         };
     }
 
-    const { data: menu } = await axios.post<MenuItem[]>(
-        `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
-        { firstCategory: firstCategoryItem.id },
-    );
+    const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+        firstCategory: firstCategoryItem.id,
+    });
     return {
         props: {
             menu,

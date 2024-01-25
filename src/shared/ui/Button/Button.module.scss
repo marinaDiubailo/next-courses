@@ -10,11 +10,14 @@
 .button {
     @extend %transition;
 
-    display: flex;
+    display: inline-flex;
+    min-width: 148px;
     align-items: center;
+    justify-content: center;
     padding: 10px;
     border-radius: var(--radius);
     font-size: 14px;
+    line-height: 1;
     text-align: center;
 }
 

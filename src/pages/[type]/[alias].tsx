@@ -7,6 +7,7 @@ import { TopLevelCategory, TopPageModel } from '@/shared/types/page';
 import { ProductModel } from '@/shared/types/product';
 import { firstLevelMenu } from '@/shared/consts/firstLevelMenu';
 import { TopPageComponent } from '@/_pages/TopPage';
+import { API } from '@/shared/api/api';
 
 interface TopPageProps extends Record<string, unknown> {
     menu: MenuItem[];
@@ -33,10 +34,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     let paths: string[] = [];
 
     for (const menuItem of firstLevelMenu) {
-        const { data: menu } = await axios.post<MenuItem[]>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
-            { firstCategory: menuItem.id },
-        );
+        const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+            firstCategory: menuItem.id,
+        });
         paths = paths.concat(
             menu.flatMap((item) =>
                 item.pages.map((page) => `/${menuItem.route}/${page.alias}`),
@@ -69,10 +69,9 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({
     }
 
     try {
-        const { data: menu } = await axios.post<MenuItem[]>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/find`,
-            { firstCategory: firstCategoryItem.id },
-        );
+        const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+            firstCategory: firstCategoryItem.id,
+        });
 
         if (!menu.length) {
             return {
@@ -81,11 +80,11 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({
         }
 
         const { data: page } = await axios.get<TopPageModel>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/top-page/byAlias/${params.alias}`,
+            API.topPage.byAlias + params.alias,
         );
 
         const { data: products } = await axios.post<ProductModel[]>(
-            `${process.env.NEXT_PUBLIC_DOMAIN}/api/product/find`,
+            API.product.find,
             {
                 category: page.category,
                 limit: 10,
