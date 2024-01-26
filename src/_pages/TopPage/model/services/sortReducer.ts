@@ -1,7 +1,10 @@
 import { Sort } from '@/features/ProductsSort';
 import { ProductModel } from '@/shared/types/product';
 
-export type SortActions = { type: Sort.Price } | { type: Sort.Rating };
+export type SortActions =
+    | { type: Sort.Price }
+    | { type: Sort.Rating }
+    | { type: 'reset'; initialState: ProductModel[] };
 
 export interface SortReducerState {
     sort: Sort;
@@ -26,6 +29,11 @@ export const sortReducer = (
                 products: state.products.sort(
                     (a, b) => (a.price > b.price ? 1 : -1), // от меньшего к большему
                 ),
+            };
+        case 'reset':
+            return {
+                sort: Sort.Rating,
+                products: action.initialState,
             };
         default:
             return state;

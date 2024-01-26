@@ -1,22 +1,29 @@
 .star-rating {
     position: relative;
-    display: flex;
+}
 
-    .hovered {
-        color: var(--primary-accent);
+.editable {
+    cursor: pointer;
+}
+
+.star {
+    display: inline-block;
+    height: 28px;
+    color: #e2e2e2;
+
+    svg {
+        fill: #e2e2e2;
+    }
+}
+
+.filled {
+    color: var(--primary-accent);
+
+    svg {
         fill: var(--primary-accent);
     }
 }
 
-.is-selected {
-    cursor: auto;
-}
-
-.error button svg {
+.error svg {
     color: var(--red);
-}
-
-.normal {
-    color: #e2e2e2;
-    fill: #e2e2e2;
 }

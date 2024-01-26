@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import { ProductCard, ProductModel } from '@/entities/Product';
 import { ReviewList } from '@/entities/Review';
@@ -15,10 +15,20 @@ export const TopPageProduct = (props: TopPageProductProps): JSX.Element => {
     const { className, product } = props;
     const [isReviewOpened, setIsReviewOpened] = useState(false);
     const [addonDown, setAddonDown] = useState(false);
+    const reviewRef = useRef<HTMLDivElement>(null);
 
     const reviewsHandler = () => {
         setIsReviewOpened((prev) => !prev);
         setAddonDown((prev) => !prev);
+    };
+
+    const scrollToReview = () => {
+        setIsReviewOpened(true);
+        reviewRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+        reviewRef.current?.focus();
     };
 
     const mods: Mods = {
@@ -32,11 +42,13 @@ export const TopPageProduct = (props: TopPageProductProps): JSX.Element => {
                 product={product}
                 onClick={reviewsHandler}
                 addonDown={addonDown}
+                onRatingTitleClick={scrollToReview}
             />
 
             <Card
                 className={classNames(cls.reviews, mods, [className])}
                 color="blue"
+                ref={reviewRef}
             >
                 <ReviewList reviews={product.reviews} />
                 {isReviewOpened && (

@@ -40,12 +40,15 @@ export const ProductsSearch = memo(
             >
                 <Input
                     placeholder="Поиск..."
-                    className={cls.input}
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
                     onKeyDown={keyDownHandler}
                 />
-                <Button className={cls.button} onClick={navigateToSearchPage}>
+                <Button
+                    className={cls.button}
+                    onClick={navigateToSearchPage}
+                    small
+                >
                     <Icon Svg={SearchIcon} />
                 </Button>
             </div>

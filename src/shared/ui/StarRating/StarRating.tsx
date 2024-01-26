@@ -1,67 +1,122 @@
-import { ForwardedRef, forwardRef, useState } from 'react';
+import {
+    useEffect,
+    useState,
+    KeyboardEvent,
+    forwardRef,
+    ForwardedRef,
+    useRef,
+    HTMLAttributes,
+} from 'react';
 import { classNames } from '../../lib/classNames/classNames';
 import StarIcon from '../../assets/icons/rating.svg';
 import { Icon } from '../Icon';
-import cls from './StarRating.module.scss';
 import { FieldError } from 'react-hook-form';
 import { ErrorMessage } from '../ErrorMessage';
+import cls from './StarRating.module.scss';
 
-interface StarRatingProps {
+interface StarRatingProps extends HTMLAttributes<HTMLDivElement> {
     className?: string;
-    onSelect?: (starsCount: number) => void;
-    size?: number;
-    selectedStars?: number;
+    setRating?: (selectedStars: number) => void;
+    selectedStars: number;
     isEditable?: boolean;
     error?: FieldError;
 }
-
-const stars = [1, 2, 3, 4, 5];
 
 export const StarRating = forwardRef(
     (props: StarRatingProps, ref: ForwardedRef<HTMLDivElement>) => {
         const {
             className,
-            size = 28,
-            onSelect,
+            setRating,
             isEditable = false,
-            selectedStars = 0,
+            selectedStars,
             error,
+            tabIndex,
+            ...otherProps
         } = props;
 
-        const [currentStarsCount, setCurrentStartsCount] =
-            useState(selectedStars);
-        const [isSelected, setIsSelected] = useState(Boolean(selectedStars));
+        const [ratingArray, setRatingArray] = useState<JSX.Element[]>(
+            new Array(5).fill(<></>),
+        );
+        const ratingArrayRef = useRef<(HTMLSpanElement | null)[]>([]);
 
-        const onHover = (starsCount: number) => () => {
-            if (!isSelected && isEditable) {
-                setCurrentStartsCount(starsCount);
+        useEffect(() => {
+            constructRating(selectedStars);
+        }, [selectedStars, tabIndex]);
+
+        const computeFocus = (rating: number, index: number): number => {
+            if (!isEditable) {
+                return -1;
+            }
+            if (!selectedStars && index == 0) {
+                return tabIndex ?? 0;
+            }
+            if (rating == index + 1) {
+                return tabIndex ?? 0;
+            }
+            return -1;
+        };
+
+        const changeDispay = (starsCount: number) => {
+            if (!isEditable) {
+                return;
+            }
+            constructRating(starsCount);
+        };
+
+        const onClick = (starsCount: number) => {
+            if (!isEditable || !setRating) {
+                return;
+            }
+            setRating?.(starsCount);
+        };
+
+        const handleKey = (e: KeyboardEvent) => {
+            if (!isEditable || !setRating) {
+                return;
+            }
+            if (e.code == 'ArrowRight' || e.code == 'ArrowUp') {
+                if (!selectedStars) {
+                    setRating(1);
+                } else {
+                    e.preventDefault();
+                    setRating(selectedStars < 5 ? selectedStars + 1 : 5);
+                }
+                ratingArrayRef.current[selectedStars]?.focus();
+            }
+            if (e.code == 'ArrowLeft' || e.code == 'ArrowDown') {
+                e.preventDefault();
+                setRating(selectedStars > 1 ? selectedStars - 1 : 1);
+                ratingArrayRef.current[selectedStars - 2]?.focus();
             }
         };
 
-        const onLeave = () => {
-            if (!isSelected && isEditable) {
-                setCurrentStartsCount(0);
-            }
+        const constructRating = (starsCount: number) => {
+            const updatedArray = ratingArray.map(
+                (r: JSX.Element, index: number) => {
+                    return (
+                        <span
+                            className={classNames(cls.star, {
+                                [cls.filled]: index < starsCount,
+                                [cls.editable]: isEditable,
+                            })}
+                            tabIndex={computeFocus(selectedStars, index)}
+                            onMouseEnter={() => changeDispay(index + 1)}
+                            onMouseLeave={() => changeDispay(selectedStars)}
+                            onClick={() => onClick(index + 1)}
+                            onKeyDown={handleKey}
+                            ref={(r) => ratingArrayRef.current?.push(r)}
+                        >
+                            <Icon
+                                Svg={StarIcon}
+                                width={'28px'}
+                                height={'28px'}
+                            />
+                        </span>
+                    );
+                },
+            );
+            setRatingArray(updatedArray);
         };
-
-        const onClick = (starsCount: number) => () => {
-            if (!isSelected && isEditable) {
-                onSelect?.(starsCount);
-                setCurrentStartsCount(starsCount);
-                setIsSelected(true);
-            }
-        };
-
-        // const handleSpace =
-        //     (starsCount: number) => (event: React.KeyboardEvent) => {
-        //         if (event.code === 'Space' && !isSelected && isEditable) {
-        //             onSelect?.(starsCount);
-        //             setCurrentStartsCount(starsCount);
-        //             setIsSelected(true);
-        //         } else {
-        //             return;
-        //         }
-        //     };
 
         return (
             <div
@@ -71,37 +126,12 @@ export const StarRating = forwardRef(
                     [className],
                 )}
                 ref={ref}
+                {...otherProps}
             >
-                {stars.map((star) => {
-                    const commonProps = {
-                        className: classNames(
-                            cls['star-icon'],
-                            { [cls['is-selected']]: isSelected },
-                            [
-                                currentStarsCount >= star
-                                    ? cls.hovered
-                                    : cls.normal,
-                            ],
-                        ),
-                        Svg: StarIcon,
-                        key: star,
-                        width: size,
-                        height: size,
-                        onMouseLeave: onLeave,
-                        onMouseEnter: onHover(star),
-                        onClick: onClick(star),
-                        // onKeyDown: ((event: React.KeyboardEvent)=> ),
-                        tabIndex: isEditable ? 0 : -1,
-                        'data-selected': currentStarsCount >= star,
-                    };
-
-                    return (
-                        <Icon
-                            clickable={!isSelected && isEditable}
-                            {...commonProps}
-                        />
-                    );
-                })}
+                {ratingArray.map((rating, index) => (
+                    <span key={index}>{rating}</span>
+                ))}
+                {/* {ratingArray} */}
                 {error && <ErrorMessage>{error.message}</ErrorMessage>}
             </div>
         );

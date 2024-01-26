@@ -1,4 +1,5 @@
 import { useForm, Controller } from 'react-hook-form';
+import axios from 'axios';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
@@ -6,7 +7,9 @@ import { StarRating } from '@/shared/ui/StarRating';
 import { Textarea } from '@/shared/ui/Textarea';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import cls from './ReviewForm.module.scss';
-import { IReviewForm } from '../../model/types/reviewForm';
+import { IReviewForm, IReviewSentResponse } from '../../model/types/reviewForm';
+import { API } from '@/shared/api/api';
+import { useState } from 'react';
 
 interface ReviewFormProps {
     className?: string;
@@ -17,6 +20,9 @@ interface ReviewFormProps {
 export const ReviewForm = (props: ReviewFormProps) => {
     const { className, productId, isOpened } = props;
 
+    const [error, setError] = useState<string>();
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
     const {
         register,
         control,
@@ -26,8 +32,27 @@ export const ReviewForm = (props: ReviewFormProps) => {
         clearErrors,
     } = useForm<IReviewForm>();
 
-    const submitHandler = (data: IReviewForm) => {
-        //console.log(data);
+    const submitHandler = async (formData: IReviewForm) => {
+        try {
+            const { data } = await axios.post<IReviewSentResponse>(
+                API.review.createDemo,
+                {
+                    ...formData,
+                    productId,
+                },
+            );
+
+            if (data.message) {
+                setIsSuccess(true);
+                reset();
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(
+                    'Что-то пошло не так, попробуйте отправить отзыв снова.',
+                );
+            }
+        }
     };
 
     return (
@@ -63,7 +88,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
                             <StarRating
                                 isEditable
                                 selectedStars={field.value}
-                                onSelect={field.onChange}
+                                setRating={field.onChange}
                                 ref={field.ref}
                                 error={errors.rating}
                             />
@@ -95,15 +120,39 @@ export const ReviewForm = (props: ReviewFormProps) => {
                     </span>
                 </div>
             </div>
-            <div className={cls.success}>
-                <span className={cls['success-title']}>
-                    Ваш отзыв отправлен.
-                </span>
-                <span>
-                    Спасибо, Ваш отзыв будет опубликован после проверки.
-                </span>
-                <CloseIcon className={cls.close} />
-            </div>
+            {isSuccess && (
+                <div className={classNames(cls.panel, {}, [cls.success])}>
+                    <span className={cls['success-title']}>
+                        Ваш отзыв отправлен.
+                    </span>
+                    <span>
+                        Спасибо, Ваш отзыв будет опубликован после проверки.
+                    </span>
+                    <button
+                        type="button"
+                        className={cls.close}
+                        onClick={() => setIsSuccess(false)}
+                        aria-label="Закрыть оповещение"
+                    >
+                        {' '}
+                        <CloseIcon />
+                    </button>
+                </div>
+            )}
+
+            {error && (
+                <div className={classNames(cls.panel, {}, [cls.error])}>
+                    {error}
+                    <button
+                        type="button"
+                        className={cls.close}
+                        onClick={() => setError(undefined)}
+                        aria-label="Закрыть оповещение"
+                    >
+                        <CloseIcon />
+                    </button>
+                </div>
+            )}
         </form>
     );
 };

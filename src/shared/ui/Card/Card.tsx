@@ -1,4 +1,4 @@
-import { memo, ReactNode } from 'react';
+import { ForwardedRef, forwardRef, ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Card.module.scss';
 
@@ -10,15 +10,18 @@ interface CardProps {
     children: ReactNode;
 }
 
-export const Card = memo((props: CardProps): JSX.Element => {
-    const { className, color = 'white', children, ...otherProps } = props;
+export const Card = forwardRef(
+    (props: CardProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
+        const { className, color = 'white', children, ...otherProps } = props;
 
-    return (
-        <div
-            className={classNames(cls.card, {}, [className, cls[color]])}
-            {...otherProps}
-        >
-            {children}
-        </div>
-    );
-});
+        return (
+            <div
+                className={classNames(cls.card, {}, [className, cls[color]])}
+                ref={ref}
+                {...otherProps}
+            >
+                {children}
+            </div>
+        );
+    },
+);

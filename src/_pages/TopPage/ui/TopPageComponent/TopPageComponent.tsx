@@ -1,4 +1,4 @@
-import React, { memo, useReducer } from 'react';
+import React, { memo, useEffect, useReducer } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { TopLevelCategory, TopPageModel } from '@/shared/types/page';
 import { ProductModel } from '@/shared/types/product';
@@ -38,6 +38,10 @@ export const TopPageComponent = memo(
         const onSetSort = (sort: Sort) => {
             dispatchSort({ type: sort });
         };
+
+        useEffect(() => {
+            dispatchSort({ type: 'reset', initialState: products });
+        }, [products]);
 
         return (
             <div className={classNames('', {}, [className])}>

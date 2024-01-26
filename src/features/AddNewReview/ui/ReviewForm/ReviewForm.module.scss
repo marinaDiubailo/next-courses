@@ -27,14 +27,26 @@
     margin-left: 15px;
 }
 
-.success {
+.panel {
     position: relative;
-    padding: 20px;
+    padding: 20px 40px 20px 20px;
     border-radius: 5px;
+}
+
+.success {
     background-color: var(--green-light);
 }
 
+.error {
+    background-color: var(--orange-light);
+
+    & button svg path {
+        stroke: var(--red);
+    }
+}
+
 .success-title {
+    display: block;
     font-weight: bold;
 }
 

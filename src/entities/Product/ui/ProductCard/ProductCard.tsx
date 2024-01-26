@@ -1,5 +1,5 @@
 import Image from 'next/image';
-//import { useState } from 'react';
+import { MouseEvent } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Card } from '@/shared/ui/Card';
 import { StarRating } from '@/shared/ui/StarRating';
@@ -19,10 +19,23 @@ interface ProductCardProps {
     product: ProductModel;
     addonDown: boolean;
     onClick: () => void;
+    onRatingTitleClick: () => void;
 }
 
 export const ProductCard = (props: ProductCardProps): JSX.Element => {
-    const { className, product, addonDown, onClick, ...otherProps } = props;
+    const {
+        className,
+        product,
+        addonDown,
+        onClick,
+        onRatingTitleClick,
+        ...otherProps
+    } = props;
+
+    const ratingTitleClickHandler = (event: MouseEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        onRatingTitleClick();
+    };
 
     return (
         <Card
@@ -68,13 +81,18 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
             </div>
             <div className={cls['price-title']}>цена</div>
             <div className={cls['credit-title']}>в кредит</div>
-            <div className={cls['rate-title']}>
-                {product.reviewCount}{' '}
-                {numDeclination(product.reviewCount, [
-                    'отзыв',
-                    'отзыва',
-                    'отзывов',
-                ])}
+            <div
+                className={cls['rate-title']}
+                onClick={(e) => ratingTitleClickHandler(e)}
+            >
+                <a href="#ref">
+                    {product.reviewCount}{' '}
+                    {numDeclination(product.reviewCount, [
+                        'отзыв',
+                        'отзыва',
+                        'отзывов',
+                    ])}
+                </a>
             </div>
             <Devider className={cls.hr} />
             <div className={cls.description}>{product.description}</div>

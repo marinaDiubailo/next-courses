@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
     variant?: 'primary' | 'ghost';
     addon?: ReactNode;
+    small?: boolean;
     addonDown?: boolean;
 }
 
@@ -15,6 +16,7 @@ export const Button = memo((props: ButtonProps): JSX.Element => {
         className,
         children,
         addon,
+        small = false,
         variant = 'primary',
         addonDown = false,
         ...otherProps
@@ -22,6 +24,7 @@ export const Button = memo((props: ButtonProps): JSX.Element => {
 
     const mods: Mods = {
         [cls['with-addon']]: Boolean(addon),
+        [cls.small]: small,
     };
 
     return (
