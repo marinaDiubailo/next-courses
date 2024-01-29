@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { Icon } from '@/shared/ui/Icon';
 import SearchIcon from '@/shared/assets/icons/search.svg';
@@ -44,13 +43,12 @@ export const ProductsSearch = memo(
                     onChange={(event) => setSearch(event.target.value)}
                     onKeyDown={keyDownHandler}
                 />
-                <Button
+                <Icon
+                    Svg={SearchIcon}
                     className={cls.button}
+                    clickable
                     onClick={navigateToSearchPage}
-                    small
-                >
-                    <Icon Svg={SearchIcon} />
-                </Button>
+                />
             </div>
         );
     },

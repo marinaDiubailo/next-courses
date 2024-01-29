@@ -7,7 +7,7 @@
     font-weight: 500;
 
     &:hover,
-    .active {
+    &.active {
         color: var(--primary-accent);
     }
 }

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { FirstLevelMenuItem } from '../../model/types/menu';
+import { FirstLevelMenuItem } from '@/shared/types/menu';
 import cls from './FirstLevelItem.module.scss';
 
 interface FirstLevelItemProps {

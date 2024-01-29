@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { ForwardedRef, forwardRef, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import { ProductCard, ProductModel } from '@/entities/Product';
 import { ReviewList } from '@/entities/Review';
@@ -11,53 +12,67 @@ interface TopPageProductProps {
     product: ProductModel;
 }
 
-export const TopPageProduct = (props: TopPageProductProps): JSX.Element => {
-    const { className, product } = props;
-    const [isReviewOpened, setIsReviewOpened] = useState(false);
-    const [addonDown, setAddonDown] = useState(false);
-    const reviewRef = useRef<HTMLDivElement>(null);
+export const TopPageProduct = motion(
+    forwardRef(
+        (props: TopPageProductProps, ref: ForwardedRef<HTMLDivElement>) => {
+            const { className, product } = props;
+            const [isReviewOpened, setIsReviewOpened] = useState(false);
+            const [addonDown, setAddonDown] = useState(false);
+            const reviewRef = useRef<HTMLDivElement>(null);
 
-    const reviewsHandler = () => {
-        setIsReviewOpened((prev) => !prev);
-        setAddonDown((prev) => !prev);
-    };
+            const reviewsHandler = () => {
+                setIsReviewOpened((prev) => !prev);
+                setAddonDown((prev) => !prev);
+            };
 
-    const scrollToReview = () => {
-        setIsReviewOpened(true);
-        reviewRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-        });
-        reviewRef.current?.focus();
-    };
+            const variants = {
+                visible: { opacity: 1, height: 'auto' },
+                hidden: { opacity: 0, height: 0 },
+            };
 
-    const mods: Mods = {
-        [cls.opened]: isReviewOpened,
-        [cls.closed]: !isReviewOpened,
-    };
+            const scrollToReview = () => {
+                setIsReviewOpened(true);
+                reviewRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+                reviewRef.current?.focus();
+            };
 
-    return (
-        <>
-            <ProductCard
-                product={product}
-                onClick={reviewsHandler}
-                addonDown={addonDown}
-                onRatingTitleClick={scrollToReview}
-            />
+            const mods: Mods = {
+                [cls.opened]: isReviewOpened,
+                [cls.closed]: !isReviewOpened,
+            };
 
-            <Card
-                className={classNames(cls.reviews, mods, [className])}
-                color="blue"
-                ref={reviewRef}
-            >
-                <ReviewList reviews={product.reviews} />
-                {isReviewOpened && (
-                    <ReviewForm
-                        productId={product._id}
-                        isOpened={isReviewOpened}
+            return (
+                <div ref={ref} className={classNames('', {}, [className])}>
+                    <ProductCard
+                        product={product}
+                        onClick={reviewsHandler}
+                        addonDown={addonDown}
+                        onRatingTitleClick={scrollToReview}
                     />
-                )}
-            </Card>
-        </>
-    );
-};
+                    <motion.div
+                        variants={variants}
+                        animate={isReviewOpened ? 'visible' : 'hidden'}
+                        initial="hidden"
+                    >
+                        <Card
+                            className={classNames(cls.reviews, mods)}
+                            color="blue"
+                            ref={reviewRef}
+                        >
+                            <ReviewList reviews={product.reviews} />
+                            {isReviewOpened && (
+                                <ReviewForm
+                                    productId={product._id}
+                                    isOpened={isReviewOpened}
+                                />
+                            )}
+                        </Card>
+                    </motion.div>
+                </div>
+            );
+        },
+    ),
+);

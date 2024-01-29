@@ -10,12 +10,6 @@ import { Tag } from '@/shared/ui/Tag';
 import cls from './TopPageComponent.module.scss';
 import { sortReducer } from '../../model/services/sortReducer';
 import { Sort } from '@/features/ProductsSort';
-// import { ProductCard } from '@/entities/Product';
-// import { ReviewForm } from '@/features/AddNewReview';
-// import { ReviewList } from '@/entities/Review';
-// import { Button } from '@/shared/ui/Button';
-// import { Icon } from '@/shared/ui/Icon';
-// import VectorIcon from '@/shared/assets/icons/vector.svg';
 import { TopPageProduct } from '../TopPageProduct/TopPageProduct';
 
 interface TopPageComponentProps {
@@ -55,6 +49,7 @@ export const TopPageComponent = memo(
                     {sortedProducts &&
                         sortedProducts.map((product) => (
                             <TopPageProduct
+                                layout
                                 key={product._id}
                                 product={product}
                             />

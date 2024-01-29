@@ -1,3 +1,29 @@
 .icon {
     display: block;
 }
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.primary {
+    background-color: var(--primary-accent);
+
+    &:hover {
+        background-color: var(--primary-accent-hover);
+    }
+}
+
+.secondary {
+    background-color: var(--white);
+    color: var(--primary-accent);
+
+    &:hover {
+        background-color: var(--primary-accent);
+        color: var(--white);
+    }
+}

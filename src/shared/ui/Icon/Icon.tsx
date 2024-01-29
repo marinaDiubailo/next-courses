@@ -1,11 +1,12 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Icon.module.scss';
 
 type SvgProps = Omit<React.SVGAttributes<SVGElement>, 'onClick'>;
+type ClicableIconVatiant = 'primary' | 'secondary';
 
 interface IconBaseProps extends SvgProps {
     className?: string;
+    variant?: ClicableIconVatiant;
     Svg: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
 }
 
@@ -17,10 +18,17 @@ interface ClickableIconProps extends IconBaseProps {
     clickable: true;
     onClick: () => void;
 }
+
 type IconProps = NonClickableIconProps | ClickableIconProps;
 
-export const Icon = memo((props: IconProps): JSX.Element => {
-    const { className, Svg, clickable, ...otherProps } = props;
+export const Icon = (props: IconProps) => {
+    const {
+        className,
+        Svg,
+        clickable,
+        variant = 'primary',
+        ...otherProps
+    } = props;
 
     const icon = (
         <Svg
@@ -34,13 +42,16 @@ export const Icon = memo((props: IconProps): JSX.Element => {
         return (
             <button
                 type="button"
-                className={classNames(cls.button, {}, [className])}
+                className={classNames(cls.button, {}, [
+                    className,
+                    cls[variant],
+                ])}
                 onClick={props.onClick}
             >
-                {icon}
+                <Svg className={cls.icon} />
             </button>
         );
     }
 
     return icon;
-});
+};

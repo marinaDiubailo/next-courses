@@ -1,5 +1,6 @@
 import { memo, useContext } from 'react';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { AppContext } from '@/app/providers/context/store';
 import { PageItem } from '@/shared/types/menu';
@@ -8,16 +9,38 @@ import { FirstLevelMenuItem } from '@/shared/types/menu';
 import { FirstLevelItem } from '../FirstLevelItem/FirstLeveIItem';
 import { ThirdLevelItem } from '../ThirdLevelItem/ThirdLevelItem';
 import cls from './Menu.module.scss';
-
 interface MenuProps {
     className?: string;
 }
 
-export const Menu = memo((props: MenuProps): JSX.Element => {
+export const Menu = (props: MenuProps) => {
     const { className } = props;
 
     const { menu, firstCategory, setMenu } = useContext(AppContext);
     const router = useRouter();
+
+    const variants = {
+        visible: {
+            marginBottom: 20,
+            transition: {
+                when: 'beforeChildren',
+                staggerChildren: 0.1,
+            },
+        },
+        hidden: {
+            marginBottom: 0,
+        },
+    };
+    const variantsChildren = {
+        visible: {
+            opacity: 1,
+            height: 'auto',
+        },
+        hidden: {
+            opacity: 0,
+            height: 0,
+        },
+    };
 
     const openSecondLevel = (secondCategory: string) => {
         setMenu &&
@@ -74,18 +97,22 @@ export const Menu = memo((props: MenuProps): JSX.Element => {
                             >
                                 {menuItem._id.secondCategory}
                             </div>
-                            <div
-                                className={classNames(
-                                    cls['second-level-block'],
-                                    { [cls.opened]: menuItem.isOpened },
-                                    [className],
-                                )}
+                            <motion.div
+                                layout
+                                variants={variants}
+                                initial={
+                                    menuItem.isOpened ? 'visible' : 'hidden'
+                                }
+                                animate={
+                                    menuItem.isOpened ? 'visible' : 'hidden'
+                                }
+                                className={cls['second-level-block']}
                             >
                                 {buildThirdLevel(
                                     menuItem.pages,
                                     category.route,
                                 )}
-                            </div>
+                            </motion.div>
                         </div>
                     );
                 })}
@@ -95,15 +122,17 @@ export const Menu = memo((props: MenuProps): JSX.Element => {
 
     const buildThirdLevel = (pages: PageItem[], route: string) => {
         return pages.map((page) => (
-            <ThirdLevelItem
-                key={page._id}
-                href={`/${route}/${page.alias}`}
-                isActive={`/${route}/${page.alias}` === router.asPath}
-            >
-                {page.category}
-            </ThirdLevelItem>
+            <motion.div key={page._id} variants={variantsChildren}>
+                <ThirdLevelItem
+                    key={page._id}
+                    href={`/${route}/${page.alias}`}
+                    isActive={`/${route}/${page.alias}` === router.asPath}
+                >
+                    {page.category}
+                </ThirdLevelItem>
+            </motion.div>
         ));
     };
 
-    return <div className={cls.menu}>{buildFirstLevel()}</div>;
-});
+    return <nav className={cls.menu}>{buildFirstLevel()}</nav>;
+};

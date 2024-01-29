@@ -24,13 +24,5 @@
 }
 
 .second-level-block {
-    display: none;
-
-    &:last-child {
-        margin-bottom: 20px;
-    }
-}
-
-.opened {
-    display: block;
+    overflow: hidden;
 }
