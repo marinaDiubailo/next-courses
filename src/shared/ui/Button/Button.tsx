@@ -1,8 +1,13 @@
 import { ButtonHTMLAttributes, memo, ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Button.module.scss';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+    extends Omit<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag' | 'ref'
+    > {
     className?: string;
     children: ReactNode;
     variant?: 'primary' | 'ghost';
@@ -28,9 +33,10 @@ export const Button = memo((props: ButtonProps): JSX.Element => {
     };
 
     return (
-        <button
-            {...otherProps}
+        <motion.button
+            whileHover={{ scale: 1.05 }}
             className={classNames(cls.button, mods, [className, cls[variant]])}
+            {...otherProps}
         >
             {children}
             {addon && (
@@ -42,6 +48,6 @@ export const Button = memo((props: ButtonProps): JSX.Element => {
                     {addon}
                 </div>
             )}
-        </button>
+        </motion.button>
     );
 });

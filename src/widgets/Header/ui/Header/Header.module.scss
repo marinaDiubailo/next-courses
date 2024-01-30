@@ -1,39 +1,41 @@
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
 .header {
     display: none;
 }
 
 .burger {
     position: fixed;
-    right: 0;
+    top: 15px;
+    right: 15px;
     width: 40px;
     height: 40px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mobile {
-    position: absolute;
+    position: fixed;
     z-index: 100;
     top: 0;
     right: 0;
+    bottom: 0;
     left: 0;
     height: 100%;
     padding: 15px;
     background-color: var(--bg-main);
-    overflow-y: scroll;
-    border: 1px solid purple;
+    overflow-y: auto;
 }
 
 .close {
     position: fixed;
     top: 15px;
-    right: 0;
+    right: 15px;
     width: 40px;
     height: 40px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-.menu {
-    margin-top: 20px;
+.search {
+    margin: 15px 0;
 }
 
 @media (max-width: 767px) {

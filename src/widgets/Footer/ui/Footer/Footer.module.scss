@@ -22,7 +22,7 @@
         grid-template-columns: 1fr;
 
         & a {
-            color: var(--grey-tag);
+            text-decoration: underline;
         }
     }
 }
