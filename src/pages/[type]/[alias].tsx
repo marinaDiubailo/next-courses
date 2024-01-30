@@ -16,8 +16,12 @@ interface TopPageProps extends Record<string, unknown> {
     products: ProductModel[];
 }
 
-function TopPage(props: TopPageProps): JSX.Element {
+function TopPage(props: TopPageProps) {
     const { products, firstCategory, page } = props;
+
+    if (!page || !products) {
+        return <div>Error</div>;
+    }
 
     return (
         <TopPageComponent
@@ -73,7 +77,7 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({
             firstCategory: firstCategoryItem.id,
         });
 
-        if (!menu.length) {
+        if (menu.length === 0) {
             return {
                 notFound: true,
             };

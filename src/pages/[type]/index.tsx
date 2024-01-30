@@ -11,14 +11,10 @@ interface TypeProps extends Record<string, unknown> {
     firstCategory: number;
 }
 
-function Type(props: TypeProps): JSX.Element {
+function Type(props: TypeProps) {
     const { firstCategory } = props;
 
-    return (
-        <>
-            <div>Type : {firstCategory}</div>
-        </>
-    );
+    return <>Type : {firstCategory}</>;
 }
 
 export default withLayout(Type);
@@ -52,6 +48,7 @@ export const getStaticProps: GetStaticProps<TypeProps> = async ({
     const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
         firstCategory: firstCategoryItem.id,
     });
+
     return {
         props: {
             menu,

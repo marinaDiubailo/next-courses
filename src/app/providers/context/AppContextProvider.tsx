@@ -6,7 +6,7 @@ export const AppContextProvider = ({
     children,
     firstCategory,
     menu,
-}: PropsWithChildren<IAppContext>): JSX.Element => {
+}: PropsWithChildren<IAppContext>) => {
     const [menuState, setMenuState] = useState<MenuItem[]>(menu);
 
     const setMenu = (newMenu: MenuItem[]) => {

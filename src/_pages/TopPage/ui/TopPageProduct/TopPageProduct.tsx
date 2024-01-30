@@ -36,7 +36,7 @@ export const TopPageProduct = motion(
                     behavior: 'smooth',
                     block: 'start',
                 });
-                reviewRef.current?.focus();
+                reviewRef.current?.focus({ preventScroll: true });
             };
 
             const mods: Mods = {
@@ -61,6 +61,7 @@ export const TopPageProduct = motion(
                             className={classNames(cls.reviews, mods)}
                             color="blue"
                             ref={reviewRef}
+                            tabIndex={isReviewOpened ? 0 : -1}
                         >
                             <ReviewList reviews={product.reviews} />
                             {isReviewOpened && (
