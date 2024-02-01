@@ -14,7 +14,7 @@ interface TopPageProductProps {
 
 export const TopPageProduct = motion(
     forwardRef(
-        (props: TopPageProductProps, ref: ForwardedRef<HTMLDivElement>) => {
+        (props: TopPageProductProps, ref: ForwardedRef<HTMLLIElement>) => {
             const { className, product } = props;
             const [isReviewOpened, setIsReviewOpened] = useState(false);
             const [addonDown, setAddonDown] = useState(false);
@@ -45,7 +45,7 @@ export const TopPageProduct = motion(
             };
 
             return (
-                <div ref={ref} className={classNames('', {}, [className])}>
+                <li ref={ref} className={classNames('', {}, [className])}>
                     <ProductCard
                         product={product}
                         onClick={reviewsHandler}
@@ -72,7 +72,7 @@ export const TopPageProduct = motion(
                             )}
                         </Card>
                     </motion.div>
-                </div>
+                </li>
             );
         },
     ),

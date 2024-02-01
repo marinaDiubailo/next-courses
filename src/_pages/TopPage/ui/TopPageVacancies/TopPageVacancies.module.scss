@@ -33,11 +33,16 @@
 .salary {
     display: grid;
     padding: 20px;
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow);
     gap: 20px 0;
     grid-template-columns: repeat(3, 1fr);
+    list-style: none;
+    outline: none;
     text-align: center;
 
-    & > div:not(:last-child) {
+    & > li:not(:last-child) {
         border-right: var(--border-ghost);
     }
 }

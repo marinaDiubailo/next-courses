@@ -27,7 +27,7 @@ export const TopPageVacancies = memo(
         } = props;
 
         return (
-            <>
+            <section>
                 <div
                     className={classNames(cls['vacancies-title'], {}, [
                         className,
@@ -43,31 +43,31 @@ export const TopPageVacancies = memo(
                         <div className={cls.title}>Всего вакансий</div>
                         <div className={cls.count}>{count}</div>
                     </Card>
-                    <Card className={cls.salary}>
-                        <div>
+                    <ul className={cls.salary}>
+                        <li>
                             <div className={cls.title}>Начальный</div>
                             <div className={cls['salary-value']}>
                                 {priceRu(juniorSalary)}
                             </div>
                             <SalaryRating />
-                        </div>
-                        <div>
+                        </li>
+                        <li>
                             <div className={cls.title}>Средний</div>
                             <div className={cls['salary-value']}>
                                 {priceRu(middleSalary)}
                             </div>
                             <SalaryRating level="2" />
-                        </div>
-                        <div>
+                        </li>
+                        <li>
                             <div className={cls.title}>Профессионал</div>
                             <div className={cls['salary-value']}>
                                 {priceRu(seniorSalary)}
                             </div>
                             <SalaryRating level="3" />
-                        </div>
-                    </Card>
+                        </li>
+                    </ul>
                 </div>
-            </>
+            </section>
         );
     },
 );

@@ -15,12 +15,12 @@ export const ProductAdvantage = memo(
         const { className, title, description } = props;
 
         return (
-            <div className={classNames(cls.advantage, {}, [className])}>
+            <li className={classNames(cls.advantage, {}, [className])}>
                 <Icon Svg={CheckIcon} />
                 <div className={cls.title}>{title}</div>
                 <hr className={cls.line} />
                 <div className={cls.description}>{description}</div>
-            </div>
+            </li>
         );
     },
 );

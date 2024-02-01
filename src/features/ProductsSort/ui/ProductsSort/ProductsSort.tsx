@@ -16,7 +16,7 @@ export const ProductsSort = memo((props: ProductsSortProps): JSX.Element => {
 
     return (
         <div className={classNames(cls.sort, {}, [className])}>
-            <span
+            <button
                 onClick={() => setSort(Sort.Rating)}
                 className={classNames('', {
                     [cls.active]: sort === Sort.Rating,
@@ -24,8 +24,8 @@ export const ProductsSort = memo((props: ProductsSortProps): JSX.Element => {
             >
                 <Icon Svg={SortIcon} className={cls.icon} />
                 По рейтингу
-            </span>
-            <span
+            </button>
+            <button
                 onClick={() => setSort(Sort.Price)}
                 className={classNames('', {
                     [cls.active]: sort === Sort.Price,
@@ -33,7 +33,7 @@ export const ProductsSort = memo((props: ProductsSortProps): JSX.Element => {
             >
                 <Icon Svg={SortIcon} className={cls.icon} />
                 По цене
-            </span>
+            </button>
         </div>
     );
 });

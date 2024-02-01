@@ -45,7 +45,7 @@ export const TopPageComponent = memo(
                     sort={sort}
                     setSort={onSetSort}
                 />
-                <div>
+                <ul>
                     {sortedProducts &&
                         sortedProducts.map((product) => (
                             <TopPageProduct
@@ -54,7 +54,7 @@ export const TopPageComponent = memo(
                                 product={product}
                             />
                         ))}
-                </div>
+                </ul>
                 {isCourses && page.hh ? (
                     <TopPageVacancies
                         count={page.hh.count}
