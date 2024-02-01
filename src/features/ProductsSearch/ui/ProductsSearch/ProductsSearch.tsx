@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Input } from '@/shared/ui/Input';
@@ -10,46 +10,44 @@ interface ProductsSearchProps {
     className?: string;
 }
 
-export const ProductsSearch = memo(
-    (props: ProductsSearchProps): JSX.Element => {
-        const { className, ...otherProps } = props;
-        const router = useRouter();
+export const ProductsSearch = (props: ProductsSearchProps) => {
+    const { className, ...otherProps } = props;
+    const router = useRouter();
 
-        const [search, setSearch] = useState<string>('');
+    const [search, setSearch] = useState<string>('');
 
-        const navigateToSearchPage = () => {
-            router.push({
-                pathname: '/search',
-                query: {
-                    q: search,
-                },
-            });
-        };
+    const navigateToSearchPage = () => {
+        router.push({
+            pathname: '/search',
+            query: {
+                q: search,
+            },
+        });
+    };
 
-        const keyDownHandler = (
-            event: React.KeyboardEvent<HTMLInputElement>,
-        ) => {
-            if (event.key === 'Enter') navigateToSearchPage();
-        };
+    const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') navigateToSearchPage();
+    };
 
-        return (
-            <div
-                className={classNames(cls.search, {}, [className])}
-                {...otherProps}
-            >
-                <Input
-                    placeholder="Поиск..."
-                    value={search}
-                    onChange={(event) => setSearch(event.target.value)}
-                    onKeyDown={keyDownHandler}
-                />
-                <Icon
-                    Svg={SearchIcon}
-                    className={cls.button}
-                    clickable
-                    onClick={navigateToSearchPage}
-                />
-            </div>
-        );
-    },
-);
+    return (
+        <form
+            role="search"
+            className={classNames(cls.search, {}, [className])}
+            {...otherProps}
+        >
+            <Input
+                placeholder="Поиск..."
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                onKeyDown={keyDownHandler}
+            />
+            <Icon
+                Svg={SearchIcon}
+                className={cls.button}
+                clickable
+                onClick={navigateToSearchPage}
+                aria-label="Искать по сайту"
+            />
+        </form>
+    );
+};

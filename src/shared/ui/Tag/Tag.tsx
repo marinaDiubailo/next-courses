@@ -1,4 +1,4 @@
-import { memo, ReactNode } from 'react';
+import { HTMLAttributes, memo, ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Tag.module.scss';
 
@@ -18,7 +18,7 @@ const mapColorToClass: Record<TagColor, string> = {
     primary: cls.primary,
 };
 
-interface TagProps {
+interface TagProps extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     size?: TagSize;
     color?: TagColor;

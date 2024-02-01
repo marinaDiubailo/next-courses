@@ -11,7 +11,10 @@ export const ErrorMessage = memo((props: ErrorMessageProps) => {
     const { className, children } = props;
 
     return (
-        <span className={classNames(cls['error-message'], {}, [className])}>
+        <span
+            role="alert"
+            className={classNames(cls['error-message'], {}, [className])}
+        >
             {children}
         </span>
     );

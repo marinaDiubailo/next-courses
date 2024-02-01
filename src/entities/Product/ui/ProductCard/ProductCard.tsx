@@ -17,6 +17,7 @@ import cls from './ProductCard.module.scss';
 interface ProductCardProps {
     className?: string;
     product: ProductModel;
+    isReviewOpened: boolean;
     addonDown: boolean;
     onClick: () => void;
     onRatingTitleClick: () => void;
@@ -29,6 +30,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
         addonDown,
         onClick,
         onRatingTitleClick,
+        isReviewOpened,
         ...otherProps
     } = props;
 
@@ -52,17 +54,23 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
             </div>
             <div className={cls.title}>{product.title}</div>
             <div className={cls.price}>
+                <span className="visualy-hidden">цена</span>
                 {priceRu(product.price)}
                 {product.oldPrice && (
                     <Tag color="green" className={cls['old-price']}>
+                        <span className="visualy-hidden">скидка</span>
                         {priceRu(product.price - product.oldPrice)}
                     </Tag>
                 )}
             </div>
             <div className={cls.credit}>
+                <span className="visualy-hidden">кредит</span>
                 {priceRu(product.credit)}/<span className={cls.month}>мес</span>
             </div>
             <div className={cls.rating}>
+                <span className="visualy-hidden">
+                    {'рейтинг' + product.reviewAvg ?? product.initialRating}
+                </span>
                 <StarRating
                     selectedStars={product.reviewAvg ?? product.initialRating}
                 />
@@ -79,8 +87,12 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                     </Tag>
                 ))}
             </div>
-            <div className={cls['price-title']}>цена</div>
-            <div className={cls['credit-title']}>в кредит</div>
+            <div className={cls['price-title']} aria-hidden={true}>
+                цена
+            </div>
+            <div className={cls['credit-title']} aria-hidden={true}>
+                в кредит
+            </div>
             <div
                 className={cls['rate-title']}
                 onClick={(e) => ratingTitleClickHandler(e)}
@@ -136,6 +148,7 @@ export const ProductCard = (props: ProductCardProps): JSX.Element => {
                     addon={<Icon Svg={VectorIcon} />}
                     addonDown={addonDown}
                     onClick={onClick}
+                    aria-expanded={isReviewOpened}
                 >
                     Читать отзывы
                 </Button>

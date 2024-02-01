@@ -92,13 +92,23 @@ export const StarRating = forwardRef(
 
         const constructRating = (starsCount: number) => {
             const updatedArray = ratingArray.map(
-                (rating: JSX.Element, index: number) => {
+                (element: JSX.Element, index: number) => {
                     return (
                         <span
                             className={classNames(cls.star, {
                                 [cls.filled]: index < starsCount,
                                 [cls.editable]: isEditable,
                             })}
+                            role={isEditable ? 'slider' : ''}
+                            aria-label={
+                                isEditable
+                                    ? 'Укажите рейтинг'
+                                    : 'рейтинг' + selectedStars
+                            }
+                            aria-invalid={!!error}
+                            aria-valuenow={selectedStars}
+                            aria-valuemax={5}
+                            aria-valuemin={1}
                             tabIndex={computeFocus(selectedStars, index)}
                             onMouseEnter={() => changeDispay(index + 1)}
                             onMouseLeave={() => changeDispay(selectedStars)}

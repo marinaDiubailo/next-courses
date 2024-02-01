@@ -1,9 +1,12 @@
 @import "./reset";
 @import "./variables";
 
-// * {
-//     outline: 1px solid red;
-// }
+.visualy-hidden {
+    position: absolute;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+}
 
 html,
 body {

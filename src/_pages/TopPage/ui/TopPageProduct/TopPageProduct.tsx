@@ -51,6 +51,7 @@ export const TopPageProduct = motion(
                         onClick={reviewsHandler}
                         addonDown={addonDown}
                         onRatingTitleClick={scrollToReview}
+                        isReviewOpened={isReviewOpened}
                     />
                     <motion.div
                         variants={variants}

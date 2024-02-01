@@ -68,6 +68,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
                     })}
                     error={errors.name}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-invalid={!!errors.name}
                 />
                 <Input
                     className={cls.title}
@@ -80,6 +81,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
                     })}
                     error={errors.title}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-invalid={!!errors.title}
                 />
                 <div className={cls.rating}>
                     <span>Оценка:</span>
@@ -115,9 +117,15 @@ export const ReviewForm = (props: ReviewFormProps) => {
                     })}
                     error={errors.description}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-label="Текст отзыва"
+                    aria-invalid={!!errors.description}
                 />
                 <div className={cls.submit}>
-                    <Button variant="primary" tabIndex={isOpened ? 0 : -1}>
+                    <Button
+                        variant="primary"
+                        tabIndex={isOpened ? 0 : -1}
+                        onClick={() => clearErrors()}
+                    >
                         Отправить
                     </Button>
                     <span className={cls.info}>

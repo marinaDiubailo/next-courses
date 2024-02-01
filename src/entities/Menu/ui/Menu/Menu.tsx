@@ -139,7 +139,7 @@ export const Menu = (props: MenuProps) => {
     };
 
     return (
-        <nav className={classNames('', {}, [className])}>
+        <nav role="navigation" className={classNames('', {}, [className])}>
             {buildFirstLevel()}
         </nav>
     );
