@@ -67,6 +67,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
                         },
                     })}
                     error={errors.name}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <Input
                     className={cls.title}
@@ -78,6 +79,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
                         },
                     })}
                     error={errors.title}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <div className={cls.rating}>
                     <span>Оценка:</span>
@@ -91,6 +93,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
                                 setRating={field.onChange}
                                 ref={field.ref}
                                 error={errors.rating}
+                                tabIndex={isOpened ? 0 : -1}
                             />
                         )}
                         rules={{
@@ -111,9 +114,12 @@ export const ReviewForm = (props: ReviewFormProps) => {
                         },
                     })}
                     error={errors.description}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <div className={cls.submit}>
-                    <Button variant="primary">Отправить</Button>
+                    <Button variant="primary" tabIndex={isOpened ? 0 : -1}>
+                        Отправить
+                    </Button>
                     <span className={cls.info}>
                         * Перед публикацией отзыв пройдет предварительную
                         модерацию и проверку

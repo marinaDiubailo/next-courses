@@ -47,10 +47,10 @@ export const StarRating = forwardRef(
             if (!isEditable) {
                 return -1;
             }
-            if (!selectedStars && index == 0) {
+            if (!selectedStars && index === 0) {
                 return tabIndex ?? 0;
             }
-            if (rating == index + 1) {
+            if (rating === index + 1) {
                 return tabIndex ?? 0;
             }
             return -1;
@@ -92,7 +92,7 @@ export const StarRating = forwardRef(
 
         const constructRating = (starsCount: number) => {
             const updatedArray = ratingArray.map(
-                (r: JSX.Element, index: number) => {
+                (rating: JSX.Element, index: number) => {
                     return (
                         <span
                             className={classNames(cls.star, {
