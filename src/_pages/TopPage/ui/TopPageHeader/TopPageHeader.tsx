@@ -36,3 +36,5 @@ export const TopPageHeader = (props: TopPageHeaderProps): JSX.Element => {
         </div>
     );
 };
+
+TopPageHeader.displayName = 'TopPageHeader';

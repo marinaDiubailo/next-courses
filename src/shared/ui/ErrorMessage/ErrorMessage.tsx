@@ -1,4 +1,4 @@
-import { memo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ErrorMessage.module.scss';
 
@@ -7,7 +7,7 @@ interface ErrorMessageProps {
     children: ReactNode;
 }
 
-export const ErrorMessage = memo((props: ErrorMessageProps) => {
+export const ErrorMessage = (props: ErrorMessageProps) => {
     const { className, children } = props;
 
     return (
@@ -18,4 +18,6 @@ export const ErrorMessage = memo((props: ErrorMessageProps) => {
             {children}
         </span>
     );
-});
+};
+
+ErrorMessage.displayName = 'ErrorMessage';

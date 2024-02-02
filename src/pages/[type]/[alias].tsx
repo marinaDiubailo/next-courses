@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, GetStaticProps, GetStaticPaths } from 'next';
+import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import axios from 'axios';
 import { withLayout } from '@/app/layouts/MainLayout';
@@ -24,11 +25,23 @@ function TopPage(props: TopPageProps) {
     }
 
     return (
-        <TopPageComponent
-            firstCategory={firstCategory}
-            page={page}
-            products={products}
-        />
+        <>
+            <Head>
+                <title>{page.metaTitle}</title>
+                <meta name="description" content={page.metaDescription} />
+                <meta property="og:title" content={page.metaTitle} />
+                <meta
+                    property="og:description"
+                    content={page.metaDescription}
+                />
+                <meta property="og:type" content="article" />
+            </Head>
+            <TopPageComponent
+                firstCategory={firstCategory}
+                page={page}
+                products={products}
+            />
+        </>
     );
 }
 

@@ -25,3 +25,5 @@ export const Card = forwardRef(
         );
     },
 );
+
+Card.displayName = 'Card';

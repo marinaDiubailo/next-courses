@@ -22,3 +22,5 @@ export const Footer = memo((props: FooterProps) => {
         </footer>
     );
 });
+
+Footer.displayName = 'Footer';

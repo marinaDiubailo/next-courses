@@ -2,8 +2,16 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "next"
+    ],
     "rules": {
         "semi": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error",
         "@typescript-eslint/semi": ["warn"],
         "@typescript-eslint/no-empty-interface": [
             "error",
@@ -11,11 +19,5 @@
                 "allowSingleExtends": true
             }
         ]
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:react-hooks/recommended"
-    ]
+    }
 }

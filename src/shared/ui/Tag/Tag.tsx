@@ -1,4 +1,4 @@
-import { HTMLAttributes, memo, ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Tag.module.scss';
 
@@ -26,7 +26,7 @@ interface TagProps extends HTMLAttributes<HTMLDivElement> {
     href?: string;
 }
 
-export const Tag = memo((props: TagProps) => {
+export const Tag = (props: TagProps) => {
     const { className, children, size = 's', color = 'primary', href } = props;
 
     const additionalClasses = [
@@ -37,7 +37,7 @@ export const Tag = memo((props: TagProps) => {
 
     return (
         <div className={classNames(cls.tag, {}, additionalClasses)}>
-            {href ? <a href={href} children></a> : children}
+            {href ? <a href={href}>{children}</a> : <>{children}</>}
         </div>
     );
-});
+};

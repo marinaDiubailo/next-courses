@@ -1,8 +1,8 @@
 import { TextareaHTMLAttributes, forwardRef, ForwardedRef } from 'react';
 import { FieldError } from 'react-hook-form';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Textarea.module.scss';
 import { ErrorMessage } from '../ErrorMessage';
+import cls from './Textarea.module.scss';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     className?: string;
@@ -10,10 +10,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export const Textarea = forwardRef(
-    (
-        props: TextareaProps,
-        ref: ForwardedRef<HTMLTextAreaElement>,
-    ): JSX.Element => {
+    (props: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>) => {
         const { className, error, ...otherProps } = props;
 
         return (
@@ -32,3 +29,5 @@ export const Textarea = forwardRef(
         );
     },
 );
+
+Textarea.displayName = 'Textarea';

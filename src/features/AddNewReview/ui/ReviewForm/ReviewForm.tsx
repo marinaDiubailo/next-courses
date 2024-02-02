@@ -135,7 +135,10 @@ export const ReviewForm = (props: ReviewFormProps) => {
                 </div>
             </div>
             {isSuccess && (
-                <div className={classNames(cls.panel, {}, [cls.success])}>
+                <div
+                    className={classNames(cls.panel, {}, [cls.success])}
+                    role="alert"
+                >
                     <span className={cls['success-title']}>
                         Ваш отзыв отправлен.
                     </span>
@@ -148,14 +151,16 @@ export const ReviewForm = (props: ReviewFormProps) => {
                         onClick={() => setIsSuccess(false)}
                         aria-label="Закрыть оповещение"
                     >
-                        {' '}
                         <CloseIcon />
                     </button>
                 </div>
             )}
 
             {error && (
-                <div className={classNames(cls.panel, {}, [cls.error])}>
+                <div
+                    className={classNames(cls.panel, {}, [cls.error])}
+                    role="alert"
+                >
                     {error}
                     <button
                         type="button"

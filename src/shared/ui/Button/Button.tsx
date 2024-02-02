@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, memo, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Button.module.scss';
@@ -10,13 +10,13 @@ interface ButtonProps
     > {
     className?: string;
     children: ReactNode;
-    variant?: 'primary' | 'ghost';
+    variant?: 'primary' | 'ghost' | 'primary-inverted';
     addon?: ReactNode;
     small?: boolean;
     addonDown?: boolean;
 }
 
-export const Button = memo((props: ButtonProps): JSX.Element => {
+export const Button = (props: ButtonProps) => {
     const {
         className,
         children,
@@ -50,4 +50,6 @@ export const Button = memo((props: ButtonProps): JSX.Element => {
             )}
         </motion.button>
     );
-});
+};
+
+Button.displayName = 'Button';

@@ -16,3 +16,5 @@ export const Devider = memo((props: DeviderProps): JSX.Element => {
         />
     );
 });
+
+Devider.displayName = 'Devider';

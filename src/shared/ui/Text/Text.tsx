@@ -25,3 +25,5 @@ export const Text = memo((props: TextProps): JSX.Element => {
         <p className={classNames('', {}, [className, sizeClass])}>{children}</p>
     );
 });
+
+Text.displayName = 'Text';

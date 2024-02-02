@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import SortIcon from '@/shared/assets/icons/sort.svg';
 import { Icon } from '@/shared/ui/Icon';
@@ -11,40 +10,43 @@ interface ProductsSortProps {
     setSort: (sort: Sort) => void;
 }
 
-export const ProductsSort = memo((props: ProductsSortProps): JSX.Element => {
+export const ProductsSort = (props: ProductsSortProps) => {
     const { className, sort, setSort } = props;
 
     return (
-        <div className={classNames(cls.sort, {}, [className])}>
-            <div id="sort" className={cls['sort-name']}>
-                Сортировка
-            </div>
-            <button
-                id="rating"
-                title="Сортировка по рейтингу"
-                onClick={() => setSort(Sort.Rating)}
-                className={classNames('', {
-                    [cls.active]: sort === Sort.Rating,
-                })}
+        <ul
+            className={classNames(cls.sort, {}, [className])}
+            aria-label="Сортировка"
+        >
+            <li
                 aria-selected={sort === Sort.Rating}
-                aria-labelledby="sort rating"
+                title="Сортировка по рейтингу"
             >
-                <Icon Svg={SortIcon} className={cls.icon} />
-                По рейтингу
-            </button>
-            <button
-                id="price"
-                title="Сортировка по цене"
-                onClick={() => setSort(Sort.Price)}
-                className={classNames('', {
-                    [cls.active]: sort === Sort.Price,
-                })}
-                aria-selected={sort === Sort.Price}
-                aria-labelledby="sort price"
-            >
-                <Icon Svg={SortIcon} className={cls.icon} />
-                По цене
-            </button>
-        </div>
+                <button
+                    aria-label="Сортировка по рейтингу"
+                    onClick={() => setSort(Sort.Rating)}
+                    className={classNames('', {
+                        [cls.active]: sort === Sort.Rating,
+                    })}
+                >
+                    <Icon Svg={SortIcon} className={cls.icon} />
+                    По рейтингу
+                </button>
+            </li>
+            <li aria-selected={sort === Sort.Price} title="Сортировка по цене">
+                <button
+                    aria-label="Сортировка по цене"
+                    onClick={() => setSort(Sort.Price)}
+                    className={classNames('', {
+                        [cls.active]: sort === Sort.Price,
+                    })}
+                >
+                    <Icon Svg={SortIcon} className={cls.icon} />
+                    По цене
+                </button>
+            </li>
+        </ul>
     );
-});
+};
+
+ProductsSort.displayName = 'ProductsSort';

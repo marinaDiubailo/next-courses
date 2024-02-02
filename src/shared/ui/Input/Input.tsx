@@ -1,8 +1,8 @@
 import { InputHTMLAttributes, forwardRef, ForwardedRef } from 'react';
 import { FieldError } from 'react-hook-form';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Input.module.scss';
 import { ErrorMessage } from '../ErrorMessage';
+import cls from './Input.module.scss';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string;
@@ -10,7 +10,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef(
-    (props: InputProps, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
+    (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
         const { className, error, ...otherProps } = props;
 
         return (
@@ -27,3 +27,5 @@ export const Input = forwardRef(
         );
     },
 );
+
+Input.displayName = 'Input';

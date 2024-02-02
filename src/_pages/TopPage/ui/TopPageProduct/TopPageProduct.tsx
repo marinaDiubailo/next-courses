@@ -78,3 +78,5 @@ export const TopPageProduct = motion(
         },
     ),
 );
+
+TopPageProduct.displayName = 'TopPageProduct';

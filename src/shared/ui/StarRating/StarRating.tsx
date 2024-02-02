@@ -39,10 +39,6 @@ export const StarRating = forwardRef(
         );
         const ratingArrayRef = useRef<(HTMLSpanElement | null)[]>([]);
 
-        useEffect(() => {
-            constructRating(selectedStars);
-        }, [selectedStars, tabIndex]);
-
         const computeFocus = (rating: number, index: number): number => {
             if (!isEditable) {
                 return -1;
@@ -95,6 +91,7 @@ export const StarRating = forwardRef(
                 (element: JSX.Element, index: number) => {
                     return (
                         <span
+                            key={index}
                             className={classNames(cls.star, {
                                 [cls.filled]: index < starsCount,
                                 [cls.editable]: isEditable,
@@ -128,6 +125,10 @@ export const StarRating = forwardRef(
             setRatingArray(updatedArray);
         };
 
+        useEffect(() => {
+            constructRating(selectedStars);
+        }, [selectedStars, tabIndex]);
+
         return (
             <div
                 className={classNames(
@@ -147,3 +148,5 @@ export const StarRating = forwardRef(
         );
     },
 );
+
+StarRating.displayName = 'StarRating';

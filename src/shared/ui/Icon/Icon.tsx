@@ -55,3 +55,5 @@ export const Icon = (props: IconProps) => {
 
     return icon;
 };
+
+Icon.displayName = 'Icon';

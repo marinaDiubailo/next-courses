@@ -21,3 +21,5 @@ export const Sidebar = memo((props: SidebarProps) => {
         </aside>
     );
 });
+
+Sidebar.displayName = 'Sidebar';

@@ -28,3 +28,5 @@ export const HTag = memo((props: HTagProps): JSX.Element => {
         </HeaderTag>
     );
 });
+
+HTag.displayName = 'HTag';

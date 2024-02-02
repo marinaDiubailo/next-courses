@@ -5,6 +5,7 @@ import { Input } from '@/shared/ui/Input';
 import { Icon } from '@/shared/ui/Icon';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import cls from './ProductsSearch.module.scss';
+import { Button } from '@/shared/ui/Button';
 
 interface ProductsSearchProps {
     className?: string;
@@ -41,13 +42,16 @@ export const ProductsSearch = (props: ProductsSearchProps) => {
                 onChange={(event) => setSearch(event.target.value)}
                 onKeyDown={keyDownHandler}
             />
-            <Icon
-                Svg={SearchIcon}
+            <Button
                 className={cls.button}
-                clickable
                 onClick={navigateToSearchPage}
                 aria-label="Искать по сайту"
-            />
+                small
+            >
+                <Icon Svg={SearchIcon} />
+            </Button>
         </form>
     );
 };
+
+ProductsSearch.displayName = 'ProductSearch';

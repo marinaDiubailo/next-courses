@@ -1,5 +1,4 @@
 /* eslint-disable no-constant-condition */
-import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import RateIcon from '../../assets/icons/rate.svg';
 import cls from './SalaryRating.module.scss';
@@ -12,7 +11,7 @@ interface SalaryRatingProps {
     level?: SalaryLevel;
 }
 
-export const SalaryRating = memo((props: SalaryRatingProps): JSX.Element => {
+export const SalaryRating = (props: SalaryRatingProps) => {
     const { className, level = '1' } = props;
 
     return (
@@ -32,4 +31,6 @@ export const SalaryRating = memo((props: SalaryRatingProps): JSX.Element => {
             />
         </div>
     );
-});
+};
+
+SalaryRating.displayName = 'SalaryRating';

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ProductsSearch } from '@/features/ProductsSearch';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import AppLogo from '@/shared/assets/icons/logo.svg';
 import BurgerIcon from '@/shared/assets/icons/menuBurger.svg';
 import CloseIcon from '@/shared/assets/icons/menuClose.svg';
 import { Icon } from '@/shared/ui/Icon';
-import cls from './Header.module.scss';
-import { ProductsSearch } from '@/features/ProductsSearch';
 import { Menu } from '@/entities/Menu';
-import { motion, useReducedMotion } from 'framer-motion';
+import { Button } from '@/shared/ui/Button';
+import cls from './Header.module.scss';
 
 interface HeaderProps {
     className?: string;
@@ -41,13 +42,16 @@ export const Header = (props: HeaderProps) => {
     return (
         <header className={classNames(cls.header, {}, [className])}>
             <Icon Svg={AppLogo} />
-            <Icon
-                className={cls.burger}
-                Svg={BurgerIcon}
-                variant="secondary"
-                clickable
+            <Button
+                small
+                variant="primary-inverted"
                 onClick={() => setIsOpened(true)}
-            />
+                title="Открыть основное меню"
+                aria-label="Открыть основное меню"
+            >
+                <Icon Svg={BurgerIcon} variant="secondary" />
+            </Button>
+
             <motion.div
                 className={cls.mobile}
                 variants={variants}
@@ -55,16 +59,22 @@ export const Header = (props: HeaderProps) => {
                 animate={isOpened ? 'opened' : 'closed'}
             >
                 <Icon Svg={AppLogo} />
-                <Icon
+                <Button
                     className={cls.close}
-                    Svg={CloseIcon}
-                    variant="secondary"
-                    clickable
+                    small
+                    variant="primary-inverted"
                     onClick={() => setIsOpened(false)}
-                />
+                    aria-label="Закрыть основное меню"
+                    title="Закрыть основное меню"
+                >
+                    <Icon Svg={CloseIcon} variant="secondary" />
+                </Button>
+
                 <ProductsSearch className={cls.search} />
                 <Menu className={cls.menu} />
             </motion.div>
         </header>
     );
 };
+
+Header.displayName = 'Header';
