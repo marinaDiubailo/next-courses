@@ -9,7 +9,7 @@ interface HomeProps extends Record<string, unknown> {
     firstCategory: number;
 }
 
-function Home(props: HomeProps): JSX.Element {
+function Home(props: HomeProps) {
     const { menu } = props;
 
     return (

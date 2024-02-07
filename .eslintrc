@@ -11,7 +11,8 @@
     "rules": {
         "semi": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "error",
+        "react-hooks/exhaustive-deps": "off",
+        "react/display-name": "warn",
         "@typescript-eslint/semi": ["warn"],
         "@typescript-eslint/no-empty-interface": [
             "error",
