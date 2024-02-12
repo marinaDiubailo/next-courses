@@ -9,6 +9,7 @@ import { ProductModel } from '@/shared/types/product';
 import { firstLevelMenu } from '@/shared/consts/firstLevelMenu';
 import { TopPageComponent } from '@/_pages/TopPage';
 import { API } from '@/shared/api/api';
+import { Error404 } from '../404';
 
 interface TopPageProps extends Record<string, unknown> {
     menu: MenuItem[];
@@ -21,7 +22,7 @@ function TopPage(props: TopPageProps) {
     const { products, firstCategory, page } = props;
 
     if (!page || !products) {
-        return <div>Error</div>;
+        return <Error404 />;
     }
 
     return (

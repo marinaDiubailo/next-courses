@@ -1,6 +1,6 @@
 import { withLayout } from '@/app/layouts/MainLayout';
 
-export function Error404() {
+function Error500() {
     return (
         <div
             style={{
@@ -12,9 +12,9 @@ export function Error404() {
                 fontWeight: 'bold',
             }}
         >
-            404 | An error occured!
+            500 | An error occured!
         </div>
     );
 }
 
-export default withLayout(Error404);
+export default withLayout(Error500);
