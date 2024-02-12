@@ -9,17 +9,18 @@ interface HomeProps extends Record<string, unknown> {
     firstCategory: number;
 }
 
-function Home(props: HomeProps) {
-    const { menu } = props;
-
+function Home() {
     return (
-        <>
-            <ul>
-                {menu.map((m) => (
-                    <li key={m._id.secondCategory}>{m._id.secondCategory}</li>
-                ))}
-            </ul>
-        </>
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+            }}
+        >
+            Подборка лучших курсов и рейтинги, основанные на реальных отзывах.
+        </div>
     );
 }
 

@@ -21,6 +21,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
                     content={process.env.NEXT_PUBLIC_DOMAIN + router.asPath}
                 />
                 <meta property="og:locale" content="ru_Ru" />
+                <meta name="description" content="Подборка курсов"></meta>
             </Head>
             <YMInitializer
                 accounts={[]}

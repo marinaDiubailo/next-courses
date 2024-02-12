@@ -11,10 +11,19 @@ interface TypeProps extends Record<string, unknown> {
     firstCategory: number;
 }
 
-function Type(props: TypeProps) {
-    const { firstCategory } = props;
-
-    return <>Type : {firstCategory}</>;
+function Type() {
+    return (
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+            }}
+        >
+            Курсы OWL Top
+        </div>
+    );
 }
 
 export default withLayout(Type);

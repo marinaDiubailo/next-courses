@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ProductsSearch } from '@/features/ProductsSearch';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -41,7 +42,9 @@ export const Header = (props: HeaderProps) => {
 
     return (
         <header className={classNames(cls.header, {}, [className])}>
-            <Icon Svg={AppLogo} />
+            <Link href="/">
+                <Icon Svg={AppLogo} />
+            </Link>
             <Button
                 small
                 variant="primary-inverted"
@@ -58,7 +61,9 @@ export const Header = (props: HeaderProps) => {
                 initial={'closed'}
                 animate={isOpened ? 'opened' : 'closed'}
             >
-                <Icon Svg={AppLogo} />
+                <Link href="/">
+                    <Icon Svg={AppLogo} />
+                </Link>
                 <Button
                     className={cls.close}
                     small

@@ -30,6 +30,7 @@ export const UpButton = (props: UpButtonProps) => {
     return (
         <motion.div animate={controls} initial={{ opacity: 0 }}>
             <Icon
+                label="Наверх"
                 Svg={UpIcon}
                 className={classNames(cls.up, {}, [className])}
                 clickable

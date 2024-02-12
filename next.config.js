@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
-import withSvgr from 'next-plugin-svgr';
+const withSvgr = require('next-plugin-svgr');
 
 const nextConfig = withSvgr({
     images: {

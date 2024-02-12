@@ -7,6 +7,7 @@ type ClicableIconVatiant = 'primary' | 'secondary';
 interface IconBaseProps extends SvgProps {
     className?: string;
     variant?: ClicableIconVatiant;
+    label?: string;
     Svg: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
 }
 
@@ -16,6 +17,7 @@ interface NonClickableIconProps extends IconBaseProps {
 
 interface ClickableIconProps extends IconBaseProps {
     clickable: true;
+
     onClick: () => void;
 }
 
@@ -26,6 +28,7 @@ export const Icon = (props: IconProps) => {
         className,
         Svg,
         clickable,
+        label,
         variant = 'primary',
         ...otherProps
     } = props;
@@ -41,6 +44,7 @@ export const Icon = (props: IconProps) => {
     if (clickable) {
         return (
             <button
+                aria-label={label}
                 type="button"
                 className={classNames(cls.button, {}, [
                     className,
