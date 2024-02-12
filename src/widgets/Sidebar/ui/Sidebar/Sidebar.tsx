@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import Link from 'next/link';
 import { ProductsSearch } from '@/features/ProductsSearch';
 import { Menu } from '@/entities/Menu';
 import { classNames } from '@/shared/lib/classNames/classNames';
@@ -10,16 +10,18 @@ interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar = memo((props: SidebarProps) => {
+export const Sidebar = (props: SidebarProps) => {
     const { className } = props;
 
     return (
         <aside className={classNames(cls.sidebar, {}, [className])}>
-            <Icon Svg={AppLogo} />
+            <Link href="/">
+                <Icon Svg={AppLogo} />
+            </Link>
             <ProductsSearch />
             <Menu />
         </aside>
     );
-});
+};
 
 Sidebar.displayName = 'Sidebar';
