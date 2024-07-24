@@ -4,13 +4,13 @@
 const withSvgr = require('next-plugin-svgr');
 
 const nextConfig = withSvgr({
-    images: {
-        remotePatterns: [{ protocol: 'https', hostname: 'courses-top.ru' }],
-    },
-    reactStrictMode: true,
-    webpack(config) {
-        return config;
-    },
+  // images: {
+  //   remotePatterns: [{ hostname: 'old-images.hb.ru-msk.vkcs.cloud' }],
+  // },
+  reactStrictMode: true,
+  webpack(config) {
+    return config;
+  },
 });
 
 module.exports = nextConfig;
