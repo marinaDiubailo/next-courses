@@ -3,15 +3,18 @@
 }
 
 .textarea {
+  resize: none;
+
   width: 100%;
   min-height: 76px;
   padding: 7px 15px;
-  border-radius: var(--radius);
-  background: var(--color-bg-input);
-  box-shadow: var(--shadow);
+
   line-height: 22px;
+
+  background: var(--color-bg-input);
+  border-radius: var(--radius);
   outline-color: var(--primary-accent);
-  resize: none;
+  box-shadow: var(--shadow);
 
   &::placeholder {
     color: var(--grey-input);
