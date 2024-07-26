@@ -1,62 +1,83 @@
 .first-level-list {
-    padding: 0;
+  padding: 0;
 }
 
 .first-level {
-    display: grid;
-    align-items: center;
-    color: var(--grey-dark);
-    font-size: 18px;
-    font-weight: 500;
-    gap: 20px;
-    grid-template-columns: 24px 1fr;
-    line-height: 25px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 20px;
+  align-items: center;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25px;
+  color: var(--grey-dark);
+
+  border: 1px solid green;
+
+  & svg {
+    fill: var(--grey-dark);
+  }
+
+  &:hover,
+  .active {
+    color: var(--primary-accent);
 
     & svg {
-        fill: var(--grey-dark);
+      fill: var(--primary-accent);
     }
-
-    &:hover,
-    .active {
-        color: var(--primary-accent);
-
-        & svg {
-            fill: var(--primary-accent);
-        }
-    }
+  }
 }
 
 .second-level {
-    margin-bottom: 10px;
-    color: var(--grey-dark);
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 300;
-    text-transform: uppercase;
+  cursor: pointer;
+
+  margin-bottom: 0.5rem;
+
+  // font-size: 12px;
+  // font-weight: 400;
+  // color: var(--color-text-secondary);
+  // text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  color: var(--color-text-secondary);
 }
 
 .second-level-list {
-    padding-left: 32px;
-    border-left: 1px solid var(--grey-border);
-    margin-top: 15px;
-    margin-left: 12px;
+  position: relative;
+
+  // margin-top: 15px;
+
+  // margin-left: 12px;
+  padding-left: 8px;
+
+  // border-left: 1px solid var(--color-devider);
 }
 
 .second-level-block {
-    overflow: hidden;
+  overflow: hidden;
+
+  // background-color: var(--color-light);
+  // border-radius: var(--radius);
+  border-left: 1px solid var(--color-devider);
 }
 
 .third-level {
-    display: block;
-    margin-bottom: 10px;
-    color: var(--grey-dark);
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    outline-offset: -1px;
+  cursor: pointer;
 
-    &:hover,
-    &.active {
-        color: var(--primary-accent);
-    }
+  display: block;
+
+  margin: 0 0 0.5rem 1rem;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+
+  outline-offset: -1px;
+
+  &:hover,
+  &.active {
+    color: var(--color-text-accent);
+  }
 }

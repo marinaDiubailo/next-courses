@@ -1,32 +1,30 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
-import { useContext, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
-import { AppContext } from '@/app/providers/context/store';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import { PageItem } from '@/shared/types/menu';
-import { firstLevelMenu } from '@/shared/consts/firstLevelMenu';
-import { FirstLevelMenuItem } from '@/shared/types/menu';
-import cls from './Menu.module.scss';
+import { useContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { motion, useReducedMotion } from 'framer-motion'
+import { AppContext } from '@/app/providers/context/store'
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { PageItem } from '@/shared/types/menu'
+import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
+import { FirstLevelMenuItem } from '@/shared/types/menu'
+import cls from './Menu.module.scss'
 
 interface MenuProps {
-  className?: string;
+  className?: string
 }
 
 export const Menu = (props: MenuProps) => {
-  const { className } = props;
+  const { className } = props
 
-  const [announce, setAnnounce] = useState<'closed' | 'opened' | undefined>(
-    undefined,
-  );
-  const { menu, firstCategory, setMenu } = useContext(AppContext);
-  const router = useRouter();
-  const shouldReduceMotion = useReducedMotion();
+  const [announce, setAnnounce] = useState<'closed' | 'opened' | undefined>(undefined)
+  const { menu, firstCategory, setMenu } = useContext(AppContext)
+  const router = useRouter()
+  const shouldReduceMotion = useReducedMotion()
 
   const variants = {
     visible: {
-      marginBottom: 20,
+      //marginBottom: 0,
       transition: shouldReduceMotion
         ? {}
         : {
@@ -34,10 +32,10 @@ export const Menu = (props: MenuProps) => {
             staggerChildren: 0.1,
           },
     },
-    hidden: {
-      marginBottom: 0,
-    },
-  };
+    // hidden: {
+    //   //marginBottom: 0,
+    // },
+  }
 
   const variantsChildren = {
     visible: {
@@ -48,58 +46,54 @@ export const Menu = (props: MenuProps) => {
       opacity: shouldReduceMotion ? 1 : 0,
       height: 0,
     },
-  };
+  }
 
   const openSecondLevel = (secondCategory: string) => {
     setMenu &&
       setMenu(
-        menu.map((menuItem) => {
+        menu.map(menuItem => {
           if (menuItem._id.secondCategory === secondCategory) {
-            setAnnounce(menuItem.isOpened ? 'closed' : 'opened');
-            menuItem.isOpened = !menuItem.isOpened;
+            setAnnounce(menuItem.isOpened ? 'closed' : 'opened')
+            menuItem.isOpened = !menuItem.isOpened
           }
-          return menuItem;
-        }),
-      );
-  };
+          return menuItem
+        })
+      )
+  }
 
-  const buildFirstLevel = () => {
-    return (
-      <ul className={cls['first-level-list']}>
-        {firstLevelMenu.map((category) => {
-          const isActive = category.id === firstCategory;
-          return (
-            <li key={category.id} aria-expanded={isActive}>
-              <Link href={`/${category.route}`}>
-                {
-                  <div
-                    className={classNames(cls['first-level'], {
-                      [cls.active]: isActive,
-                    })}
-                  >
-                    {category.icon}
-                    <span>{category.name}</span>
-                  </div>
-                }
-              </Link>
-              {isActive && buildSecondLevel(category)}
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
+  // const buildFirstLevel = () => {
+  //   return (
+  //     <ul className={cls['first-level-list']}>
+  //       {firstLevelMenu.map(category => {
+  //         const isActive = category.id === firstCategory
+  //         return (
+  //           <li key={category.id} aria-expanded={isActive}>
+  //             <Link href={`/${category.route}`}>
+  //               {
+  //                 <div
+  //                   className={classNames(cls['first-level'], {
+  //                     [cls.active]: isActive,
+  //                   })}
+  //                 >
+  //                   {category.icon}
+  //                   <span>{category.name}</span>
+  //                 </div>
+  //               }
+  //             </Link>
+  //             {isActive && buildSecondLevel(category)}
+  //           </li>
+  //         )
+  //       })}
+  //     </ul>
+  //   )
+  // }
 
   const buildSecondLevel = (category: FirstLevelMenuItem) => {
     return (
       <ul className={cls['second-level-list']}>
-        {menu.map((menuItem) => {
-          if (
-            menuItem.pages
-              .map((page) => page.alias)
-              .includes(router.asPath.split('/')[2])
-          ) {
-            menuItem.isOpened = true;
+        {menu.map(menuItem => {
+          if (menuItem.pages.map(page => page.alias).includes(router.asPath.split('/')[2])) {
+            menuItem.isOpened = true
           }
           return (
             <li key={menuItem._id.secondCategory}>
@@ -118,26 +112,18 @@ export const Menu = (props: MenuProps) => {
                 animate={menuItem.isOpened ? 'visible' : 'hidden'}
                 className={cls['second-level-block']}
               >
-                {buildThirdLevel(
-                  menuItem.pages,
-                  category.route,
-                  menuItem.isOpened ?? false,
-                )}
+                {buildThirdLevel(menuItem.pages, category.route, menuItem.isOpened ?? false)}
               </motion.ul>
             </li>
-          );
+          )
         })}
       </ul>
-    );
-  };
+    )
+  }
 
-  const buildThirdLevel = (
-    pages: PageItem[],
-    route: string,
-    isOpened: boolean,
-  ) => {
-    return pages.map((page) => {
-      const currentPath = `/${route}/${page.alias}`;
+  const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
+    return pages.map(page => {
+      const currentPath = `/${route}/${page.alias}`
       return (
         <motion.li
           key={page._id}
@@ -154,9 +140,9 @@ export const Menu = (props: MenuProps) => {
             {page.category}
           </Link>
         </motion.li>
-      );
-    });
-  };
+      )
+    })
+  }
 
   return (
     <nav role="navigation" className={classNames('', {}, [className])}>
@@ -165,7 +151,7 @@ export const Menu = (props: MenuProps) => {
           {announce === 'opened' ? 'развернуто' : 'свернуто'}
         </span>
       )}
-      {buildFirstLevel()}
+      {buildSecondLevel(firstLevelMenu[0])}
     </nav>
-  );
-};
+  )
+}

@@ -1,10 +1,10 @@
 .rate {
-    display: grid;
-    justify-content: center;
-    gap: 10px;
-    grid-template-columns: repeat(3, 20px);
+  display: grid;
+  grid-template-columns: repeat(3, 20px);
+  gap: 10px;
+  justify-content: center;
 }
 
 .filled {
-    fill: var(--orange);
+  fill: var(--color-orange-500);
 }

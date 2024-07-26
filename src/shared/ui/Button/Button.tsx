@@ -1,55 +1,37 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { classNames, Mods } from '@/shared/lib/classNames/classNames';
-import cls from './Button.module.scss';
+import type { ComponentProps, ReactNode, FC } from 'react';
+import clsx from 'clsx';
 
-interface ButtonProps
-    extends Omit<
-        ButtonHTMLAttributes<HTMLButtonElement>,
-        'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag' | 'ref'
-    > {
-    className?: string;
-    children: ReactNode;
-    variant?: 'primary' | 'ghost' | 'primary-inverted';
-    addon?: ReactNode;
-    small?: boolean;
-    addonDown?: boolean;
-}
+import s from './Button.module.scss';
 
-export const Button = (props: ButtonProps) => {
-    const {
-        className,
-        children,
-        addon,
-        small = false,
-        variant = 'primary',
-        addonDown = false,
-        ...otherProps
-    } = props;
+type ButtonProps = {
+  variant?: 'primary' | 'ghost' | 'icon';
+  addon?: ReactNode;
+  addonDown?: boolean;
+  small?: boolean;
+} & ComponentProps<'button'>;
 
-    const mods: Mods = {
-        [cls['with-addon']]: Boolean(addon),
-        [cls.small]: small,
-    };
+export const Button: FC<ButtonProps> = (props) => {
+  const {
+    className,
+    children,
+    addon,
+    small = false,
+    variant = 'primary',
+    addonDown = false,
+    ...rest
+  } = props;
 
-    return (
-        <motion.button
-            whileHover={{ scale: 1.05 }}
-            className={classNames(cls.button, mods, [className, cls[variant]])}
-            {...otherProps}
-        >
-            {children}
-            {addon && (
-                <div
-                    className={classNames(cls.addon, {
-                        [cls['down']]: addonDown,
-                    })}
-                >
-                    {addon}
-                </div>
-            )}
-        </motion.button>
-    );
+  const classNames = {
+    button: clsx(s.button, className, s[variant], small && s.small),
+    addon: clsx(s.addon, addonDown && s.down),
+  };
+
+  return (
+    <button className={classNames.button} {...rest}>
+      {children}
+      {addon && <div className={classNames.addon}>{addon}</div>}
+    </button>
+  );
 };
 
 Button.displayName = 'Button';

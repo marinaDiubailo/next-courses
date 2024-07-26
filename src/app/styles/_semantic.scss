@@ -1,0 +1,32 @@
+:root {
+  --color-accent: var(--color-cyan-600);
+  --color-accent-hover: var(--color-cyan-700);
+
+  /* text */
+  --color-text-primary: var(--color-neutral-950);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-inverted: var(--color-light);
+  --color-text-accent: var(--color-accent);
+  --color-input-placeholder: var(--color-neutral-500);
+
+  /* backgrounds */
+  --color-bg-primary: var(--color-neutral-100);
+  --color-bg-secondary: var(--color-light);
+  --color-bg-tertiary: var(--color-neutral-200);
+  --color-bg-input: var(--color-light);
+  --color-bg-footer: var(--color-cyan-700);
+  --color-devider: var(--color-neutral-300);
+
+  /* border */
+  --border-accent: 1px solid var(--color-accent);
+  --border-ghost: 1px solid var(--color-neutral-300);
+  --border-dotted: 1px dotted var(--color-neutral-400);
+
+  /* fonts */
+  --font-family: "Noto Sans Display", sans-serif;
+  --font-h1: 500 26px / 35px var(--font-family);
+  --font-h2: 500 22px / 30px var(--font-family);
+  --font-h3: 900 20px / 27px var(--font-family);
+  --shadow: 0 4px 4px 0 rgb(0 0 0 / 5%);
+  --transition: all 0.3s ease 0s;
+}

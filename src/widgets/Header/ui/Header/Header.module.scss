@@ -1,36 +1,39 @@
 /* stylelint-disable declaration-block-no-redundant-longhand-properties */
 .header {
-    display: none;
+  display: none;
 }
 
 .mobile {
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    padding: 15px;
-    background-color: var(--bg-main);
-    overflow-y: auto;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  overflow-y: auto;
+
+  height: 100%;
+  padding: 15px;
+
+  background-color: var(--color-bg-primary);
 }
 
 .close {
-    position: fixed;
-    top: 15px;
-    right: 15px;
+  position: fixed;
+  top: 15px;
+  right: 15px;
 }
 
 .search {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
-@media (max-width: 767px) {
-    .header {
-        display: grid;
-        padding: 15px;
-        gap: 20px;
-        grid-template-columns: 1fr 40px;
-    }
+@media (width <= 767px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    gap: 20px;
+    padding: 15px;
+  }
 }

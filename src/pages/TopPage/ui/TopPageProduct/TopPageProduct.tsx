@@ -60,7 +60,7 @@ export const TopPageProduct = motion(
         >
           <Card
             className={classNames(cls.reviews, mods)}
-            color="blue"
+            color="secondary"
             ref={reviewRef}
             tabIndex={isReviewOpened ? 0 : -1}
           >

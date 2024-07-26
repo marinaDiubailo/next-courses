@@ -6,52 +6,53 @@ import { Icon } from '@/shared/ui/Icon';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import cls from './ProductsSearch.module.scss';
 import { Button } from '@/shared/ui/Button';
+import { clsx } from 'clsx';
 
 interface ProductsSearchProps {
-    className?: string;
+  className?: string;
 }
 
 export const ProductsSearch = (props: ProductsSearchProps) => {
-    const { className, ...otherProps } = props;
-    const router = useRouter();
+  const { className, ...otherProps } = props;
+  const router = useRouter();
 
-    const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
 
-    const navigateToSearchPage = () => {
-        router.push({
-            pathname: '/search',
-            query: {
-                q: search,
-            },
-        });
-    };
+  const navigateToSearchPage = () => {
+    router.push({
+      pathname: '/search',
+      query: {
+        q: search,
+      },
+    });
+  };
 
-    const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') navigateToSearchPage();
-    };
+  const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') navigateToSearchPage();
+  };
 
-    return (
-        <form
-            role="search"
-            className={classNames(cls.search, {}, [className])}
-            {...otherProps}
-        >
-            <Input
-                placeholder="Поиск..."
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                onKeyDown={keyDownHandler}
-            />
-            <Button
-                className={cls.button}
-                onClick={navigateToSearchPage}
-                aria-label="Искать по сайту"
-                small
-            >
-                <Icon Svg={SearchIcon} />
-            </Button>
-        </form>
-    );
+  return (
+    <form
+      role="search"
+      className={classNames(cls.search, {}, [className])}
+      {...otherProps}
+    >
+      <Input
+        placeholder="Поиск..."
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+        onKeyDown={keyDownHandler}
+      />
+      {/* <Button
+        className={clsx(cls.button)}
+        onClick={navigateToSearchPage}
+        small
+        aria-label="Искать по сайту"
+      >
+        <Icon Svg={SearchIcon} />
+      </Button> */}
+    </form>
+  );
 };
 
 ProductsSearch.displayName = 'ProductSearch';

@@ -1,29 +1,29 @@
 .star-rating {
-    position: relative;
+  position: relative;
 }
 
 .editable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .star {
-    display: inline-block;
-    height: 28px;
-    color: #e2e2e2;
+  display: inline-block;
+  height: 28px;
+  color: var(--color-neutral-400);
 
-    svg {
-        fill: #e2e2e2;
-    }
+  svg {
+    fill: var(--color-neutral-400);
+  }
 }
 
 .filled {
-    color: var(--primary-accent);
+  color: var(--color-amber-500);
 
-    svg {
-        fill: var(--primary-accent);
-    }
+  svg {
+    fill: var(--color-amber-500);
+  }
 }
 
 .error svg {
-    color: var(--red);
+  color: var(--red);
 }

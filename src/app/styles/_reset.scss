@@ -1,52 +1,55 @@
 * {
-    padding: 0;
-    border: 0;
-    margin: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 input,
 button,
 textarea {
-    font: inherit;
+  font: inherit;
 }
 
 input::-ms-clear {
-    display: none;
+  display: none;
 }
 
 button {
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
+  cursor: pointer;
+
+  padding: 0;
+
+  color: inherit;
+
+  background: transparent;
+  border: none;
 }
 
 button::-moz-focus-inner {
-    padding: 0;
-    border: 0;
+  padding: 0;
+  border: 0;
 }
 
 a {
-    color: inherit;
+  color: inherit;
 }
 
 a,
 a:visited,
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 img {
-    vertical-align: top;
+  vertical-align: top;
 }

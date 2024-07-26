@@ -1,29 +1,31 @@
 .icon {
-    display: block;
+  display: block;
 }
 
 .button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius);
-    transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius);
+
+  transition: var(--transition);
 }
 
 .primary {
-    background-color: var(--primary-accent);
+  background-color: var(--color-accent);
 
-    &:hover {
-        background-color: var(--primary-accent-hover);
-    }
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
 }
 
 .secondary {
-    background-color: var(--white);
-    color: var(--primary-accent);
+  color: var(--color-text-accent);
+  background-color: var(--color-bg-secondary);
 
-    &:hover {
-        background-color: var(--primary-accent);
-        color: var(--white);
-    }
+  &:hover {
+    color: var(--color-light);
+    background-color: var(--color-accent);
+  }
 }

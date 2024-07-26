@@ -1,89 +1,67 @@
-%inverted {
-    background: var(--white);
-    color: var(--primary-accent);
-}
-
-%main {
-    background: var(--primary-accent);
-    color: var(--white);
-}
-
 .button {
-    display: inline-flex;
-    min-width: 148px;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border-radius: var(--radius);
-    font-size: 14px;
-    line-height: 1;
-    text-align: center;
-    transition: var(--transition);
+  all: unset;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 148px;
+  padding: 10px;
+
+  font-size: 14px;
+  line-height: 1;
+
+  border-radius: var(--radius);
+
+  transition: var(--transition);
 }
 
 .primary {
-    @extend %main;
+  color: var(--color-text-inverted);
+  background: var(--color-accent);
 
-    &:hover {
-        background: var(--primary-accent-hover);
-    }
-}
-
-.primary-inverted {
-    @extend %inverted;
-
-    width: 40px;
-    height: 40px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-
-    &:hover {
-        @extend %main;
-    }
-}
-
-.addon {
-    transition: var(--transition);
+  &:hover {
+    background: var(--color-accent-hover);
+  }
 }
 
 .ghost {
-    border: var(--border-ghost);
-    background: none;
-    color: var(--black);
+  color: var(--color-text-primary);
+  background: none;
+  border: var(--border-ghost);
 
-    &:hover {
-        @extend %main;
-
-        svg {
-            fill: var(--white);
-        }
-    }
+  &:hover {
+    border-color: var(--color-accent);
+  }
 }
 
-.with-addon {
-    gap: 10px;
+.icon {
+  width: 40px;
+  min-width: auto;
+  height: 40px;
+  padding: 0;
+
+  color: var(--color-text-accent);
+
+  background: var(--color-bg-secondary);
+  box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
+
+  &:hover {
+    color: var(--color-text-inverted);
+    background: var(--color-accent);
+  }
+}
+
+.addon {
+  transition: var(--transition);
 }
 
 .down {
-    transform: rotate(90deg);
-    transition: var(--transition);
+  transform: rotate(90deg);
+  transition: var(--transition);
 }
 
 .small {
-    min-width: auto;
-    padding: 0;
+  min-width: unset;
 }
-
-/*
-svg {
-            fill: var(--white);
-        }
-
-*/
-
-/*
-
-    &:hover {
-        background: var(--primary-accent);
-        color: var(--white);
-    }
-*/

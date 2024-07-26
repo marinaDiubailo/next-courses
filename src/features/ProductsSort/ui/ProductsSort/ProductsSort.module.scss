@@ -1,36 +1,37 @@
 .sort {
-    display: inline-block;
+  display: inline-block;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 40px;
+
+  & button {
+    cursor: pointer;
+
     display: grid;
-    gap: 40px;
-    grid-template-columns: auto auto;
+    grid-template-columns: 20px 1fr;
+    gap: 8px;
+    align-items: center;
 
-    & button {
-        display: grid;
-        align-items: center;
-        cursor: pointer;
-        gap: 8px;
-        grid-template-columns: 20px 1fr;
-
-        &:not(.active) {
-            grid-template-columns: 1fr;
-        }
+    &:not(.active) {
+      grid-template-columns: 1fr;
     }
+  }
 }
 
 .icon {
-    display: none;
+  display: none;
 }
 
 .active {
-    color: var(--primary-accent);
-    font-weight: bold;
+  font-weight: bold;
+  color: var(--color-accent);
 
-    & .icon {
-        display: block;
-        margin-right: 8px;
-    }
+  & .icon {
+    display: block;
+    margin-right: 8px;
+  }
 }
 
 .sort-name {
-    display: none;
+  display: none;
 }
