@@ -118,7 +118,7 @@ export const ProductCard: React.FC<Props> = props => {
       </div>
       <Devider className={clsx(s.hr, s.hr2)} />
       <div className={s.actions}>
-        <Button as={'a'} href={product.link} target={'_blank'}>
+        <Button as={'a'} href={product.link} rel={'noopener noreferrer'} target={'_blank'}>
           Узнать подробнее
         </Button>
         <Button
