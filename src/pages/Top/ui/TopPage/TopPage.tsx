@@ -1,14 +1,13 @@
-import { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 
 import { Sort } from '@/features/ProductsSort'
-import { classNames } from '@/shared/lib/classNames/classNames'
 import { TopLevelCategory, TopPageModel } from '@/shared/types/page'
 import { ProductModel } from '@/shared/types/product'
 import { HTag, ScrollArea, Tag } from '@/shared/ui'
 import clsx from 'clsx'
 import { useReducedMotion } from 'framer-motion'
 
-import cls from './TopPageComponent.module.scss'
+import cls from './TopPage.module.scss'
 
 import { sortReducer } from '../../model/services/sortReducer'
 import { TopPageAdvantages } from '../TopPageAdvantages/TopPageAdvantages'
@@ -16,14 +15,14 @@ import { TopPageHeader } from '../TopPageHeader/TopPageHeader'
 import { TopPageProduct } from '../TopPageProduct/TopPageProduct'
 import { TopPageVacancies } from '../TopPageVacancies/TopPageVacancies'
 
-interface TopPageComponentProps {
+interface TopPageProps {
   className?: string
   firstCategory: TopLevelCategory
   page: TopPageModel
   products: ProductModel[]
 }
 
-export const TopPageComponent = (props: TopPageComponentProps) => {
+export const TopPage: React.FC<TopPageProps> = props => {
   const { className, firstCategory, page, products } = props
   const isCourses = firstCategory === TopLevelCategory.Courses
   const shouldReduceMotion = useReducedMotion()
@@ -86,4 +85,4 @@ export const TopPageComponent = (props: TopPageComponentProps) => {
   )
 }
 
-TopPageComponent.displayName = 'TopPageComponent'
+TopPage.displayName = 'TopPage'

@@ -1,1 +1,1 @@
-export { TopPageComponent } from './ui/TopPageComponent/TopPageComponent'
+export { TopPage } from './ui/TopPage/TopPage'

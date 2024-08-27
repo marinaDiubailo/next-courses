@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'querystring'
 
 import { withLayout } from '@/app/layouts/MainLayout'
-import { TopPageComponent } from '@/pages/Top'
+import { TopPage } from '@/pages/Top'
 import { API } from '@/shared/consts/api'
 import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
 import { MenuItem } from '@/shared/types/menu'
@@ -13,14 +13,14 @@ import Head from 'next/head'
 
 import { Error404 } from '../404'
 
-interface TopPageProps extends Record<string, unknown> {
+interface PageProps extends Record<string, unknown> {
   firstCategory: TopLevelCategory
   menu: MenuItem[]
   page: TopPageModel
   products: ProductModel[]
 }
 
-function TopPage(props: TopPageProps) {
+function Page(props: PageProps) {
   const { firstCategory, page, products } = props
 
   if (!page || !products) {
@@ -36,12 +36,12 @@ function TopPage(props: TopPageProps) {
         <meta content={page.metaDescription} property={'og:description'} />
         <meta content={'article'} property={'og:type'} />
       </Head>
-      <TopPageComponent firstCategory={firstCategory} page={page} products={products} />
+      <TopPage firstCategory={firstCategory} page={page} products={products} />
     </>
   )
 }
 
-export default withLayout(TopPage)
+export default withLayout(Page)
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let paths: string[] = []
@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<TopPageProps> = async ({
+export const getStaticProps: GetStaticProps<PageProps> = async ({
   params,
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
   // { type } = params || {} // 2й вариант
