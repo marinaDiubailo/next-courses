@@ -1,22 +1,22 @@
-import { useState, KeyboardEvent } from 'react';
-import { useRouter } from 'next/router';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import { Input } from '@/shared/ui/Input';
-import { Icon } from '@/shared/ui/Icon';
-import SearchIcon from '@/shared/assets/icons/search.svg';
-import cls from './ProductsSearch.module.scss';
-import { Button } from '@/shared/ui/Button';
-import { clsx } from 'clsx';
+import { KeyboardEvent, useState } from 'react'
+
+import SearchIcon from '@/shared/assets/icons/search.svg'
+import { Button, Input } from '@/shared/ui'
+import { Icon } from '@/shared/ui/Icon'
+import { clsx } from 'clsx'
+import { useRouter } from 'next/router'
+
+import s from './ProductsSearch.module.scss'
 
 interface ProductsSearchProps {
-  className?: string;
+  className?: string
 }
 
 export const ProductsSearch = (props: ProductsSearchProps) => {
-  const { className, ...otherProps } = props;
-  const router = useRouter();
+  const { className, ...rest } = props
+  const router = useRouter()
 
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>('')
 
   const navigateToSearchPage = () => {
     router.push({
@@ -24,35 +24,33 @@ export const ProductsSearch = (props: ProductsSearchProps) => {
       query: {
         q: search,
       },
-    });
-  };
+    })
+  }
 
   const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') navigateToSearchPage();
-  };
+    if (event.key === 'Enter') {
+      navigateToSearchPage()
+    }
+  }
 
   return (
-    <form
-      role="search"
-      className={classNames(cls.search, {}, [className])}
-      {...otherProps}
-    >
+    <form className={clsx(s.search, className)} role={'search'} {...rest}>
       <Input
-        placeholder="Поиск..."
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
+        onChange={event => setSearch(event.target.value)}
         onKeyDown={keyDownHandler}
+        placeholder={'Поиск...'}
+        value={search}
       />
-      {/* <Button
-        className={clsx(cls.button)}
+      <Button
+        aria-label={'Искать по сайту'}
+        className={s.button}
         onClick={navigateToSearchPage}
         small
-        aria-label="Искать по сайту"
       >
         <Icon Svg={SearchIcon} />
-      </Button> */}
+      </Button>
     </form>
-  );
-};
+  )
+}
 
-ProductsSearch.displayName = 'ProductSearch';
+ProductsSearch.displayName = 'ProductSearch'

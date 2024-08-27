@@ -1,31 +1,25 @@
-import { InputHTMLAttributes, forwardRef, ForwardedRef } from 'react';
-import { FieldError } from 'react-hook-form';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import { ErrorMessage } from '../ErrorMessage';
-import cls from './Input.module.scss';
+import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react'
+import { FieldError } from 'react-hook-form'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    className?: string;
-    error?: FieldError;
-}
+import clsx from 'clsx'
 
-export const Input = forwardRef(
-    (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
-        const { className, error, ...otherProps } = props;
+import s from './Input.module.scss'
 
-        return (
-            <div className={classNames(cls['input-wrapper'], {}, [className])}>
-                <input
-                    ref={ref}
-                    className={classNames(cls.input, {
-                        [cls.error]: error?.message,
-                    })}
-                    {...otherProps}
-                />
-                {error && <ErrorMessage>{error.message}</ErrorMessage>}
-            </div>
-        );
-    },
-);
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage'
 
-Input.displayName = 'Input';
+export type InputProps = {
+  error?: FieldError
+} & ComponentPropsWithoutRef<'input'>
+
+export const Input = forwardRef<ElementRef<'input'>, InputProps>((props, ref) => {
+  const { className, error, ...rest } = props
+
+  return (
+    <div className={clsx(s.wrapper, className)}>
+      <input className={clsx(s.base, s.input, error?.message && s.error)} ref={ref} {...rest} />
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
+    </div>
+  )
+})
+
+Input.displayName = 'Input'

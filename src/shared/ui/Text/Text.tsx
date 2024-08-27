@@ -1,29 +1,19 @@
-import { memo, ReactNode } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Text.module.scss';
+import type { ComponentProps, FC } from 'react'
 
-export type TextSize = 's' | 'm' | 'l';
+import { clsx } from 'clsx'
 
-interface TextProps {
-    className?: string;
-    size?: TextSize;
-    children: ReactNode;
+import s from './Text.module.scss'
+
+export type TextProps = {
+  size?: 'l' | 'm' | 's'
+} & ComponentProps<'p'>
+
+export const Text: FC<TextProps> = props => {
+  const { children, className, size = 'm', ...rest } = props
+
+  return (
+    <p className={clsx(s[size], className)} {...rest}>
+      {children}
+    </p>
+  )
 }
-
-const mapSizeToClass: Record<TextSize, string> = {
-    s: cls['size-s'],
-    m: cls['size-m'],
-    l: cls['size-l'],
-};
-
-export const Text = memo((props: TextProps): JSX.Element => {
-    const { className, children, size = 'm' } = props;
-
-    const sizeClass = mapSizeToClass[size];
-
-    return (
-        <p className={classNames('', {}, [className, sizeClass])}>{children}</p>
-    );
-});
-
-Text.displayName = 'Text';

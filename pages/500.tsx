@@ -1,20 +1,20 @@
-import { withLayout } from '@/app/layouts/MainLayout';
+import { withLayout } from '@/app/layouts/MainLayout'
 
 function Error500() {
-    return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-                fontSize: '32px',
-                fontWeight: 'bold',
-            }}
-        >
-            500 | An error occured!
-        </div>
-    );
+  return (
+    <div
+      style={{
+        alignItems: 'center',
+        display: 'flex',
+        fontSize: '32px',
+        fontWeight: 'bold',
+        height: '100%',
+        justifyContent: 'center',
+      }}
+    >
+      500 | An error occured!
+    </div>
+  )
 }
 
-export default withLayout(Error500);
+export default withLayout(Error500)

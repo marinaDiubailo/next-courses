@@ -1,13 +1,13 @@
-/* eslint-disable jsx-a11y/role-supports-aria-props */
 import { useContext, useState } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+
 import { AppContext } from '@/app/providers/context/store'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { PageItem } from '@/shared/types/menu'
 import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
-import { FirstLevelMenuItem } from '@/shared/types/menu'
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { FirstLevelMenuItem, PageItem } from '@/shared/types/menu'
+import { motion, useReducedMotion } from 'framer-motion'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import cls from './Menu.module.scss'
 
 interface MenuProps {
@@ -18,7 +18,7 @@ export const Menu = (props: MenuProps) => {
   const { className } = props
 
   const [announce, setAnnounce] = useState<'closed' | 'opened' | undefined>(undefined)
-  const { menu, firstCategory, setMenu } = useContext(AppContext)
+  const { firstCategory, menu, setMenu } = useContext(AppContext)
   const router = useRouter()
   const shouldReduceMotion = useReducedMotion()
 
@@ -28,8 +28,8 @@ export const Menu = (props: MenuProps) => {
       transition: shouldReduceMotion
         ? {}
         : {
-            when: 'beforeChildren',
             staggerChildren: 0.1,
+            when: 'beforeChildren',
           },
     },
     // hidden: {
@@ -38,13 +38,13 @@ export const Menu = (props: MenuProps) => {
   }
 
   const variantsChildren = {
-    visible: {
-      opacity: 1,
-      height: 'auto',
-    },
     hidden: {
-      opacity: shouldReduceMotion ? 1 : 0,
       height: 0,
+      opacity: shouldReduceMotion ? 1 : 0,
+    },
+    visible: {
+      height: 'auto',
+      opacity: 1,
     },
   }
 
@@ -56,6 +56,7 @@ export const Menu = (props: MenuProps) => {
             setAnnounce(menuItem.isOpened ? 'closed' : 'opened')
             menuItem.isOpened = !menuItem.isOpened
           }
+
           return menuItem
         })
       )
@@ -95,22 +96,23 @@ export const Menu = (props: MenuProps) => {
           if (menuItem.pages.map(page => page.alias).includes(router.asPath.split('/')[2])) {
             menuItem.isOpened = true
           }
+
           return (
             <li key={menuItem._id.secondCategory}>
               <button
-                type="button"
+                aria-expanded={menuItem.isOpened}
                 className={cls['second-level']}
                 onClick={() => openSecondLevel(menuItem._id.secondCategory)}
-                aria-expanded={menuItem.isOpened}
+                type={'button'}
               >
                 {menuItem._id.secondCategory}
               </button>
               <motion.ul
-                layout
-                variants={variants}
-                initial={menuItem.isOpened ? 'visible' : 'hidden'}
                 animate={menuItem.isOpened ? 'visible' : 'hidden'}
                 className={cls['second-level-block']}
+                initial={menuItem.isOpened ? 'visible' : 'hidden'}
+                layout
+                variants={variants}
               >
                 {buildThirdLevel(menuItem.pages, category.route, menuItem.isOpened ?? false)}
               </motion.ul>
@@ -124,18 +126,19 @@ export const Menu = (props: MenuProps) => {
   const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
     return pages.map(page => {
       const currentPath = `/${route}/${page.alias}`
+
       return (
         <motion.li
+          aria-current={currentPath === router.asPath ? 'page' : false}
           key={page._id}
           variants={variantsChildren}
-          aria-current={currentPath === router.asPath ? 'page' : false}
         >
           <Link
-            tabIndex={isOpened ? 0 : -1}
             className={classNames(cls['third-level'], {
               [cls.active]: currentPath === router.asPath,
             })}
             href={currentPath}
+            tabIndex={isOpened ? 0 : -1}
           >
             {page.category}
           </Link>
@@ -145,9 +148,9 @@ export const Menu = (props: MenuProps) => {
   }
 
   return (
-    <nav role="navigation" className={classNames('', {}, [className])}>
+    <nav className={classNames('', {}, [className])} role={'navigation'}>
       {announce && (
-        <span className="visualy-hidden" role="log">
+        <span className={'visualy-hidden'} role={'log'}>
           {announce === 'opened' ? 'развернуто' : 'свернуто'}
         </span>
       )}

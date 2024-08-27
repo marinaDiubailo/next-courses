@@ -1,63 +1,50 @@
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Icon.module.scss';
+import { classNames } from '@/shared/lib/classNames/classNames'
 
-type SvgProps = Omit<React.SVGAttributes<SVGElement>, 'onClick'>;
-type ClicableIconVatiant = 'primary' | 'secondary';
+import cls from './Icon.module.scss'
+
+type SvgProps = Omit<React.SVGAttributes<SVGElement>, 'onClick'>
+type ClicableIconVatiant = 'primary' | 'secondary'
 
 interface IconBaseProps extends SvgProps {
-    className?: string;
-    variant?: ClicableIconVatiant;
-    label?: string;
-    Svg: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
+  Svg: React.FunctionComponent<React.SVGAttributes<SVGElement>>
+  className?: string
+  label?: string
+  variant?: ClicableIconVatiant
 }
 
 interface NonClickableIconProps extends IconBaseProps {
-    clickable?: false;
+  clickable?: false
 }
 
 interface ClickableIconProps extends IconBaseProps {
-    clickable: true;
+  clickable: true
 
-    onClick: () => void;
+  onClick: () => void
 }
 
-type IconProps = NonClickableIconProps | ClickableIconProps;
+type IconProps = ClickableIconProps | NonClickableIconProps
 
 export const Icon = (props: IconProps) => {
-    const {
-        className,
-        Svg,
-        clickable,
-        label,
-        variant = 'primary',
-        ...otherProps
-    } = props;
+  const { Svg, className, clickable, label, variant = 'primary', ...otherProps } = props
 
-    const icon = (
-        <Svg
-            className={classNames(cls.icon, {}, [className])}
-            {...otherProps}
-            onClick={undefined}
-        />
-    );
+  const icon = (
+    <Svg className={classNames(cls.icon, {}, [className])} {...otherProps} onClick={undefined} />
+  )
 
-    if (clickable) {
-        return (
-            <button
-                aria-label={label}
-                type="button"
-                className={classNames(cls.button, {}, [
-                    className,
-                    cls[variant],
-                ])}
-                onClick={props.onClick}
-            >
-                <Svg className={cls.icon} />
-            </button>
-        );
-    }
+  if (clickable) {
+    return (
+      <button
+        aria-label={label}
+        className={classNames(cls.button, {}, [className, cls[variant]])}
+        onClick={props.onClick}
+        type={'button'}
+      >
+        <Svg className={cls.icon} />
+      </button>
+    )
+  }
 
-    return icon;
-};
+  return icon
+}
 
-Icon.displayName = 'Icon';
+Icon.displayName = 'Icon'

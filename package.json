@@ -12,6 +12,8 @@
         "stylelint": "stylelint \"**/*.{css,scss}\" --fix"
     },
     "dependencies": {
+        "@radix-ui/primitive": "^1.1.0",
+        "@radix-ui/react-scroll-area": "^1.1.0",
         "axios": "^1.6.2",
         "clsx": "^2.1.1",
         "date-fns": "^2.30.0",

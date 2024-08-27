@@ -1,20 +1,27 @@
 .button {
-  all: unset;
+  cursor: pointer;
+  user-select: none;
 
   display: flex;
   gap: 10px;
   align-items: center;
   justify-content: center;
 
-  min-width: 148px;
+  min-width: 140px;
   padding: 10px;
 
   font-size: 14px;
   line-height: 1;
+  text-decoration: none;
 
   border-radius: var(--radius);
 
   transition: var(--transition);
+
+  &:disabled,
+  &.disabled {
+    cursor: initial;
+  }
 }
 
 .primary {
@@ -37,6 +44,8 @@
 }
 
 .icon {
+  gap: 0;
+
   width: 40px;
   min-width: auto;
   height: 40px;
@@ -64,4 +73,5 @@
 
 .small {
   min-width: unset;
+  padding: 0;
 }

@@ -1,6 +1,6 @@
+import CoursesIcon from '../assets/icons/hat.svg'
 import { FirstLevelMenuItem } from '../types/menu'
 import { Icon } from '../ui/Icon'
-import CoursesIcon from '../assets/icons/hat.svg'
 // import BooksIcon from '../assets/icons/book.svg'
 // import ServicesIcon from '../assets/icons/cloud.svg'
 // import ProductsIcon from '../assets/icons/product.svg'
@@ -8,10 +8,10 @@ import { TopLevelCategory } from '../types/page'
 
 export const firstLevelMenu: FirstLevelMenuItem[] = [
   {
-    route: 'courses',
-    name: 'Курсы',
     icon: <Icon Svg={CoursesIcon} />,
     id: TopLevelCategory.Courses,
+    name: 'Курсы',
+    route: 'courses',
   },
   // {
   //   route: 'services',

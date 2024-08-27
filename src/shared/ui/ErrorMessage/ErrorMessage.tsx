@@ -1,23 +1,13 @@
-import { ReactNode } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './ErrorMessage.module.scss';
+import { ComponentProps, FC } from 'react'
 
-interface ErrorMessageProps {
-    className?: string;
-    children: ReactNode;
+import clsx from 'clsx'
+
+import s from './ErrorMessage.module.scss'
+
+export const ErrorMessage: FC<ComponentProps<'span'>> = ({ children, className, ...rest }) => {
+  return (
+    <span className={clsx(s.errorMessage, className)} role={'alert'} {...rest}>
+      {children}
+    </span>
+  )
 }
-
-export const ErrorMessage = (props: ErrorMessageProps) => {
-    const { className, children } = props;
-
-    return (
-        <span
-            role="alert"
-            className={classNames(cls['error-message'], {}, [className])}
-        >
-            {children}
-        </span>
-    );
-};
-
-ErrorMessage.displayName = 'ErrorMessage';

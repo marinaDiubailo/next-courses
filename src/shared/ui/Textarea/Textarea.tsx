@@ -1,33 +1,31 @@
-import { TextareaHTMLAttributes, forwardRef, ForwardedRef } from 'react';
-import { FieldError } from 'react-hook-form';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import { ErrorMessage } from '../ErrorMessage';
-import cls from './Textarea.module.scss';
+import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react'
+import { FieldError } from 'react-hook-form'
 
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-    className?: string;
-    error?: FieldError;
-}
+import clsx from 'clsx'
 
-export const Textarea = forwardRef(
-    (props: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>) => {
-        const { className, error, ...otherProps } = props;
+import inputClassNames from '../Input/Input.module.scss'
+import s from './Textarea.module.scss'
 
-        return (
-            <div
-                className={classNames(cls['textarea-wrapper'], {}, [className])}
-            >
-                <textarea
-                    ref={ref}
-                    className={classNames(cls.textarea, {
-                        [cls.error]: error?.message,
-                    })}
-                    {...otherProps}
-                />
-                {error && <ErrorMessage>{error.message}</ErrorMessage>}
-            </div>
-        );
-    },
-);
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage'
 
-Textarea.displayName = 'Textarea';
+export type TextareaProps = {
+  error?: FieldError
+} & ComponentPropsWithoutRef<'textarea'>
+
+export const Textarea = forwardRef<ElementRef<'textarea'>, TextareaProps>((props, ref) => {
+  const { className, error, ...rest } = props
+
+  const classNames = {
+    textarea: clsx(inputClassNames.base, s.textarea, error?.message && inputClassNames.error),
+    wrapper: clsx(inputClassNames.wrapper, className),
+  }
+
+  return (
+    <div className={classNames.wrapper}>
+      <textarea className={classNames.textarea} ref={ref} {...rest} />
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
+    </div>
+  )
+})
+
+Textarea.displayName = 'Textarea'

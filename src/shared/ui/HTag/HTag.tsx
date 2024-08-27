@@ -1,32 +1,19 @@
-import { memo, ReactNode } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './HTag.module.scss';
+import type { FC, ReactNode } from 'react'
 
-type HeaderTagType = 'h1' | 'h2' | 'h3';
+import clsx from 'clsx'
 
-interface HTagProps {
-    tag: HeaderTagType;
-    children: ReactNode;
-    className?: string;
+import s from './HTag.module.scss'
+
+export type HTagProps = {
+  children: ReactNode
+  className?: string
+  tag: 'h1' | 'h2' | 'h3'
 }
 
-const mapTagToClass: Record<HeaderTagType, string> = {
-    h1: cls['h1'],
-    h2: cls['h2'],
-    h3: cls['h3'],
-};
+export const HTag: FC<HTagProps> = ({ children, className, tag }) => {
+  const HeaderTag = tag
 
-export const HTag = memo((props: HTagProps): JSX.Element => {
-    const { children, tag, className } = props;
+  return <HeaderTag className={clsx(s[tag], className)}>{children}</HeaderTag>
+}
 
-    const HeaderTag = tag;
-    const classFromTag = mapTagToClass[tag];
-
-    return (
-        <HeaderTag className={classNames('', {}, [className, classFromTag])}>
-            {children}
-        </HeaderTag>
-    );
-});
-
-HTag.displayName = 'HTag';
+HTag.displayName = 'HTag'

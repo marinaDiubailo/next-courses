@@ -1,25 +1,27 @@
-import { GetStaticPropsContext, GetStaticProps, GetStaticPaths } from 'next'
-import Head from 'next/head'
 import { ParsedUrlQuery } from 'querystring'
-import axios from 'axios'
+
 import { withLayout } from '@/app/layouts/MainLayout'
+import { TopPageComponent } from '@/pages/Top'
+import { API } from '@/shared/consts/api'
+import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
 import { MenuItem } from '@/shared/types/menu'
 import { TopLevelCategory, TopPageModel } from '@/shared/types/page'
 import { ProductModel } from '@/shared/types/product'
-import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
-import { TopPageComponent } from '@/pages/TopPage'
-import { API } from '@/shared/api/api'
+import axios from 'axios'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import Head from 'next/head'
+
 import { Error404 } from '../404'
 
 interface TopPageProps extends Record<string, unknown> {
-  menu: MenuItem[]
   firstCategory: TopLevelCategory
+  menu: MenuItem[]
   page: TopPageModel
   products: ProductModel[]
 }
 
 function TopPage(props: TopPageProps) {
-  const { products, firstCategory, page } = props
+  const { firstCategory, page, products } = props
 
   if (!page || !products) {
     return <Error404 />
@@ -29,10 +31,10 @@ function TopPage(props: TopPageProps) {
     <>
       <Head>
         <title>{page.metaTitle}</title>
-        <meta name="description" content={page.metaDescription} />
-        <meta property="og:title" content={page.metaTitle} />
-        <meta property="og:description" content={page.metaDescription} />
-        <meta property="og:type" content="article" />
+        <meta content={page.metaDescription} name={'description'} />
+        <meta content={page.metaTitle} property={'og:title'} />
+        <meta content={page.metaDescription} property={'og:description'} />
+        <meta content={'article'} property={'og:type'} />
       </Head>
       <TopPageComponent firstCategory={firstCategory} page={page} products={products} />
     </>
@@ -48,14 +50,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
       firstCategory: menuItem.id,
     })
+
     paths = paths.concat(
       menu.flatMap(item => item.pages.map(page => `/${menuItem.route}/${page.alias}`))
     )
   }
 
   return {
-    paths,
     fallback: true,
+    paths,
   }
 }
 
@@ -96,8 +99,8 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({
 
     return {
       props: {
-        menu,
         firstCategory: firstCategoryItem.id,
+        menu,
         page,
         products,
       },

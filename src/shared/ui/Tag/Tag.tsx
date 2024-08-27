@@ -1,43 +1,21 @@
-import { HTMLAttributes, ReactNode } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Tag.module.scss';
+import type { ComponentProps, FC } from 'react'
 
-type TagSize = 's' | 'm';
-type TagColor = 'ghost' | 'red' | 'grey' | 'green' | 'primary';
+import clsx from 'clsx'
 
-const mapSizeToClass: Record<TagSize, string> = {
-    s: cls.s,
-    m: cls.m,
-};
+import s from './Tag.module.scss'
 
-const mapColorToClass: Record<TagColor, string> = {
-    ghost: cls.ghost,
-    red: cls.red,
-    grey: cls.grey,
-    green: cls.green,
-    primary: cls.primary,
-};
+export type TagProps = {
+  color?: 'ghost' | 'green' | 'grey' | 'primary' | 'red'
+  href?: string
+  size?: 'm' | 's'
+} & ComponentProps<'div'>
 
-interface TagProps extends HTMLAttributes<HTMLDivElement> {
-    className?: string;
-    size?: TagSize;
-    color?: TagColor;
-    children: ReactNode;
-    href?: string;
+export const Tag: FC<TagProps> = props => {
+  const { children, className, color = 'primary', href, size = 's', ...rest } = props
+
+  return (
+    <div className={clsx(s.tag, s[size], s[color], className)} {...rest}>
+      {href ? <a href={href}>{children}</a> : <>{children}</>}
+    </div>
+  )
 }
-
-export const Tag = (props: TagProps) => {
-    const { className, children, size = 's', color = 'primary', href } = props;
-
-    const additionalClasses = [
-        className,
-        mapSizeToClass[size],
-        mapColorToClass[color],
-    ];
-
-    return (
-        <div className={classNames(cls.tag, {}, additionalClasses)}>
-            {href ? <a href={href}>{children}</a> : <>{children}</>}
-        </div>
-    );
-};

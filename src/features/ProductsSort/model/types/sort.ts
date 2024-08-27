@@ -1,4 +1,4 @@
 export enum Sort {
-    Rating,
-    Price,
+  Rating,
+  Price,
 }

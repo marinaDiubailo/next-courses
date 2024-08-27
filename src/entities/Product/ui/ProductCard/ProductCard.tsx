@@ -1,139 +1,136 @@
 /* eslint-disable @next/next/no-img-element */
-import { MouseEvent } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import { Card } from '@/shared/ui/Card';
-import { StarRating } from '@/shared/ui/StarRating';
-import { Tag } from '@/shared/ui/Tag';
-import { Button } from '@/shared/ui/Button';
-import { Icon } from '@/shared/ui/Icon';
-import { priceRu } from '@/shared/lib/priceRu/priceRu';
-import { Devider } from '@/shared/ui/Devider';
-import { numDeclination } from '@/shared/lib/numDeclination/numDeclination';
-import VectorIcon from '@/shared/assets/icons/vector.svg';
-//import { ReviewList } from '@/entities/Review';
-import { ProductModel } from '../../model/types/product';
-import cls from './ProductCard.module.scss';
+import React, { useState } from 'react'
 
-interface ProductCardProps {
-  className?: string;
-  product: ProductModel;
-  isReviewOpened: boolean;
-  addonDown: boolean;
-  onClick: () => void;
-  onRatingTitleClick: () => void;
+import ImagePlaceholder from '@/shared/assets/icons/placeholder.svg'
+import VectorIcon from '@/shared/assets/icons/vector.svg'
+import { numDeclination, priceRu } from '@/shared/lib/util'
+import { Button, Card, Devider, HTag, StarRating, Tag, Text } from '@/shared/ui'
+import { Icon } from '@/shared/ui/Icon'
+import clsx from 'clsx'
+
+import s from './ProductCard.module.scss'
+
+import { ProductModel } from '../../model/types/product'
+
+type Props = {
+  addonDown: boolean
+  className?: string
+  isReviewOpened: boolean
+  onClick: () => void
+  onRatingTitleClick: () => void
+  product: ProductModel
 }
 
-export const ProductCard = (props: ProductCardProps): JSX.Element => {
-  const {
-    className,
-    product,
-    addonDown,
-    onClick,
-    onRatingTitleClick,
-    isReviewOpened,
-    ...otherProps
-  } = props;
+export const ProductCard: React.FC<Props> = props => {
+  const { addonDown, className, isReviewOpened, onClick, onRatingTitleClick, product } = props
+  const [imgError, setImgError] = useState(false)
+  const ratingTitleClickHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    onRatingTitleClick()
+  }
 
-  const ratingTitleClickHandler = (event: MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    onRatingTitleClick();
-  };
+  const handleError = () => {
+    setImgError(true)
+  }
 
   return (
-    <Card
-      className={classNames(cls['product-card'], {}, [className])}
-      {...otherProps}
-    >
-      <div className={cls.logo}>
-        <img src={product.image} alt={product.title} width={70} height={70} />
+    <Card className={clsx(s.productCard, className)}>
+      <div className={s.logo}>
+        {!imgError ? (
+          <img
+            alt={product.title}
+            className={s.img}
+            height={70}
+            onError={handleError}
+            src={product.image}
+            width={70}
+          />
+        ) : (
+          <ImagePlaceholder className={s.img} height={70} width={70} />
+        )}
       </div>
-      <div className={cls.title}>{product.title}</div>
-      <div className={cls.price}>
-        <span className="visualy-hidden">цена</span>
+      <HTag className={s.title} tag={'h3'}>
+        {product.title}
+      </HTag>
+      <div className={s.price}>
+        <span className={'visualy-hidden'}>цена</span>
         {priceRu(product.price)}
         {product.oldPrice && (
-          <Tag color="green" className={cls['old-price']}>
-            <span className="visualy-hidden">скидка</span>
+          <Tag className={s.oldPrice} color={'green'}>
+            <span className={'visualy-hidden'}>скидка</span>
             {priceRu(product.price - product.oldPrice)}
           </Tag>
         )}
       </div>
-      <div className={cls.credit}>
-        <span className="visualy-hidden">кредит</span>
-        {priceRu(product.credit)}/<span className={cls.month}>мес</span>
+      <div className={s.credit}>
+        <span className={'visualy-hidden'}>кредит</span>
+        {priceRu(product.credit)}/<span className={s.month}>мес</span>
       </div>
-      <div className={cls.rating}>
-        <span className="visualy-hidden">
+      <div className={s.rating}>
+        <span className={'visualy-hidden'}>
           {'рейтинг' + product.reviewAvg ?? product.initialRating}
         </span>
-        <StarRating
-          selectedStars={product.reviewAvg ?? product.initialRating}
-        />
+        <StarRating selectedStars={product.reviewAvg ?? product.initialRating} />
       </div>
-      <div className={cls.tags}>
-        {product.categories.map((category) => (
-          <Tag className={cls.category} key={category} color="ghost" size="m">
+      <div className={s.tags}>
+        {product.categories.map(category => (
+          <Tag className={s.category} color={'ghost'} key={category} size={'m'}>
             {category}
           </Tag>
         ))}
       </div>
-      <div className={cls['price-title']} aria-hidden={true}>
+      <div aria-hidden className={s.priceTitle}>
         цена
       </div>
-      <div className={cls['credit-title']} aria-hidden={true}>
+      <div aria-hidden className={s.creditTitle}>
         в кредит
       </div>
-      <div
-        className={cls['rate-title']}
-        onClick={(e) => ratingTitleClickHandler(e)}
-      >
-        <a href="#ref">
+      <div className={s.rateTitle} onClick={e => ratingTitleClickHandler(e)}>
+        <a href={'#ref'}>
           {product.reviewCount}{' '}
           {numDeclination(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
         </a>
       </div>
-      <Devider className={cls.hr} />
-      <div className={cls.description}>{product.description}</div>
-      <div className={cls.features}>
-        {product.characteristics.map((characteristic) => (
-          <div className={cls.characteristic} key={characteristic.name}>
-            <span className={cls['characteristic-name']}>
-              {characteristic.name}
-            </span>
-            <span className={cls['characteristic-dots']}></span>
-            <span className={cls['characteristic-value']}>
-              {characteristic.value}
-            </span>
+      <Devider className={s.hr} />
+      <Text className={s.description}>{product.description}</Text>
+      <div className={s.features}>
+        {product.characteristics.map(characteristic => (
+          <div className={s.characteristic} key={characteristic.name}>
+            <span className={s.characteristicName}>{characteristic.name}</span>
+            <span className={s.characteristicDots} />
+            <span className={s.characteristicValue}>{characteristic.value}</span>
           </div>
         ))}
       </div>
-      <div className={cls.specifics}>
+      <div className={s.specifics}>
         {product.advantages && (
-          <div className={cls.advantges}>
-            <div className={cls['specifics-title']}>Преимущества </div>
-            {product.advantages}
+          <div className={s.advantges}>
+            <h4 className={s.specificsTitle}>Преимущества</h4>
+            <Text className={s.text}>{product.advantages}</Text>
           </div>
         )}
         {product.disAdvantages && (
-          <div className={cls.disadvantges}>
-            <div className={cls['specifics-title']}>Недостатки</div>{' '}
-            {product.disAdvantages}
+          <div className={s.disadvantges}>
+            <h4 className={s.specificsTitle}>Недостатки</h4>
+            <Text className={s.text}>{product.disAdvantages}</Text>
           </div>
         )}
       </div>
-      <Devider className={classNames(cls.hr, {}, [cls.hr2])} />
-      <div className={cls.actions}>
-        <Button>Узнать подробнее</Button>
+      <Devider className={clsx(s.hr, s.hr2)} />
+      <div className={s.actions}>
+        <Button as={'a'} href={product.link} target={'_blank'}>
+          Узнать подробнее
+        </Button>
         <Button
-          variant="ghost"
           addon={<Icon Svg={VectorIcon} />}
           addonDown={addonDown}
-          onClick={onClick}
           aria-expanded={isReviewOpened}
+          onClick={onClick}
+          variant={'ghost'}
         >
           Читать отзывы
         </Button>
       </div>
     </Card>
-  );
-};
+  )
+}

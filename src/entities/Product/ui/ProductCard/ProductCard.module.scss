@@ -1,18 +1,17 @@
 /* stylelint-disable function-no-unknown */
-.product-card {
+.productCard {
   display: grid;
   grid-template-columns: [start] 70px [logoend] 30px [titlestart] calc(50% - 100px) [middle] 1fr [pricestart] auto [priceend] 40px [creditstart] auto [creditend] 40px [ratingstart] auto [end];
-  margin-top: 30px;
-  padding: 30px;
+  padding: 15px;
 }
 
 .logo {
   grid-column: start / logoend;
   grid-row: 1 / span 2;
+}
 
-  & img {
-    border-radius: var(--radius);
-  }
+.img {
+  border-radius: var(--radius);
 }
 
 .month {
@@ -20,7 +19,7 @@
   line-height: 19px;
 }
 
-.old-price {
+.oldPrice {
   margin-left: 5px;
 }
 
@@ -34,12 +33,12 @@
 }
 
 .price,
-.price-title {
+.priceTitle {
   grid-column: pricestart / priceend;
 }
 
 .credit,
-.credit-title {
+.creditTitle {
   grid-column: creditstart / creditend;
 }
 
@@ -52,7 +51,7 @@
 }
 
 .rating,
-.rate-title {
+.rateTitle {
   grid-column: ratingstart / end;
   white-space: nowrap;
 }
@@ -65,9 +64,9 @@
   margin-top: 7px;
 }
 
-.price-title,
-.credit-title,
-.rate-title {
+.priceTitle,
+.creditTitle,
+.rateTitle {
   font-size: 14px;
   font-weight: 300;
   line-height: 19px;
@@ -96,16 +95,16 @@
   line-height: 32px;
 }
 
-.characteristic-name {
+.characteristicName {
   font-weight: 700;
 }
 
-.characteristic-dots {
+.characteristicDots {
   margin-top: 8px;
   border-bottom: var(--border-dotted);
 }
 
-.characteristic-value {
+.characteristicValue {
   font-weight: 500;
 }
 
@@ -113,7 +112,7 @@
   grid-column: middle/ end;
 }
 
-.specifics-title {
+.specificsTitle {
   margin-bottom: 5px;
   font-weight: 700;
 }
@@ -141,7 +140,7 @@
 }
 
 @media screen and (width <= 1320px) {
-  .product-card {
+  .productCard {
     grid-template-areas:
       "logo . title title title title title"
       "logo . tags tags tags tags tags"
@@ -174,7 +173,7 @@
     grid-area: price;
   }
 
-  .price-title {
+  .priceTitle {
     grid-area: priceTitle;
   }
 
@@ -182,7 +181,7 @@
     grid-area: credit;
   }
 
-  .credit-title {
+  .creditTitle {
     grid-area: creditTitle;
   }
 
@@ -190,7 +189,7 @@
     grid-area: rating;
   }
 
-  .rate-title {
+  .rateTitle {
     grid-area: ratingTitle;
   }
 
@@ -221,7 +220,7 @@
 }
 
 @media screen and (width <= 640px) {
-  .product-card {
+  .productCard {
     grid-template-areas:
       "logo . title"
       "logo . tags "
@@ -251,23 +250,46 @@
 }
 
 @media screen and (width <= 480px) {
-  .product-card {
-    grid-template-areas:
-      "logo"
-      "title"
-      "tags"
-      "price"
-      "priceTitle"
-      "credit"
-      "creditTitle"
-      "rating"
-      "ratingTitle"
-      "hr"
-      "description"
-      "features"
-      "specifics"
-      "hr2"
-      "actions";
-    grid-template-columns: 1fr;
+  .productCard {
+    // grid-template-areas:
+    // "logo ."
+    // "title ."
+    // "tags ."
+    // "price credit"
+    // "priceTitle creditTitle"
+    // "rating ."
+    // "ratingTitle ."
+    // "hr ."
+    // "description ."
+    // "features ."
+    // "specifics ."
+    // "hr2 ."
+    // "actions .";
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    padding: 10px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .characteristic {
+    margin-bottom: unset;
+    padding-right: unset;
+  }
+
+  .characteristicName {
+    font-size: 14px;
+  }
+
+  .characteristicValue {
+    font-size: 14px;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 16px;
   }
 }

@@ -1,20 +1,9 @@
-import { HTMLAttributes, memo } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Devider.module.scss';
+import type { ComponentProps, FC } from 'react'
 
-interface DeviderProps extends HTMLAttributes<HTMLHRElement> {
-    className?: string;
+import clsx from 'clsx'
+
+import s from './Devider.module.scss'
+
+export const Devider: FC<ComponentProps<'hr'>> = ({ className, ...rest }) => {
+  return <hr className={clsx(s.devider, className)} {...rest} />
 }
-
-export const Devider = memo((props: DeviderProps): JSX.Element => {
-    const { className, ...otherProps } = props;
-
-    return (
-        <hr
-            className={classNames(cls.devider, {}, [className])}
-            {...otherProps}
-        />
-    );
-});
-
-Devider.displayName = 'Devider';

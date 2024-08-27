@@ -1,37 +1,55 @@
-import type { ComponentProps, ReactNode, FC } from 'react';
-import clsx from 'clsx';
+/* eslint-disable react/display-name */
+import { type ElementType, type ReactNode, forwardRef } from 'react'
 
-import s from './Button.module.scss';
+import clsx from 'clsx'
 
-type ButtonProps = {
-  variant?: 'primary' | 'ghost' | 'icon';
-  addon?: ReactNode;
-  addonDown?: boolean;
-  small?: boolean;
-} & ComponentProps<'button'>;
+import s from './Button.module.scss'
 
-export const Button: FC<ButtonProps> = (props) => {
-  const {
-    className,
-    children,
-    addon,
-    small = false,
-    variant = 'primary',
-    addonDown = false,
-    ...rest
-  } = props;
+import { PolymorphPropsWithRef, PolymorphRef } from '../../types/polymorph'
 
-  const classNames = {
-    button: clsx(s.button, className, s[variant], small && s.small),
-    addon: clsx(s.addon, addonDown && s.down),
-  };
+type ElementProps = {
+  addon?: ReactNode
+  addonDown?: boolean
+  small?: boolean
+  variant?: 'ghost' | 'icon' | 'primary'
+}
 
-  return (
-    <button className={classNames.button} {...rest}>
-      {children}
-      {addon && <div className={classNames.addon}>{addon}</div>}
-    </button>
-  );
-};
+type TagComponent = <T extends ElementType = 'button'>(
+  props: PolymorphPropsWithRef<T, ElementProps>
+) => ReactNode
 
-Button.displayName = 'Button';
+const ButtonPolymorph: TagComponent = forwardRef(
+  <T extends ElementType = 'button'>(props: PolymorphPropsWithRef<T>, ref?: PolymorphRef<T>) => {
+    const {
+      addon,
+      addonDown = false,
+      as: Tag = 'button',
+      children,
+      className,
+      disabled,
+      small = false,
+      variant = 'primary',
+      ...rest
+    } = props
+
+    const classNames = {
+      addon: clsx(s.addon, addonDown && s.down),
+      button: clsx(
+        s.button,
+        s[variant],
+        small && s.small,
+        className,
+        disabled && 'href' in rest && s.disabled
+      ),
+    }
+
+    return (
+      <Tag className={classNames.button} disabled={disabled} ref={ref} {...rest}>
+        {children}
+        {addon && <div className={classNames.addon}>{addon}</div>}
+      </Tag>
+    )
+  }
+)
+
+export const Button = ButtonPolymorph

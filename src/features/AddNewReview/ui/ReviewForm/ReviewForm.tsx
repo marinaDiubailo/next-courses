@@ -1,35 +1,35 @@
-import { useForm, Controller } from 'react-hook-form'
-import axios from 'axios'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Button } from '@/shared/ui/Button'
-import { Input } from '@/shared/ui/Input'
-import { StarRating } from '@/shared/ui/StarRating'
-import { Textarea } from '@/shared/ui/Textarea'
-import CloseIcon from '@/shared/assets/icons/close.svg'
-import cls from './ReviewForm.module.scss'
-import { IReviewForm, IReviewSentResponse } from '../../model/types/reviewForm'
-import { API } from '@/shared/api/api'
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+
+import CloseIcon from '@/shared/assets/icons/close.svg'
+import { API } from '@/shared/consts/api'
+import { classNames } from '@/shared/lib/classNames/classNames'
+import { Button, Input, StarRating, Textarea } from '@/shared/ui'
+import axios from 'axios'
+
+import cls from './ReviewForm.module.scss'
+
+import { IReviewForm, IReviewSentResponse } from '../../model/types/reviewForm'
 
 interface ReviewFormProps {
   className?: string
-  productId: string
   isOpened: boolean
+  productId: string
 }
 
 export const ReviewForm = (props: ReviewFormProps) => {
-  const { className, productId, isOpened } = props
+  const { className, isOpened, productId } = props
 
   const [error, setError] = useState<string>()
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
     clearErrors,
+    control,
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
   } = useForm<IReviewForm>()
 
   const submitHandler = async (formData: IReviewForm) => {
@@ -54,69 +54,69 @@ export const ReviewForm = (props: ReviewFormProps) => {
     <form onSubmit={handleSubmit(submitHandler)}>
       <div className={classNames(cls.form, {}, [className])}>
         <Input
-          placeholder="Имя"
+          placeholder={'Имя'}
           {...register('name', {
             required: {
-              value: true,
               message: 'Заполните имя',
+              value: true,
             },
           })}
+          aria-invalid={!!errors.name}
           error={errors.name}
           tabIndex={isOpened ? 0 : -1}
-          aria-invalid={!!errors.name}
         />
         <Input
           className={cls.title}
-          placeholder="Заголовок отзыва"
+          placeholder={'Заголовок отзыва'}
           {...register('title', {
             required: {
-              value: true,
               message: 'Заполните заголовок',
+              value: true,
             },
           })}
+          aria-invalid={!!errors.title}
           error={errors.title}
           tabIndex={isOpened ? 0 : -1}
-          aria-invalid={!!errors.title}
         />
         <div className={cls.rating}>
           <span>Оценка:</span>
           <Controller
             control={control}
-            name="rating"
+            name={'rating'}
             render={({ field }) => (
               <StarRating
+                error={errors.rating}
                 isEditable
+                ref={field.ref}
                 selectedStars={field.value}
                 setRating={field.onChange}
-                ref={field.ref}
-                error={errors.rating}
                 tabIndex={isOpened ? 0 : -1}
               />
             )}
             rules={{
               required: {
-                value: true,
                 message: 'Укажите рейтинг',
+                value: true,
               },
             }}
           />
         </div>
         <Textarea
           className={cls.description}
-          placeholder="Текст отзыва"
+          placeholder={'Текст отзыва'}
           {...register('description', {
             required: {
-              value: true,
               message: 'Заполните текст отзыва',
+              value: true,
             },
           })}
+          aria-invalid={!!errors.description}
+          aria-label={'Текст отзыва'}
           error={errors.description}
           tabIndex={isOpened ? 0 : -1}
-          aria-label="Текст отзыва"
-          aria-invalid={!!errors.description}
         />
         <div className={cls.submit}>
-          <Button variant="primary" tabIndex={isOpened ? 0 : -1} onClick={() => clearErrors()}>
+          <Button onClick={() => clearErrors()} tabIndex={isOpened ? 0 : -1} variant={'primary'}>
             Отправить
           </Button>
           <span className={cls.info}>
@@ -125,14 +125,14 @@ export const ReviewForm = (props: ReviewFormProps) => {
         </div>
       </div>
       {isSuccess && (
-        <div className={classNames(cls.panel, {}, [cls.success])} role="alert">
+        <div className={classNames(cls.panel, {}, [cls.success])} role={'alert'}>
           <span className={cls['success-title']}>Ваш отзыв отправлен.</span>
           <span>Спасибо, Ваш отзыв будет опубликован после проверки.</span>
           <button
-            type="button"
+            aria-label={'Закрыть оповещение'}
             className={cls.close}
             onClick={() => setIsSuccess(false)}
-            aria-label="Закрыть оповещение"
+            type={'button'}
           >
             <CloseIcon />
           </button>
@@ -140,13 +140,13 @@ export const ReviewForm = (props: ReviewFormProps) => {
       )}
 
       {error && (
-        <div className={classNames(cls.panel, {}, [cls.error])} role="alert">
+        <div className={classNames(cls.panel, {}, [cls.error])} role={'alert'}>
           {error}
           <button
-            type="button"
+            aria-label={'Закрыть оповещение'}
             className={cls.close}
             onClick={() => setError(undefined)}
-            aria-label="Закрыть оповещение"
+            type={'button'}
           >
             <CloseIcon />
           </button>

@@ -1,29 +1,21 @@
-import { ForwardedRef, forwardRef, ReactNode, HTMLAttributes } from 'react';
-import { classNames } from '@/shared/lib/classNames/classNames';
-import cls from './Card.module.scss';
+import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from 'react'
 
-type CardColor = 'primary' | 'secondary';
+import clsx from 'clsx'
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  color?: CardColor;
-  children: ReactNode;
-}
+import s from './Card.module.scss'
 
-export const Card = forwardRef(
-  (props: CardProps, ref: ForwardedRef<HTMLDivElement>) => {
-    const { className, color = 'primary', children, ...otherProps } = props;
+export type CardProps = {
+  color?: 'primary' | 'secondary'
+} & ComponentPropsWithoutRef<'div'>
 
-    return (
-      <div
-        className={classNames(cls.card, {}, [className, cls[color]])}
-        ref={ref}
-        {...otherProps}
-      >
-        {children}
-      </div>
-    );
-  },
-);
+export const Card = forwardRef<ElementRef<'div'>, CardProps>((props, ref) => {
+  const { children, className, color = 'primary', ...rest } = props
 
-Card.displayName = 'Card';
+  return (
+    <div className={clsx(s.card, s[color], className)} ref={ref} {...rest}>
+      {children}
+    </div>
+  )
+})
+
+Card.displayName = 'Card'

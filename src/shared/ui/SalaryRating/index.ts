@@ -1,1 +1,0 @@
-export { SalaryRating } from './SalaryRating';

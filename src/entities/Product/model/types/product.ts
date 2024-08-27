@@ -1,29 +1,29 @@
-import { ReviewModel } from '@/entities/Review';
+import { ReviewModel } from '@/entities/Review'
 
 export interface ProductCharacteristic {
-    value: string;
-    name: string;
+  name: string
+  value: string
 }
 
 export interface ProductModel {
-    _id: string;
-    categories: string[];
-    tags: string[];
-    title: string;
-    link: string;
-    price: number;
-    credit: number;
-    oldPrice: number;
-    description: string;
-    characteristics: ProductCharacteristic[];
-    createdAt: Date;
-    updatedAt: Date;
-    __v: number;
-    image: string;
-    initialRating: number;
-    reviews: ReviewModel[];
-    reviewCount: number;
-    reviewAvg?: number;
-    advantages?: string;
-    disAdvantages?: string;
+  __v: number
+  _id: string
+  advantages?: string
+  categories: string[]
+  characteristics: ProductCharacteristic[]
+  createdAt: Date
+  credit: number
+  description: string
+  disAdvantages?: string
+  image: string
+  initialRating: number
+  link: string
+  oldPrice: number
+  price: number
+  reviewAvg?: number
+  reviewCount: number
+  reviews: ReviewModel[]
+  tags: string[]
+  title: string
+  updatedAt: Date
 }

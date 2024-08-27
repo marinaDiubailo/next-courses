@@ -1,17 +1,20 @@
 /* stylelint-disable declaration-block-no-redundant-longhand-properties */
 .header {
+  z-index: 9999;
   display: none;
 }
 
 .mobile {
   position: fixed;
-  z-index: 100;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
   height: 100%;
   padding: 15px;
@@ -19,21 +22,16 @@
   background-color: var(--color-bg-primary);
 }
 
-.close {
-  position: fixed;
-  top: 15px;
-  right: 15px;
+.actions {
+  display: flex;
+  justify-content: space-between;
 }
 
-.search {
-  margin: 15px 0;
-}
-
-@media (width <= 767px) {
+@media (width <= 1024px) {
   .header {
-    display: grid;
-    grid-template-columns: 1fr 40px;
-    gap: 20px;
+    display: flex;
+    justify-content: space-between;
     padding: 15px;
+    background-color: var(--color-bg-primary);
   }
 }

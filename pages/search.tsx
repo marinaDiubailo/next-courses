@@ -1,29 +1,30 @@
-import { GetStaticProps } from 'next';
-import axios from 'axios';
-import { withLayout } from '@/app/layouts/MainLayout';
-import { MenuItem } from '@/shared/types/menu';
-import { API } from '@/shared/api/api';
+import { withLayout } from '@/app/layouts/MainLayout'
+import { API } from '@/shared/consts/api'
+import { MenuItem } from '@/shared/types/menu'
+import axios from 'axios'
+import { GetStaticProps } from 'next'
 
 interface HomeProps extends Record<string, unknown> {
-    menu: MenuItem[];
-    firstCategory: number;
+  firstCategory: number
+  menu: MenuItem[]
 }
 
 function Search() {
-    return <>Search</>;
+  return <>Search</>
 }
 
-export default withLayout(Search);
+export default withLayout(Search)
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-    const firstCategory = 0;
-    const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
-        firstCategory,
-    });
-    return {
-        props: {
-            menu,
-            firstCategory,
-        },
-    };
-};
+  const firstCategory = 0
+  const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+    firstCategory,
+  })
+
+  return {
+    props: {
+      firstCategory,
+      menu,
+    },
+  }
+}

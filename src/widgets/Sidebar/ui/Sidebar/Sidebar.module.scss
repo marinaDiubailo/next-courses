@@ -1,5 +1,28 @@
 .sidebar {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-content: start;
+
+  width: 100%;
+  height: 100%;
+}
+
+.menuWrapper {
+  flex-grow: 1;
+}
+
+.rights {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.devider {
+  margin: 0;
+  margin-left: 12px;
 }

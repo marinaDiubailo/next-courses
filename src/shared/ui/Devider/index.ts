@@ -1,1 +1,0 @@
-export { Devider } from './Devider';

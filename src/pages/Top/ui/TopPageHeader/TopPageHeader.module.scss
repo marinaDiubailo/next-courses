@@ -1,0 +1,14 @@
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  place-items: baseline left;
+
+  padding-right: 20px;
+}
+
+@media screen and (width <= 640px) {
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+}
