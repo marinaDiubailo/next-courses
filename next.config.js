@@ -6,6 +6,7 @@ const withSvgr = require('next-plugin-svgr')
 const nextConfig = withSvgr({
   // images: {
   //   remotePatterns: [{ hostname: 'old-images.hb.ru-msk.vkcs.cloud' }],
+  output: 'export',
   // },
   reactStrictMode: true,
   webpack(config) {

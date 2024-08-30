@@ -1,5 +1,7 @@
 # Проект: Next Courses
 
+## Ссылка: https://marinaDiubailo.github.io/next-courses/
+
 ### О проекте
 
 Этот проект создан на **Next.js** с использованием pages router. Представляет собой подборку курсов, сгруппированных по различным категориям: Аналитика, Бизнес, Дизайн, Игры, Красота и Здоровье, Маркетинг, Программирование, Создание контента, Управление и Языки.
@@ -7,7 +9,7 @@
 ### Структура проекта:
 
 Проект организован по методологии **Feature-Sliced Design**, что помогает поддерживать чистую и масштабируемую кодовую базу.
-Ссылка на документацию - [feature sliced design](https://feature-sliced.design/docs/get-started/tutorial)
+Ссылка на документацию - [Feature-sliced design](https://feature-sliced.design/docs/get-started/tutorial)
 
 ### Стек технологий:
 
