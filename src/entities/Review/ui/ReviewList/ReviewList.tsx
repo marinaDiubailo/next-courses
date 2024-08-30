@@ -1,13 +1,13 @@
+import type { FC } from 'react'
+
 import { ReviewModel } from '../../model/types/review'
 import { ReviewItem } from '../ReviewItem/ReviewItem'
-interface ReviewListProps {
-  className?: string
+
+type Props = {
   reviews: ReviewModel[]
 }
 
-export const ReviewList = (props: ReviewListProps) => {
-  const { reviews } = props
-
+export const ReviewList: FC<Props> = ({ reviews }) => {
   return (
     <>
       {reviews.map(review => (

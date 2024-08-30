@@ -1,0 +1,55 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.scrollArea {
+  width: 100%;
+  padding-right: 10px;
+}
+
+.section {
+  width: 100%;
+  padding-bottom: 30px;
+
+  h2 {
+    margin-bottom: 24px;
+    font-weight: 400;
+    text-align: center;
+  }
+}
+
+.subTitle {
+  margin-bottom: 24px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+@media screen and (width <= 728px) {
+  .section {
+    padding: 0 15px 30px;
+  }
+}
+
+@media screen and (width <= 540px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subTitle {
+    font-size: 1.125rem;
+  }
+}

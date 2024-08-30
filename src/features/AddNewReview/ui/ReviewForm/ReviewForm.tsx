@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import CloseIcon from '@/shared/assets/icons/close.svg'
@@ -6,22 +6,20 @@ import { API } from '@/shared/consts/api'
 import { classNames } from '@/shared/lib/classNames/classNames'
 import { Button, Input, StarRating, Textarea } from '@/shared/ui'
 import axios from 'axios'
+import clsx from 'clsx'
 
-import cls from './ReviewForm.module.scss'
+import s from './ReviewForm.module.scss'
 
 import { IReviewForm, IReviewSentResponse } from '../../model/types/reviewForm'
 
-interface ReviewFormProps {
-  className?: string
+type Props = {
   isOpened: boolean
   productId: string
 }
 
-export const ReviewForm = (props: ReviewFormProps) => {
-  const { className, isOpened, productId } = props
-
+export const ReviewForm: FC<Props> = ({ isOpened, productId }) => {
   const [error, setError] = useState<string>()
-  const [isSuccess, setIsSuccess] = useState<boolean>(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const {
     clearErrors,
@@ -52,7 +50,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
-      <div className={classNames(cls.form, {}, [className])}>
+      <div className={s.form}>
         <Input
           placeholder={'Имя'}
           {...register('name', {
@@ -66,7 +64,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
           tabIndex={isOpened ? 0 : -1}
         />
         <Input
-          className={cls.title}
+          className={s.title}
           placeholder={'Заголовок отзыва'}
           {...register('title', {
             required: {
@@ -78,7 +76,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
           error={errors.title}
           tabIndex={isOpened ? 0 : -1}
         />
-        <div className={cls.rating}>
+        <div className={s.rating}>
           <span>Оценка:</span>
           <Controller
             control={control}
@@ -102,7 +100,7 @@ export const ReviewForm = (props: ReviewFormProps) => {
           />
         </div>
         <Textarea
-          className={cls.description}
+          className={s.description}
           placeholder={'Текст отзыва'}
           {...register('description', {
             required: {
@@ -115,22 +113,22 @@ export const ReviewForm = (props: ReviewFormProps) => {
           error={errors.description}
           tabIndex={isOpened ? 0 : -1}
         />
-        <div className={cls.submit}>
+        <div className={s.submit}>
           <Button onClick={() => clearErrors()} tabIndex={isOpened ? 0 : -1} variant={'primary'}>
             Отправить
           </Button>
-          <span className={cls.info}>
+          <span className={s.info}>
             * Перед публикацией отзыв пройдет предварительную модерацию и проверку
           </span>
         </div>
       </div>
       {isSuccess && (
-        <div className={classNames(cls.panel, {}, [cls.success])} role={'alert'}>
-          <span className={cls['success-title']}>Ваш отзыв отправлен.</span>
+        <div className={clsx(s.panel, s.success)} role={'alert'}>
+          <span className={s.successTitle}>Ваш отзыв отправлен.</span>
           <span>Спасибо, Ваш отзыв будет опубликован после проверки.</span>
           <button
             aria-label={'Закрыть оповещение'}
-            className={cls.close}
+            className={s.close}
             onClick={() => setIsSuccess(false)}
             type={'button'}
           >
@@ -140,11 +138,11 @@ export const ReviewForm = (props: ReviewFormProps) => {
       )}
 
       {error && (
-        <div className={classNames(cls.panel, {}, [cls.error])} role={'alert'}>
+        <div className={clsx(s.panel, s.error)} role={'alert'}>
           {error}
           <button
             aria-label={'Закрыть оповещение'}
-            className={cls.close}
+            className={s.close}
             onClick={() => setError(undefined)}
             type={'button'}
           >

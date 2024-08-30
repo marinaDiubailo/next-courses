@@ -16,7 +16,7 @@ import s from './StarRating.module.scss'
 
 import StarIcon from '../../assets/icons/rating.svg'
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage'
-import { Icon } from '../Icon'
+import { Icon } from '../Icon/Icon'
 
 export type StarRatingProps = {
   error?: FieldError

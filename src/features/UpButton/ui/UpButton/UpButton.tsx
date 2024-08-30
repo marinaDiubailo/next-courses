@@ -1,19 +1,13 @@
 import { useEffect } from 'react'
 
 import UpIcon from '@/shared/assets/icons/up.svg'
-import { classNames } from '@/shared/lib/classNames/classNames'
 import { useScrollY } from '@/shared/lib/hooks/useScrollY/useScrollY'
-import { Icon } from '@/shared/ui/Icon'
+import { Icon } from '@/shared/ui'
 import { motion, useAnimation } from 'framer-motion'
 
-import cls from './UpButton.module.scss'
+import s from './UpButton.module.scss'
 
-interface UpButtonProps {
-  className?: string
-}
-
-export const UpButton = (props: UpButtonProps) => {
-  const { className } = props
+export const UpButton = () => {
   const controls = useAnimation()
 
   const y = useScrollY()
@@ -31,13 +25,7 @@ export const UpButton = (props: UpButtonProps) => {
 
   return (
     <motion.div animate={controls} initial={{ opacity: 0 }}>
-      <Icon
-        Svg={UpIcon}
-        className={classNames(cls.up, {}, [className])}
-        clickable
-        label={'Наверх'}
-        onClick={upToTopHandler}
-      />
+      <Icon Svg={UpIcon} className={s.up} clickable label={'Наверх'} onClick={upToTopHandler} />
     </motion.div>
   )
 }

@@ -1,46 +1,41 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
-import SortIcon from '@/shared/assets/icons/sort.svg'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Icon } from '@/shared/ui/Icon'
+import type { FC } from 'react'
 
-import cls from './ProductsSort.module.scss'
+import SortIcon from '@/shared/assets/icons/sort.svg'
+import { Icon } from '@/shared/ui'
+import clsx from 'clsx'
+
+import s from './ProductsSort.module.scss'
 
 import { Sort } from '../../model/types/sort'
 
-interface ProductsSortProps {
-  className?: string
+type Props = {
   setSort: (sort: Sort) => void
   sort: Sort
 }
 
-export const ProductsSort = (props: ProductsSortProps) => {
-  const { className, setSort, sort } = props
-
+export const ProductsSort: FC<Props> = ({ setSort, sort }) => {
   return (
-    <ul aria-label={'Сортировка'} className={classNames(cls.sort, {}, [className])}>
+    <ul aria-label={'Сортировка'} className={s.sort}>
       <li aria-selected={sort === Sort.Rating} title={'Сортировка по рейтингу'}>
         <button
           aria-label={'Сортировка по рейтингу'}
-          className={classNames('', {
-            [cls.active]: sort === Sort.Rating,
-          })}
+          className={clsx(sort === Sort.Rating && s.active)}
           onClick={() => setSort(Sort.Rating)}
           type={'button'}
         >
-          <Icon Svg={SortIcon} className={cls.icon} />
+          <Icon Svg={SortIcon} className={s.icon} />
           По рейтингу
         </button>
       </li>
       <li aria-selected={sort === Sort.Price} title={'Сортировка по цене'}>
         <button
           aria-label={'Сортировка по цене'}
-          className={classNames('', {
-            [cls.active]: sort === Sort.Price,
-          })}
+          className={clsx(sort === Sort.Price && s.active)}
           onClick={() => setSort(Sort.Price)}
           type={'button'}
         >
-          <Icon Svg={SortIcon} className={cls.icon} />
+          <Icon Svg={SortIcon} className={s.icon} />
           По цене
         </button>
       </li>

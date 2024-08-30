@@ -1,19 +1,12 @@
 import { KeyboardEvent, useState } from 'react'
 
 import SearchIcon from '@/shared/assets/icons/search.svg'
-import { Button, Input } from '@/shared/ui'
-import { Icon } from '@/shared/ui/Icon'
-import { clsx } from 'clsx'
+import { Button, Icon, Input } from '@/shared/ui'
 import { useRouter } from 'next/router'
 
 import s from './ProductsSearch.module.scss'
 
-interface ProductsSearchProps {
-  className?: string
-}
-
-export const ProductsSearch = (props: ProductsSearchProps) => {
-  const { className, ...rest } = props
+export const ProductsSearch = () => {
   const router = useRouter()
 
   const [search, setSearch] = useState<string>('')
@@ -34,7 +27,7 @@ export const ProductsSearch = (props: ProductsSearchProps) => {
   }
 
   return (
-    <form className={clsx(s.search, className)} role={'search'} {...rest}>
+    <form className={s.search} role={'search'}>
       <Input
         onChange={event => setSearch(event.target.value)}
         onKeyDown={keyDownHandler}

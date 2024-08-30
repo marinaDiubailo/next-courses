@@ -2,7 +2,7 @@
 import type { ComponentProps, FC } from 'react'
 
 import RateIcon from '@/shared/assets/icons/rate.svg'
-import { Icon } from '@/shared/ui/Icon'
+import { Icon } from '@/shared/ui'
 import clsx from 'clsx'
 
 import s from './SalaryRating.module.scss'

@@ -2,7 +2,6 @@ import { FunctionComponent, JSX, KeyboardEvent, ReactNode, useRef, useState } fr
 
 import { UpButton } from '@/features/UpButton'
 import { classNames } from '@/shared/lib/classNames/classNames'
-import { Footer } from '@/widgets/Footer'
 import { Header } from '@/widgets/Header'
 import { Sidebar } from '@/widgets/Sidebar'
 
@@ -50,7 +49,6 @@ const MainLayout = (props: MainLayoutProps) => {
       <div className={cls.content} ref={bodyRef} role={'main'} tabIndex={0}>
         {children}
       </div>
-      {/* <Footer className={cls.footer} /> */}
       {/* <UpButton /> */}
     </div>
   )
@@ -61,7 +59,7 @@ export const withLayout = <T extends IAppContext & Record<string, unknown>>(
 ) => {
   return function withLayoutComponent(props: T): JSX.Element {
     return (
-      <AppContextProvider firstCategory={props.firstCategory} menu={props.menu}>
+      <AppContextProvider menu={props.menu}>
         <MainLayout>
           <Component {...props} />
         </MainLayout>

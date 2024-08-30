@@ -1,49 +1,49 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
+import { FC } from 'react'
+
 import { priceRu } from '@/shared/lib/priceRu/priceRu'
 import { HhData } from '@/shared/types/page'
 import { Card, HTag, Tag } from '@/shared/ui'
 
-import cls from './TopPageVacancies.module.scss'
+import s from './TopPageVacancies.module.scss'
 
 import { SalaryRating } from '../SalaryRating/SalaryRating'
 
 type HhDataProps = Omit<HhData, '_id' | 'updatedAt'>
 
-interface TopPageVacanciesProps extends HhDataProps {
+type Props = {
   category: string
-  className?: string
-}
+} & HhDataProps
 
-export const TopPageVacancies = (props: TopPageVacanciesProps) => {
-  const { category, className, count, juniorSalary, middleSalary, seniorSalary } = props
+export const TopPageVacancies: FC<Props> = props => {
+  const { category, count, juniorSalary, middleSalary, seniorSalary } = props
 
   return (
-    <section className={classNames(cls.section, {}, [className])}>
-      <div className={classNames(cls['vacancies-title'], {}, [className])}>
+    <section className={s.section}>
+      <div className={s.vacanciesTitle}>
         <HTag tag={'h2'}>Вакансии - {category}</HTag>
         <Tag color={'red'} size={'m'}>
           hh.ru
         </Tag>
       </div>
-      <div className={cls.vacancies}>
-        <Card className={cls['count-wrapper']}>
-          <div className={cls.title}>Всего вакансий</div>
-          <div className={cls.count}>{count}</div>
+      <div className={s.vacancies}>
+        <Card className={s.countWrapper}>
+          <div className={s.title}>Всего вакансий</div>
+          <div className={s.count}>{count}</div>
         </Card>
-        <ul className={cls.salary}>
+        <ul className={s.salary}>
           <li>
-            <div className={cls.title}>Начальный</div>
-            <span className={cls['salary-value']}>{priceRu(juniorSalary)}</span>
+            <div className={s.title}>Начальный</div>
+            <span className={s.salaryValue}>{priceRu(juniorSalary)}</span>
             <SalaryRating />
           </li>
           <li>
-            <div className={cls.title}>Средний</div>
-            <span className={cls['salary-value']}>{priceRu(middleSalary)}</span>
+            <div className={s.title}>Средний</div>
+            <span className={s.salaryValue}>{priceRu(middleSalary)}</span>
             <SalaryRating level={'2'} />
           </li>
           <li>
-            <div className={cls.title}>Профессионал</div>
-            <span className={cls['salary-value']}>{priceRu(seniorSalary)}</span>
+            <div className={s.title}>Профессионал</div>
+            <span className={s.salaryValue}>{priceRu(seniorSalary)}</span>
             <SalaryRating level={'3'} />
           </li>
         </ul>
@@ -52,4 +52,4 @@ export const TopPageVacancies = (props: TopPageVacanciesProps) => {
   )
 }
 
-TopPageVacancies.dispalayName = 'TopPageVacancies'
+TopPageVacancies.displayName = 'TopPageVacancies'

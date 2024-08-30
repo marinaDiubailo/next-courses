@@ -1,23 +1,25 @@
+import type { ComponentProps, FC } from 'react'
+
 import { ProductsSort, Sort } from '@/features/ProductsSort'
-import { classNames } from '@/shared/lib/classNames/classNames'
 import { numDeclination } from '@/shared/lib/numDeclination/numDeclination'
 import { HTag, Tag } from '@/shared/ui'
+import { clsx } from 'clsx'
 
-import cls from './TopPageHeader.module.scss'
+import s from './TopPageHeader.module.scss'
 
-interface TopPageHeaderProps {
+type Props = {
   className?: string
   productsLength?: number
   setSort: (sort: Sort) => void
   sort: Sort
   title: string
-}
+} & ComponentProps<'div'>
 
-export const TopPageHeader = (props: TopPageHeaderProps) => {
+export const TopPageHeader: FC<Props> = props => {
   const { className, productsLength, setSort, sort, title } = props
 
   return (
-    <div className={classNames(cls.header, {}, [className])}>
+    <div className={clsx(s.header, className)}>
       <HTag tag={'h1'}>{title}</HTag>
       {productsLength ? (
         <Tag

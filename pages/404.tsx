@@ -1,6 +1,6 @@
-import { withLayout } from '@/app/layouts/MainLayout'
+//import { withLayout } from '@/app/layouts/MainLayout'
 
-export function Error404() {
+function Error404() {
   return (
     <div
       style={{
@@ -17,4 +17,4 @@ export function Error404() {
   )
 }
 
-export default withLayout(Error404)
+export default Error404

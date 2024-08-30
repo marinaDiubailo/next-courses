@@ -7,6 +7,7 @@
 ### Структура проекта:
 
 Проект организован по методологии **Feature-Sliced Design**, что помогает поддерживать чистую и масштабируемую кодовую базу.
+Ссылка на документацию - [feature sliced design](https://feature-sliced.design/docs/get-started/tutorial)
 
 ### Стек технологий:
 

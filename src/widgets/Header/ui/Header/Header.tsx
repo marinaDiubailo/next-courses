@@ -1,25 +1,19 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Menu } from '@/entities/Menu'
-import { ProductsSearch } from '@/features/ProductsSearch'
+//import { ProductsSearch } from '@/features/ProductsSearch'
 import AppLogo from '@/shared/assets/icons/logo.svg'
 import BurgerIcon from '@/shared/assets/icons/menuBurger.svg'
 import CloseIcon from '@/shared/assets/icons/menuClose.svg'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Button, ScrollArea } from '@/shared/ui'
-import { Icon } from '@/shared/ui/Icon'
+import { Button, Icon, ScrollArea } from '@/shared/ui'
+import { clsx } from 'clsx'
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import cls from './Header.module.scss'
+import s from './Header.module.scss'
 
-interface HeaderProps {
-  className?: string
-}
-
-export const Header = (props: HeaderProps) => {
-  const { className } = props
+export const Header: React.FC<React.ComponentProps<'header'>> = ({ className, ...props }) => {
   const [isOpened, setIsOpened] = useState<boolean>(false)
   const shouldReduceMotion = useReducedMotion()
   const router = useRouter()
@@ -43,7 +37,7 @@ export const Header = (props: HeaderProps) => {
   }
 
   return (
-    <header className={classNames(cls.header, {}, [className])}>
+    <header className={clsx(s.header, className)} {...props}>
       <Link href={'/'}>
         <Icon Svg={AppLogo} />
       </Link>
@@ -58,17 +52,17 @@ export const Header = (props: HeaderProps) => {
 
       <motion.div
         animate={isOpened ? 'opened' : 'closed'}
-        className={cls.mobile}
+        className={s.mobile}
         initial={'closed'}
         variants={variants}
       >
-        <div className={cls.actions}>
+        <div className={s.actions}>
           <Link href={'/'}>
             <Icon Svg={AppLogo} />
           </Link>
           <Button
             aria-label={'Закрыть основное меню'}
-            className={cls.close}
+            className={s.close}
             onClick={() => setIsOpened(false)}
             title={'Закрыть основное меню'}
             variant={'icon'}
@@ -76,7 +70,7 @@ export const Header = (props: HeaderProps) => {
             <Icon Svg={CloseIcon} variant={'secondary'} />
           </Button>
         </div>
-        <ProductsSearch />
+        {/* <ProductsSearch /> */}
         <ScrollArea>
           <Menu />
         </ScrollArea>

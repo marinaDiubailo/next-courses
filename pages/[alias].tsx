@@ -3,25 +3,23 @@ import { ParsedUrlQuery } from 'querystring'
 import { withLayout } from '@/app/layouts/MainLayout'
 import { TopPage } from '@/pages/Top'
 import { API } from '@/shared/consts/api'
-import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
 import { MenuItem } from '@/shared/types/menu'
-import { TopLevelCategory, TopPageModel } from '@/shared/types/page'
+import { TopPageModel } from '@/shared/types/page'
 import { ProductModel } from '@/shared/types/product'
 import axios from 'axios'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import Head from 'next/head'
 
-import { Error404 } from '../404'
+import Error404 from './404'
 
 interface PageProps extends Record<string, unknown> {
-  firstCategory: TopLevelCategory
   menu: MenuItem[]
   page: TopPageModel
   products: ProductModel[]
 }
 
 function Page(props: PageProps) {
-  const { firstCategory, page, products } = props
+  const { page, products } = props
 
   if (!page || !products) {
     return <Error404 />
@@ -36,7 +34,7 @@ function Page(props: PageProps) {
         <meta content={page.metaDescription} property={'og:description'} />
         <meta content={'article'} property={'og:type'} />
       </Head>
-      <TopPage firstCategory={firstCategory} page={page} products={products} />
+      <TopPage page={page} products={products} />
     </>
   )
 }
@@ -46,18 +44,14 @@ export default withLayout(Page)
 export const getStaticPaths: GetStaticPaths = async () => {
   let paths: string[] = []
 
-  for (const menuItem of firstLevelMenu) {
-    const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
-      firstCategory: menuItem.id,
-    })
+  const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
+    firstCategory: 0,
+  })
 
-    paths = paths.concat(
-      menu.flatMap(item => item.pages.map(page => `/${menuItem.route}/${page.alias}`))
-    )
-  }
+  paths = paths.concat(menu.flatMap(item => item.pages.map(page => `/${page.alias}`)))
 
   return {
-    fallback: true,
+    fallback: false,
     paths,
   }
 }
@@ -65,15 +59,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PageProps> = async ({
   params,
 }: GetStaticPropsContext<ParsedUrlQuery>) => {
-  // { type } = params || {} // 2й вариант
   if (!params) {
-    return {
-      notFound: true,
-    }
-  }
-  const firstCategoryItem = firstLevelMenu.find(category => category.route === params.type)
-
-  if (!firstCategoryItem) {
     return {
       notFound: true,
     }
@@ -81,7 +67,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({
 
   try {
     const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
-      firstCategory: firstCategoryItem.id,
+      firstCategory: 0,
     })
 
     if (menu.length === 0) {
@@ -99,7 +85,6 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({
 
     return {
       props: {
-        firstCategory: firstCategoryItem.id,
         menu,
         page,
         products,

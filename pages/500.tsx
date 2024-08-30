@@ -1,4 +1,4 @@
-import { withLayout } from '@/app/layouts/MainLayout'
+//import { withLayout } from '@/app/layouts/MainLayout'
 
 function Error500() {
   return (
@@ -17,4 +17,4 @@ function Error500() {
   )
 }
 
-export default withLayout(Error500)
+export default Error500

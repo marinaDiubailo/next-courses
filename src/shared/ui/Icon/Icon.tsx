@@ -1,45 +1,45 @@
-import { classNames } from '@/shared/lib/classNames/classNames'
+import React from 'react'
 
-import cls from './Icon.module.scss'
+import clsx from 'clsx'
+
+import s from './Icon.module.scss'
 
 type SvgProps = Omit<React.SVGAttributes<SVGElement>, 'onClick'>
 type ClicableIconVatiant = 'primary' | 'secondary'
 
-interface IconBaseProps extends SvgProps {
+type IconBaseProps = {
   Svg: React.FunctionComponent<React.SVGAttributes<SVGElement>>
   className?: string
   label?: string
   variant?: ClicableIconVatiant
-}
+} & SvgProps
 
-interface NonClickableIconProps extends IconBaseProps {
+type NonClickableIconProps = {
   clickable?: false
-}
+} & IconBaseProps
 
-interface ClickableIconProps extends IconBaseProps {
+type ClickableIconProps = {
   clickable: true
 
   onClick: () => void
-}
+} & IconBaseProps
 
 type IconProps = ClickableIconProps | NonClickableIconProps
 
 export const Icon = (props: IconProps) => {
   const { Svg, className, clickable, label, variant = 'primary', ...otherProps } = props
 
-  const icon = (
-    <Svg className={classNames(cls.icon, {}, [className])} {...otherProps} onClick={undefined} />
-  )
+  const icon = <Svg className={clsx(s.icon, className)} {...otherProps} onClick={undefined} />
 
   if (clickable) {
     return (
       <button
         aria-label={label}
-        className={classNames(cls.button, {}, [className, cls[variant]])}
+        className={clsx(s.button, s[variant], className)}
         onClick={props.onClick}
         type={'button'}
       >
-        <Svg className={cls.icon} />
+        <Svg className={s.icon} />
       </button>
     )
   }

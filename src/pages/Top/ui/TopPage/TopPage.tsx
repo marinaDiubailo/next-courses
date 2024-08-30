@@ -1,13 +1,12 @@
 import React, { useEffect, useReducer } from 'react'
 
 import { Sort } from '@/features/ProductsSort'
-import { TopLevelCategory, TopPageModel } from '@/shared/types/page'
+import { TopPageModel } from '@/shared/types/page'
 import { ProductModel } from '@/shared/types/product'
 import { HTag, ScrollArea, Tag } from '@/shared/ui'
-import clsx from 'clsx'
 import { useReducedMotion } from 'framer-motion'
 
-import cls from './TopPage.module.scss'
+import s from './TopPage.module.scss'
 
 import { sortReducer } from '../../model/services/sortReducer'
 import { TopPageAdvantages } from '../TopPageAdvantages/TopPageAdvantages'
@@ -15,16 +14,14 @@ import { TopPageHeader } from '../TopPageHeader/TopPageHeader'
 import { TopPageProduct } from '../TopPageProduct/TopPageProduct'
 import { TopPageVacancies } from '../TopPageVacancies/TopPageVacancies'
 
-interface TopPageProps {
-  className?: string
-  firstCategory: TopLevelCategory
+type Props = {
   page: TopPageModel
   products: ProductModel[]
 }
 
-export const TopPage: React.FC<TopPageProps> = props => {
-  const { className, firstCategory, page, products } = props
-  const isCourses = firstCategory === TopLevelCategory.Courses
+export const TopPage: React.FC<Props> = props => {
+  const { page, products } = props
+
   const shouldReduceMotion = useReducedMotion()
 
   const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(sortReducer, {
@@ -41,9 +38,9 @@ export const TopPage: React.FC<TopPageProps> = props => {
   }, [products])
 
   return (
-    <div className={clsx(cls.root, className)}>
+    <main className={s.root}>
       <TopPageHeader
-        className={cls.header}
+        className={s.header}
         productsLength={products?.length}
         setSort={onSetSort}
         sort={sort}
@@ -51,7 +48,7 @@ export const TopPage: React.FC<TopPageProps> = props => {
       />
 
       <ScrollArea>
-        <ul className={cls.productList}>
+        <ul className={s.productList}>
           {sortedProducts &&
             sortedProducts.map(product => (
               <TopPageProduct
@@ -61,7 +58,7 @@ export const TopPage: React.FC<TopPageProps> = props => {
               />
             ))}
         </ul>
-        {isCourses && page.hh ? (
+        {page.hh ? (
           <TopPageVacancies
             category={page.category}
             count={page.hh.count}
@@ -74,14 +71,14 @@ export const TopPage: React.FC<TopPageProps> = props => {
           <TopPageAdvantages advantages={page.advantages} />
         ) : null}
         {page.seoText && (
-          <div className={cls.seo} dangerouslySetInnerHTML={{ __html: page.seoText }} />
+          <section className={s.seo} dangerouslySetInnerHTML={{ __html: page.seoText }} />
         )}
         <HTag tag={'h2'}>Получаемые навыки</HTag>
         {page.tags.map(tag => (
           <Tag key={tag}>{tag}</Tag>
         ))}
       </ScrollArea>
-    </div>
+    </main>
   )
 }
 

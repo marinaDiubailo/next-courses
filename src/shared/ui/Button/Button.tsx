@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { type ElementType, type ReactNode, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 
 import clsx from 'clsx'
 
@@ -8,18 +8,21 @@ import s from './Button.module.scss'
 import { PolymorphPropsWithRef, PolymorphRef } from '../../types/polymorph'
 
 type ElementProps = {
-  addon?: ReactNode
+  addon?: React.ReactNode
   addonDown?: boolean
   small?: boolean
   variant?: 'ghost' | 'icon' | 'primary'
 }
 
-type TagComponent = <T extends ElementType = 'button'>(
+type TagComponent = <T extends React.ElementType = 'button'>(
   props: PolymorphPropsWithRef<T, ElementProps>
-) => ReactNode
+) => React.ReactNode
 
 const ButtonPolymorph: TagComponent = forwardRef(
-  <T extends ElementType = 'button'>(props: PolymorphPropsWithRef<T>, ref?: PolymorphRef<T>) => {
+  <T extends React.ElementType = 'button'>(
+    props: PolymorphPropsWithRef<T>,
+    ref?: PolymorphRef<T>
+  ) => {
     const {
       addon,
       addonDown = false,

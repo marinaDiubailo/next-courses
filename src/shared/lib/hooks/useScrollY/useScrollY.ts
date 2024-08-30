@@ -1,20 +1,21 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react'
 
 export const useScrollY = (): number => {
-    const isBrowser = typeof window !== 'undefined';
+  const isBrowser = typeof window !== 'undefined'
 
-    const [scrollY, setScrollY] = useState<number>(0);
+  const [scrollY, setScrollY] = useState<number>(0)
 
-    const handleScroll = useCallback(() => {
-        const currentScrollY = isBrowser ? window.scrollY : 0;
-        setScrollY(currentScrollY);
-    }, [isBrowser]);
+  const handleScroll = useCallback(() => {
+    const currentScrollY = isBrowser ? window.scrollY : 0
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll, { passive: true });
+    setScrollY(currentScrollY)
+  }, [isBrowser])
 
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
-    return scrollY;
-};
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  return scrollY
+}

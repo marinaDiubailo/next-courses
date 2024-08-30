@@ -1,29 +1,26 @@
+import type { FC } from 'react'
+
 import CheckIcon from '@/shared/assets/icons/elipse.svg'
-import { classNames } from '@/shared/lib/classNames/classNames'
 import { TopPageAdvantage } from '@/shared/types/page'
-import { HTag, Text } from '@/shared/ui'
-import { Icon } from '@/shared/ui/Icon'
+import { HTag, Icon, Text } from '@/shared/ui'
 
-import cls from './TopPageAdvantages.module.scss'
+import s from './TopPageAdvantages.module.scss'
 
-interface TopPageAdvantagesProps {
+type Props = {
   advantages: TopPageAdvantage[]
-  className?: string
 }
 
-export const TopPageAdvantages = (props: TopPageAdvantagesProps) => {
-  const { advantages, className } = props
-
+export const TopPageAdvantages: FC<Props> = ({ advantages }) => {
   return (
-    <section className={classNames(cls.section, {}, [className])}>
+    <section className={s.section}>
       <HTag tag={'h2'}>Преимущества</HTag>
-      <ul className={cls['advantages-list']}>
+      <ul className={s.advantagesList}>
         {advantages.map(advantage => (
-          <li className={classNames(cls.advantage, {}, [className])} key={advantage._id}>
+          <li className={s.advantage} key={advantage._id}>
             <Icon Svg={CheckIcon} />
-            <div className={cls.title}>{advantage.title}</div>
-            <span className={cls.line}></span>
-            <Text className={cls.description} size={'l'}>
+            <div className={s.title}>{advantage.title}</div>
+            <span className={s.line}></span>
+            <Text className={s.description} size={'l'}>
               {advantage.description}
             </Text>
           </li>

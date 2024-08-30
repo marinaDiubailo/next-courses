@@ -1,4 +1,5 @@
 import { withLayout } from '@/app/layouts/MainLayout'
+import { HomePage } from '@/pages/Home'
 import { API } from '@/shared/consts/api'
 import { MenuItem } from '@/shared/types/menu'
 import axios from 'axios'
@@ -9,22 +10,11 @@ interface HomeProps extends Record<string, unknown> {
   menu: MenuItem[]
 }
 
-function Home() {
-  return (
-    <div
-      style={{
-        alignItems: 'center',
-        display: 'flex',
-        height: '100%',
-        justifyContent: 'center',
-      }}
-    >
-      Подборка лучших курсов и рейтинги, основанные на реальных отзывах.
-    </div>
-  )
+function Page() {
+  return <HomePage />
 }
 
-export default withLayout(Home)
+export default withLayout(Page)
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const firstCategory = 0

@@ -1,69 +1,25 @@
-.first-level-list {
-  padding: 0;
-}
-
-.first-level {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 20px;
-  align-items: center;
-
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 25px;
-  color: var(--grey-dark);
-
-  border: 1px solid green;
-
-  & svg {
-    fill: var(--grey-dark);
-  }
-
-  &:hover,
-  .active {
-    color: var(--primary-accent);
-
-    & svg {
-      fill: var(--primary-accent);
-    }
-  }
-}
-
-.second-level {
+.firstlevelItem {
   cursor: pointer;
 
   margin-bottom: 0.5rem;
 
-  // font-size: 12px;
-  // font-weight: 400;
-  // color: var(--color-text-secondary);
-  // text-transform: uppercase;
   font-size: 18px;
   font-weight: 500;
   line-height: 26px;
   color: var(--color-text-secondary);
 }
 
-.second-level-list {
+.firstLevelList {
   position: relative;
-
-  // margin-top: 15px;
-
-  // margin-left: 12px;
   padding-left: 8px;
-
-  // border-left: 1px solid var(--color-devider);
 }
 
-.second-level-block {
+.firstLevelBlock {
   overflow: hidden;
-
-  // background-color: var(--color-light);
-  // border-radius: var(--radius);
   border-left: 1px solid var(--color-devider);
 }
 
-.third-level {
+.secondLevelItem {
   cursor: pointer;
 
   display: block;

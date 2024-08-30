@@ -1,1 +1,1 @@
-export { ReviewForm } from './ui/ReviewForm/ReviewForm';
+export { ReviewForm } from './ui/ReviewForm/ReviewForm'

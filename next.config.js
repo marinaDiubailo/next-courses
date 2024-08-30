@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
-const withSvgr = require('next-plugin-svgr');
+const withSvgr = require('next-plugin-svgr')
 
 const nextConfig = withSvgr({
   // images: {
@@ -9,8 +9,8 @@ const nextConfig = withSvgr({
   // },
   reactStrictMode: true,
   webpack(config) {
-    return config;
+    return config
   },
-});
+})
 
-module.exports = nextConfig;
+module.exports = nextConfig

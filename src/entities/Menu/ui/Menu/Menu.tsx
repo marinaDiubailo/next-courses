@@ -1,30 +1,22 @@
-import { useContext, useState } from 'react'
+import React, { ComponentProps, useContext, useState } from 'react'
 
 import { AppContext } from '@/app/providers/context/store'
-import { firstLevelMenu } from '@/shared/consts/firstLevelMenu'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { FirstLevelMenuItem, PageItem } from '@/shared/types/menu'
+import { PageItem } from '@/shared/types/menu'
+import { clsx } from 'clsx'
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import cls from './Menu.module.scss'
+import s from './Menu.module.scss'
 
-interface MenuProps {
-  className?: string
-}
-
-export const Menu = (props: MenuProps) => {
-  const { className } = props
-
+export const Menu: React.FC<ComponentProps<'nav'>> = ({ className, ...props }) => {
   const [announce, setAnnounce] = useState<'closed' | 'opened' | undefined>(undefined)
-  const { firstCategory, menu, setMenu } = useContext(AppContext)
+  const { menu, setMenu } = useContext(AppContext)
   const router = useRouter()
   const shouldReduceMotion = useReducedMotion()
 
   const variants = {
     visible: {
-      //marginBottom: 0,
       transition: shouldReduceMotion
         ? {}
         : {
@@ -32,9 +24,6 @@ export const Menu = (props: MenuProps) => {
             when: 'beforeChildren',
           },
     },
-    // hidden: {
-    //   //marginBottom: 0,
-    // },
   }
 
   const variantsChildren = {
@@ -48,7 +37,7 @@ export const Menu = (props: MenuProps) => {
     },
   }
 
-  const openSecondLevel = (secondCategory: string) => {
+  const openFirstLevel = (secondCategory: string) => {
     setMenu &&
       setMenu(
         menu.map(menuItem => {
@@ -62,38 +51,11 @@ export const Menu = (props: MenuProps) => {
       )
   }
 
-  // const buildFirstLevel = () => {
-  //   return (
-  //     <ul className={cls['first-level-list']}>
-  //       {firstLevelMenu.map(category => {
-  //         const isActive = category.id === firstCategory
-  //         return (
-  //           <li key={category.id} aria-expanded={isActive}>
-  //             <Link href={`/${category.route}`}>
-  //               {
-  //                 <div
-  //                   className={classNames(cls['first-level'], {
-  //                     [cls.active]: isActive,
-  //                   })}
-  //                 >
-  //                   {category.icon}
-  //                   <span>{category.name}</span>
-  //                 </div>
-  //               }
-  //             </Link>
-  //             {isActive && buildSecondLevel(category)}
-  //           </li>
-  //         )
-  //       })}
-  //     </ul>
-  //   )
-  // }
-
-  const buildSecondLevel = (category: FirstLevelMenuItem) => {
+  const buildFirstLevel = () => {
     return (
-      <ul className={cls['second-level-list']}>
+      <ul className={s.firstLevelList}>
         {menu.map(menuItem => {
-          if (menuItem.pages.map(page => page.alias).includes(router.asPath.split('/')[2])) {
+          if (menuItem.pages.map(page => page.alias).includes(router.asPath.split('/')[1])) {
             menuItem.isOpened = true
           }
 
@@ -101,20 +63,20 @@ export const Menu = (props: MenuProps) => {
             <li key={menuItem._id.secondCategory}>
               <button
                 aria-expanded={menuItem.isOpened}
-                className={cls['second-level']}
-                onClick={() => openSecondLevel(menuItem._id.secondCategory)}
+                className={s.firstlevelItem}
+                onClick={() => openFirstLevel(menuItem._id.secondCategory)}
                 type={'button'}
               >
                 {menuItem._id.secondCategory}
               </button>
               <motion.ul
                 animate={menuItem.isOpened ? 'visible' : 'hidden'}
-                className={cls['second-level-block']}
+                className={s.firstLevelBlock}
                 initial={menuItem.isOpened ? 'visible' : 'hidden'}
                 layout
                 variants={variants}
               >
-                {buildThirdLevel(menuItem.pages, category.route, menuItem.isOpened ?? false)}
+                {buildSecondLevel(menuItem.pages, menuItem.isOpened ?? false)}
               </motion.ul>
             </li>
           )
@@ -123,9 +85,9 @@ export const Menu = (props: MenuProps) => {
     )
   }
 
-  const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
+  const buildSecondLevel = (pages: PageItem[], isOpened: boolean) => {
     return pages.map(page => {
-      const currentPath = `/${route}/${page.alias}`
+      const currentPath = `/${page.alias}`
 
       return (
         <motion.li
@@ -134,9 +96,7 @@ export const Menu = (props: MenuProps) => {
           variants={variantsChildren}
         >
           <Link
-            className={classNames(cls['third-level'], {
-              [cls.active]: currentPath === router.asPath,
-            })}
+            className={clsx(s.secondLevelItem, currentPath === router.asPath && s.active)}
             href={currentPath}
             tabIndex={isOpened ? 0 : -1}
           >
@@ -148,13 +108,13 @@ export const Menu = (props: MenuProps) => {
   }
 
   return (
-    <nav className={classNames('', {}, [className])} role={'navigation'}>
+    <nav className={clsx(className)} role={'navigation'} {...props}>
       {announce && (
         <span className={'visualy-hidden'} role={'log'}>
           {announce === 'opened' ? 'развернуто' : 'свернуто'}
         </span>
       )}
-      {buildSecondLevel(firstLevelMenu[0])}
+      {buildFirstLevel()}
     </nav>
   )
 }

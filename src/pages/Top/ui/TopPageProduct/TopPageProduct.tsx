@@ -1,23 +1,21 @@
 /* eslint-disable react/display-name */
-import { ForwardedRef, forwardRef, useRef, useState } from 'react'
+import { forwardRef, useRef, useState } from 'react'
 
 import { ProductCard, ProductModel } from '@/entities/Product'
 import { ReviewList } from '@/entities/Review'
 import { ReviewForm } from '@/features/AddNewReview'
-import { Mods, classNames } from '@/shared/lib/classNames/classNames'
 import { Card } from '@/shared/ui'
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 
-import cls from './TopPageProduct.module.scss'
+import s from './TopPageProduct.module.scss'
 
-interface TopPageProductProps {
-  className?: string
+type Props = {
   product: ProductModel
 }
 
 export const TopPageProduct = motion(
-  forwardRef((props: TopPageProductProps, ref: ForwardedRef<HTMLLIElement>) => {
-    const { className, product } = props
+  forwardRef<HTMLLIElement, Props>(({ product }, ref) => {
     const [isReviewOpened, setIsReviewOpened] = useState(false)
     const [addonDown, setAddonDown] = useState(false)
     const reviewRef = useRef<HTMLDivElement>(null)
@@ -41,13 +39,8 @@ export const TopPageProduct = motion(
       reviewRef.current?.focus({ preventScroll: true })
     }
 
-    const mods: Mods = {
-      [cls.closed]: !isReviewOpened,
-      [cls.opened]: isReviewOpened,
-    }
-
     return (
-      <li className={classNames('', {}, [className])} ref={ref}>
+      <li ref={ref}>
         <ProductCard
           addonDown={addonDown}
           isReviewOpened={isReviewOpened}
@@ -61,7 +54,7 @@ export const TopPageProduct = motion(
           variants={variants}
         >
           <Card
-            className={classNames(cls.reviews, mods)}
+            className={clsx(s.reviews, !isReviewOpened && s.closed, isReviewOpened && s.opened)}
             color={'secondary'}
             ref={reviewRef}
             tabIndex={isReviewOpened ? 0 : -1}

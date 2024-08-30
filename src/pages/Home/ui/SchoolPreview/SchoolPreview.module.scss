@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.img {
+  border-radius: var(--radius);
+}

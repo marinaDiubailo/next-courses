@@ -1,32 +1,24 @@
 import { Menu } from '@/entities/Menu'
-import { ProductsSearch } from '@/features/ProductsSearch'
+//import { ProductsSearch } from '@/features/ProductsSearch'
 import AppLogo from '@/shared/assets/icons/logo.svg'
-import { classNames } from '@/shared/lib/classNames/classNames'
-import { Devider, ScrollArea } from '@/shared/ui'
-import { Icon } from '@/shared/ui/Icon'
+import { Devider, Icon, ScrollArea } from '@/shared/ui'
 import { format } from 'date-fns'
 import Link from 'next/link'
 
-import cls from './Sidebar.module.scss'
+import s from './Sidebar.module.scss'
 
-interface SidebarProps {
-  className?: string
-}
-
-export const Sidebar = (props: SidebarProps) => {
-  const { className } = props
-
+export const Sidebar = () => {
   return (
-    <aside className={classNames(cls.sidebar, {}, [className])}>
+    <aside className={s.sidebar}>
       <Link href={'/'}>
         <Icon Svg={AppLogo} />
       </Link>
-      <ProductsSearch />
-      <ScrollArea className={cls.menuWrapper}>
+      {/* <ProductsSearch /> */}
+      <ScrollArea className={s.menuWrapper}>
         <Menu />
       </ScrollArea>
-      <div className={cls.rights}>
-        <Devider className={cls.devider} />
+      <div className={s.rights}>
+        <Devider className={s.devider} />
         <span>Next Courses © 2023 - {format(new Date(), 'yyyy')}</span>
         <small>Все права защищены</small>
       </div>

@@ -1,1 +1,1 @@
-export { UpButton } from './/ui/UpButton/UpButton';
+export { UpButton } from './/ui/UpButton/UpButton'
