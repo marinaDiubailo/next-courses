@@ -1,7 +1,7 @@
 import { KeyboardEvent, useState } from 'react'
 
-import SearchIcon from '@/shared/assets/icons/search.svg'
-import { Button, Icon, Input } from '@/shared/ui'
+import { SearchIcon } from '@/shared/assets/icons'
+import { Button, Input } from '@/shared/ui'
 import { useRouter } from 'next/router'
 
 import s from './ProductsSearch.module.scss'
@@ -40,7 +40,7 @@ export const ProductsSearch = () => {
         onClick={navigateToSearchPage}
         small
       >
-        <Icon Svg={SearchIcon} />
+        <SearchIcon />
       </Button>
     </form>
   )

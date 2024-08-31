@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 
-import UserIcon from '@/shared/assets/icons/user.svg'
-import { Devider, Icon, StarRating } from '@/shared/ui'
+import { User } from '@/shared/assets/icons'
+import { Devider, StarRating } from '@/shared/ui'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 
@@ -19,7 +19,7 @@ export const ReviewItem: FC<Props> = ({ review }) => {
   return (
     <>
       <div className={s.review}>
-        <Icon Svg={UserIcon} />
+        <User />
         <div className={s.title}>
           <span className={s.userName}>{name}:</span>
           &nbsp;&nbsp;

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import { Menu } from '@/entities/Menu'
+import { Burger, Close, Logo } from '@/shared/assets/icons'
 //import { ProductsSearch } from '@/features/ProductsSearch'
-import AppLogo from '@/shared/assets/icons/logo.svg'
-import BurgerIcon from '@/shared/assets/icons/menuBurger.svg'
-import CloseIcon from '@/shared/assets/icons/menuClose.svg'
-import { Button, Icon, ScrollArea } from '@/shared/ui'
+
+import { Button, ScrollArea } from '@/shared/ui'
 import { clsx } from 'clsx'
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
@@ -39,7 +38,7 @@ export const Header: React.FC<React.ComponentProps<'header'>> = ({ className, ..
   return (
     <header className={clsx(s.header, className)} {...props}>
       <Link href={'/'}>
-        <Icon Svg={AppLogo} />
+        <Logo />
       </Link>
       <Button
         aria-label={'Открыть основное меню'}
@@ -47,7 +46,7 @@ export const Header: React.FC<React.ComponentProps<'header'>> = ({ className, ..
         title={'Открыть основное меню'}
         variant={'icon'}
       >
-        <Icon Svg={BurgerIcon} variant={'secondary'} />
+        <Burger />
       </Button>
 
       <motion.div
@@ -58,7 +57,7 @@ export const Header: React.FC<React.ComponentProps<'header'>> = ({ className, ..
       >
         <div className={s.actions}>
           <Link href={'/'}>
-            <Icon Svg={AppLogo} />
+            <Logo />
           </Link>
           <Button
             aria-label={'Закрыть основное меню'}
@@ -67,7 +66,7 @@ export const Header: React.FC<React.ComponentProps<'header'>> = ({ className, ..
             title={'Закрыть основное меню'}
             variant={'icon'}
           >
-            <Icon Svg={CloseIcon} variant={'secondary'} />
+            <Close />
           </Button>
         </div>
         {/* <ProductsSearch /> */}

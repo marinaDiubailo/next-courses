@@ -1,22 +1,15 @@
-import { FunctionComponent, JSX, KeyboardEvent, ReactNode, useRef, useState } from 'react'
+import React, { KeyboardEvent, useRef, useState } from 'react'
 
-import { UpButton } from '@/features/UpButton'
-import { classNames } from '@/shared/lib/classNames/classNames'
 import { Header } from '@/widgets/Header'
 import { Sidebar } from '@/widgets/Sidebar'
+import clsx from 'clsx'
 
-import cls from './MainLayout.module.scss'
+import s from './MainLayout.module.scss'
 
 import { AppContextProvider } from '../../providers/context/AppContextProvider'
 import { IAppContext } from '../../providers/context/store'
 
-interface MainLayoutProps {
-  children: ReactNode
-}
-
-const MainLayout = (props: MainLayoutProps) => {
-  const { children } = props
-
+const MainLayout: React.FC<React.ComponentProps<'div'>> = ({ children }) => {
   const [isSkipLinkDisplayed, setIsSkipLinkDisplayed] = useState<boolean>(false)
   const bodyRef = useRef<HTMLDivElement>(null)
 
@@ -29,11 +22,9 @@ const MainLayout = (props: MainLayoutProps) => {
   }
 
   return (
-    <div className={cls.wrapper}>
+    <div className={s.wrapper}>
       <button
-        className={classNames(cls['skip-link'], {
-          [cls.displayed]: isSkipLinkDisplayed,
-        })}
+        className={clsx(s.skipLink, isSkipLinkDisplayed && s.displayed)}
         onFocus={() => setIsSkipLinkDisplayed(true)}
         onKeyDown={skipContentAction}
         tabIndex={0}
@@ -41,23 +32,21 @@ const MainLayout = (props: MainLayoutProps) => {
       >
         Сразу к содержанию
       </button>
-      <Header className={cls.header} />
-      <div className={cls.sidebar}>
+      <Header className={s.header} />
+      <div className={s.sidebarWrapper}>
         <Sidebar />
       </div>
-
-      <div className={cls.content} ref={bodyRef} role={'main'} tabIndex={0}>
+      <div className={s.content} ref={bodyRef} role={'main'} tabIndex={0}>
         {children}
       </div>
-      {/* <UpButton /> */}
     </div>
   )
 }
 
 export const withLayout = <T extends IAppContext & Record<string, unknown>>(
-  Component: FunctionComponent<T>
+  Component: React.FunctionComponent<T>
 ) => {
-  return function withLayoutComponent(props: T): JSX.Element {
+  return function withLayoutComponent(props: T): React.JSX.Element {
     return (
       <AppContextProvider menu={props.menu}>
         <MainLayout>

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 
-import ImagePlaceholder from '@/shared/assets/icons/placeholder.svg'
+import { Placeholder } from '@/shared/assets/icons'
 import { Button, Card } from '@/shared/ui'
 import Link from 'next/link'
 
@@ -32,7 +32,7 @@ export const SchoolPreview: React.FC<Props> = ({ link, logo, name }) => {
             width={70}
           />
         ) : (
-          <ImagePlaceholder className={s.img} height={70} width={70} />
+          <Placeholder className={s.img} height={70} width={70} />
         )}
         <span className={s.name}>{name}</span>
       </div>

@@ -1,9 +1,8 @@
 import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-import CloseIcon from '@/shared/assets/icons/close.svg'
+import { Close } from '@/shared/assets/icons'
 import { API } from '@/shared/consts/api'
-import { classNames } from '@/shared/lib/classNames/classNames'
 import { Button, Input, StarRating, Textarea } from '@/shared/ui'
 import axios from 'axios'
 import clsx from 'clsx'
@@ -132,7 +131,7 @@ export const ReviewForm: FC<Props> = ({ isOpened, productId }) => {
             onClick={() => setIsSuccess(false)}
             type={'button'}
           >
-            <CloseIcon />
+            <Close />
           </button>
         </div>
       )}
@@ -146,7 +145,7 @@ export const ReviewForm: FC<Props> = ({ isOpened, productId }) => {
             onClick={() => setError(undefined)}
             type={'button'}
           >
-            <CloseIcon />
+            <Close />
           </button>
         </div>
       )}

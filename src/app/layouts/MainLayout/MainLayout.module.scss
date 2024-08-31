@@ -13,7 +13,7 @@
   background: var(--color-bg-primary);
 }
 
-.sidebar {
+.sidebarWrapper {
   min-width: var(--sidebar-width);
 }
 
@@ -24,11 +24,7 @@
   outline: none;
 }
 
-.footer {
-  grid-area: footer;
-}
-
-.skip-link {
+.skipLink {
   position: fixed;
   top: 2px;
   left: 100px;
@@ -57,7 +53,7 @@
     padding: 0;
   }
 
-  .sidebar {
+  .sidebarWrapper {
     display: none !important;
   }
 

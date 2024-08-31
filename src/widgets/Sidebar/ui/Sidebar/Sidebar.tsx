@@ -1,7 +1,7 @@
 import { Menu } from '@/entities/Menu'
 //import { ProductsSearch } from '@/features/ProductsSearch'
-import AppLogo from '@/shared/assets/icons/logo.svg'
-import { Devider, Icon, ScrollArea } from '@/shared/ui'
+import { Logo } from '@/shared/assets/icons'
+import { Devider, ScrollArea } from '@/shared/ui'
 import { format } from 'date-fns'
 import Link from 'next/link'
 
@@ -11,7 +11,7 @@ export const Sidebar = () => {
   return (
     <aside className={s.sidebar}>
       <Link href={'/'}>
-        <Icon Svg={AppLogo} />
+        <Logo />
       </Link>
       {/* <ProductsSearch /> */}
       <ScrollArea className={s.menuWrapper}>

@@ -10,13 +10,12 @@ import {
 } from 'react'
 import { FieldError } from 'react-hook-form'
 
+import { Rating } from '@/shared/assets/icons'
 import clsx from 'clsx'
 
 import s from './StarRating.module.scss'
 
-import StarIcon from '../../assets/icons/rating.svg'
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage'
-import { Icon } from '../Icon/Icon'
 
 export type StarRatingProps = {
   error?: FieldError
@@ -108,7 +107,7 @@ export const StarRating = forwardRef<ElementRef<'div'>, StarRatingProps>((props,
           role={isEditable ? 'slider' : ''}
           tabIndex={computeFocus(selectedStars, index)}
         >
-          <Icon Svg={StarIcon} height={'28px'} width={'28px'} />
+          <Rating height={28} width={28} />
         </span>
       )
     })

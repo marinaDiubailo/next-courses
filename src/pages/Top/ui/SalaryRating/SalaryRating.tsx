@@ -1,8 +1,7 @@
 /* eslint-disable no-constant-condition */
 import type { ComponentProps, FC } from 'react'
 
-import RateIcon from '@/shared/assets/icons/rate.svg'
-import { Icon } from '@/shared/ui'
+import { Rate } from '@/shared/assets/icons'
 import clsx from 'clsx'
 
 import s from './SalaryRating.module.scss'
@@ -14,12 +13,9 @@ type SalaryRatingProps = {
 export const SalaryRating: FC<SalaryRatingProps> = ({ className, level = '1', ...rest }) => {
   return (
     <div className={clsx(s.rate, className)} role={'presentation'} {...rest}>
-      <Icon Svg={RateIcon} className={s.filled} />
-      <Icon
-        Svg={RateIcon}
-        className={clsx(level === '2' || level === '3' ? s.filled : undefined)}
-      />
-      <Icon Svg={RateIcon} className={clsx(level === '3' ? s.filled : undefined)} />
+      <Rate className={s.filled} />
+      <Rate className={clsx(level === '2' || level === '3' ? s.filled : undefined)} />
+      <Rate className={clsx(level === '3' ? s.filled : undefined)} />
     </div>
   )
 }

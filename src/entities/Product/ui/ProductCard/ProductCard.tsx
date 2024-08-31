@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 
-import ImagePlaceholder from '@/shared/assets/icons/placeholder.svg'
-import VectorIcon from '@/shared/assets/icons/vector.svg'
+import { Arrow, Placeholder } from '@/shared/assets/icons'
 import { numDeclination, priceRu } from '@/shared/lib/util'
-import { Button, Card, Devider, HTag, Icon, StarRating, Tag, Text } from '@/shared/ui'
+import { Button, Card, Devider, HTag, StarRating, Tag, Text } from '@/shared/ui'
 import clsx from 'clsx'
 
 import s from './ProductCard.module.scss'
@@ -45,7 +44,7 @@ export const ProductCard: React.FC<Props> = props => {
             width={70}
           />
         ) : (
-          <ImagePlaceholder className={s.img} height={70} width={70} />
+          <Placeholder className={s.img} height={70} width={70} />
         )}
       </div>
       <HTag className={s.title} tag={'h3'}>
@@ -121,7 +120,7 @@ export const ProductCard: React.FC<Props> = props => {
           Узнать подробнее
         </Button>
         <Button
-          addon={<Icon Svg={VectorIcon} />}
+          addon={<Arrow />}
           addonDown={addonDown}
           aria-expanded={isReviewOpened}
           onClick={onClick}

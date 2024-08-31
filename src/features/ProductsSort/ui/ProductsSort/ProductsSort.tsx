@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 import type { FC } from 'react'
 
-import SortIcon from '@/shared/assets/icons/sort.svg'
-import { Icon } from '@/shared/ui'
+import { SortIcon } from '@/shared/assets/icons'
 import clsx from 'clsx'
 
 import s from './ProductsSort.module.scss'
@@ -24,7 +23,7 @@ export const ProductsSort: FC<Props> = ({ setSort, sort }) => {
           onClick={() => setSort(Sort.Rating)}
           type={'button'}
         >
-          <Icon Svg={SortIcon} className={s.icon} />
+          <SortIcon className={s.icon} />
           По рейтингу
         </button>
       </li>
@@ -35,7 +34,7 @@ export const ProductsSort: FC<Props> = ({ setSort, sort }) => {
           onClick={() => setSort(Sort.Price)}
           type={'button'}
         >
-          <Icon Svg={SortIcon} className={s.icon} />
+          <SortIcon className={s.icon} />
           По цене
         </button>
       </li>
