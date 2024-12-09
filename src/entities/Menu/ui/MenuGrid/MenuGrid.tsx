@@ -12,13 +12,13 @@ export const MenuGrid = () => {
     <ul className={s.root}>
       {menu.map(menuItem => (
         <li key={menuItem._id.secondCategory}>
-          <button className={s.menuItem} type={'button'}>
+          <div className={s.menuItem}>
             <span className={s.title}>{menuItem._id.secondCategory}</span>
             <span className={s.description}>
               {menuItem.pages.length}{' '}
               {numDeclination(menuItem.pages.length, ['подборка', 'подборки', 'подборок'])}
             </span>
-          </button>
+          </div>
         </li>
       ))}
     </ul>

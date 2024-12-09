@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
+  padding: 16px;
 
   li {
     border-radius: var(--radius);
@@ -28,9 +29,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
 
   width: 100%;
   padding: 20px;
+
+  border-radius: var(--radius);
+
+  transition: all 0.2s ease-in-out;
 }
 
 .title {
@@ -42,12 +48,6 @@
   font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
-
-// @media screen and (width <= 820px) {
-//   .title {
-//     font-size: 1.125rem;
-//   }
-// }
 
 @media screen and (width <= 768px) {
   .title {
